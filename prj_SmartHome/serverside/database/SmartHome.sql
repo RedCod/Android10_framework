@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost
--- Üretim Zamanı: 06 Oca 2020, 16:31:49
+-- Üretim Zamanı: 07 Oca 2020, 16:12:20
 -- Sunucu sürümü: 10.4.8-MariaDB
 -- PHP Sürümü: 7.3.11
 
@@ -241,8 +241,10 @@ CREATE TABLE `tblFamilyMember` (
 
 INSERT INTO `tblFamilyMember` (`Id`, `FamilyId`, `AccountId`, `AccountIsAdmin`) VALUES
 (1, 1, 1, 1),
-(2, 4, 1, 1),
-(3, 5, 1, 0);
+(2, 1, 1, 1),
+(3, 5, 1, 0),
+(9, 62, 1, 0),
+(11, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -265,7 +267,6 @@ CREATE TABLE `tblFeedback` (
 
 CREATE TABLE `tblHelpCenter` (
   `Id` int(11) NOT NULL,
-  `AccountId` int(11) DEFAULT NULL,
   `Title` varchar(255) DEFAULT NULL,
   `ContentPath` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -280,9 +281,16 @@ CREATE TABLE `tblMessageCenter` (
   `Id` int(11) NOT NULL,
   `AccountId` int(11) DEFAULT NULL,
   `Message` varchar(255) DEFAULT NULL,
-  `MessageDateTime` datetime DEFAULT NULL,
+  `MessageDateTime` varchar(50) DEFAULT NULL,
   `MessageType` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Tablo döküm verisi `tblMessageCenter`
+--
+
+INSERT INTO `tblMessageCenter` (`Id`, `AccountId`, `Message`, `MessageDateTime`, `MessageType`) VALUES
+(1, 1, 'BU MESAJ SANA', '07-02-2020 17:07', 2);
 
 -- --------------------------------------------------------
 
@@ -575,7 +583,7 @@ ALTER TABLE `tblFamily`
 -- Tablo için AUTO_INCREMENT değeri `tblFamilyMember`
 --
 ALTER TABLE `tblFamilyMember`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblFeedback`
@@ -593,7 +601,7 @@ ALTER TABLE `tblHelpCenter`
 -- Tablo için AUTO_INCREMENT değeri `tblMessageCenter`
 --
 ALTER TABLE `tblMessageCenter`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblRoom`
