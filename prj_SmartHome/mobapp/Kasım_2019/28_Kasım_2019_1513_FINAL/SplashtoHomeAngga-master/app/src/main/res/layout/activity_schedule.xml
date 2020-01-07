@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_White1"
+    tools:context="com.example.trident.smart.ActivitySchedule">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="406dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/color_White"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.000"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="2dp">
+        <LinearLayout
+            android:id="@+id/linearLayout_Back"
+            android:layout_width="50dp"
+            android:layout_height="55dp"
+            android:gravity="center">
+            <Button
+                android:id="@+id/button_Back"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:background="@drawable/back"
+                android:textAllCaps="false" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/textView_SchedulePageTitle"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="223dp"
+            android:layout_height="match_parent"
+            android:text="@string/schedule"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="20dp" />  <!--style="?android:attr/borderlessButtonStyle" -->
+        <Button
+            android:id="@+id/button_Done"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/done"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- ############################################################################################## -->
+    <LinearLayout
+        android:id="@+id/linearLayout_Repeated"
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="91dp"
+        android:background="@color/color_White"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout11"
+        app:layout_constraintVertical_bias="0.052"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="8dp">
+        <TextView
+            android:layout_width="44dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:text="@string/repeat"
+            android:textColor="@color/color_Black" />
+        <TextView
+            android:id="@+id/textView_DaysOfRepeat"
+            android:layout_width="167dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_weight="1"
+            android:textSize="14dp"
+            android:textAlignment="textEnd"
+            android:text="Pazar,Pazartesi,Salı,Çarşamba,Perşembe,Cuma" />
+        <LinearLayout
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/imageView_DaysOfRepeat_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginTop="3dp"
+                android:padding="6dp"
+                android:src="@drawable/arrow_more" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout11"
+        android:layout_width="395dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/color_White"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="8dp">
+        <TextView
+            android:id="@+id/textView_ScheduleTime"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-20dp"
+            android:text="19:25"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="75dp" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

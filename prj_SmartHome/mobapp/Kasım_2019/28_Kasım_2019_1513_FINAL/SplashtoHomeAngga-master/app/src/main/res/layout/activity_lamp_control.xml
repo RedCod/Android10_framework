@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_violet1"
+    tools:context="com.example.trident.smart.ActivityLampControl">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="406dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/color_violet1"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.000"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="2dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout_Back"
+            android:layout_width="50dp"
+            android:layout_height="55dp"
+            android:gravity="center">
+            <Button
+                android:id="@+id/button_Back"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:background="@drawable/back_white"
+                android:backgroundTint="@color/color_White"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView_DeviceName"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="223dp"
+            android:layout_height="match_parent"
+            android:text="Lamp_1"
+            android:textColor="@color/color_White"
+            android:textAllCaps="false"
+            android:textSize="20dp" />  <!--style="?android:attr/borderlessButtonStyle" -->
+        <Button
+            android:id="@+id/button_GoToDetailsOfDevice"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:text="..."
+            android:textColor="@color/color_White"
+            android:textSize="25dp"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!--  LAYOUT: -->
+    <LinearLayout
+        android:id="@+id/linearLayout_ColourPicker"
+        android:layout_width="match_parent"
+        android:layout_height="290dp"
+        android:background="@color/color_violet1"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp">
+        <com.example.trident.smart.ColorPickerView
+            android:id="@+id/colorPickerView"
+            android:layout_width="227dp"
+            android:layout_height="227dp"
+            android:layout_marginTop="70dp"
+            app:radiusOffset="24dp"
+            app:thumbDrawable="@drawable/img_wheel_handle"
+            app:wheelDrawable="@drawable/img_wheel">
+
+            <ImageView
+                android:id="@+id/imageView_LampColor"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="63dp"
+                android:layout_marginTop="63dp"
+                android:background="@drawable/view_circle" />
+
+            <ImageView
+                android:id="@+id/imageView_Lamp"
+                android:layout_width="83dp"
+                android:layout_height="83dp"
+                android:layout_marginLeft="72dp"
+                android:layout_marginTop="72dp"
+                app:srcCompat="@drawable/lamp_off" />
+        </com.example.trident.smart.ColorPickerView>
+        <!--stay here for now. then i can carry you into "ColorPickerView",maybe... -->
+
+    </LinearLayout>
+
+    <!--
+            app:itemIconTint="@color/bottom_nav_color"
+        app:itemTextColor="@color/bottom_nav_color"
+        -->
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_LampNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/color_violet1"
+        app:itemIconTint="@color/color_Gray"
+        app:itemTextColor="@color/color_Gray"
+        app:menu="@menu/lamp_control_navigation"
+        tools:ignore="MissingConstraints"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="659dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout_Pano"
+        android:layout_width="395dp"
+        android:layout_height="209dp"
+        android:background="@color/color_violet1"
+        android:orientation="vertical"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_ColourPicker"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="8dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout_White"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_violet1"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="299dp"
+                android:layout_height="40dp"
+                android:background="@color/color_violet1"
+                android:gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal"> <!-- layout Bright -->
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Bright"
+                    android:textColor="@color/color_White"
+                    android:textSize="10dp" />
+
+                <SeekBar
+                    android:id="@+id/seekBar_BrightOfWhite"
+                    android:layout_width="170dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="-25dp"
+                    android:progressTint="@color/color_White"
+                    android:progressBackgroundTint="#FFFFFF"
+                    android:thumbTint="@color/color_White"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/textView_BrightPercentOfWhite"
+                    android:layout_width="7dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="30%"
+                    android:textColor="@color/color_White"
+                    android:textSize="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="299dp"
+                android:layout_height="40dp"
+                android:background="@color/color_violet1"
+                android:gravity="center"
+                android:layout_marginLeft="30dp"
+                android:orientation="horizontal"><!-- layout Colour Temp -->
+
+
+                <TextView
+                    android:layout_width="7dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Colour Temp"
+                    android:textColor="@color/color_White"
+                    android:textSize="10dp" />
+
+                <SeekBar
+                    android:id="@+id/seekBar_ColourTempOfWhite"
+                    android:layout_width="170dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="-30dp"
+                    android:progressTint="@color/color_White"
+                    android:progressBackgroundTint="#FFFFFF"
+                    android:thumbTint="@color/color_White"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/textVie_ColourTempPercentOfWhite"
+                    android:layout_width="7dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="30%"
+                    android:textColor="@color/color_White"
+                    android:textSize="10dp" />
+
+            </LinearLayout>
+        </LinearLayout> <!--linearLayout_White -->
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout_Colour"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:background="@color/color_violet1"
+            android:orientation="vertical"> <!-- "linearLayout_Colour" for "Colour" Item on "BottomNavigationView" -->
+
+            <LinearLayout
+                android:layout_width="299dp"
+                android:layout_height="40dp"
+                android:background="@color/color_violet1"
+                android:gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Saturation"
+                    android:textColor="@color/color_White"
+                    android:textSize="10dp" />
+
+                <SeekBar
+                    android:id="@+id/seekBar_SaturationOfColour"
+                    android:layout_width="170dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="-10dp"
+                    android:progressTint="@color/color_White"
+                    android:progressBackgroundTint="#FFFFFF"
+                    android:thumbTint="@color/color_White"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/textView_SaturationPercentOfColour"
+                    android:layout_width="7dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="30%"
+                    android:textColor="@color/color_White"
+                    android:textSize="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="299dp"
+                android:layout_height="40dp"
+                android:background="@color/color_violet1"
+                android:gravity="center"
+                android:layout_marginLeft="30dp"
+                android:orientation="horizontal"><!-- layout Colour Temp -->
+                <TextView
+                    android:layout_width="7dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Bright"
+                    android:textColor="@color/color_White"
+                    android:textSize="10dp" />
+
+                <SeekBar
+                    android:id="@+id/seekBar_BrightOfColour"
+                    android:layout_width="170dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="-10dp"
+                    android:progressTint="@color/color_White"
+                    android:progressBackgroundTint="#FFFFFF"
+                    android:thumbTint="@color/color_White"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/textView_BrightPercentOfColour"
+                    android:layout_width="7dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="30%"
+                    android:textColor="@color/color_White"
+                    android:textSize="10dp"
+                     />
+
+            </LinearLayout>
+        </LinearLayout> <!-- linearLayout_Colour -->
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout_SettingsForSceneXXXX"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:background="@color/color_violet1"
+            android:orientation="vertical"> <!-- "linearLayout_SettingsForSceneXXXX" for "Scene1,Scene2,Scene3,Scene4" Item on "BottomNavigationView->Scene->Scene,X,X,X,X" -->
+
+            <LinearLayout
+                android:layout_width="299dp"
+                android:layout_height="40dp"
+                android:background="@color/color_violet1"
+                android:gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Saturation"
+                    android:textColor="@color/color_White"
+                    android:textSize="10dp" />
+
+                <SeekBar
+                    android:id="@+id/seekBar_SaturationOfSettingsForSceneXXXX"
+                    android:layout_width="170dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="-10dp"
+                    android:progressTint="@color/color_White"
+                    android:progressBackgroundTint="#FFFFFF"
+                    android:thumbTint="@color/color_White"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/textView_SaturationPercentOfSettingsForSceneXXXX"
+                    android:layout_width="7dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="30%"
+                    android:textColor="@color/color_White"
+                    android:textSize="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="299dp"
+                android:layout_height="40dp"
+                android:background="@color/color_violet1"
+                android:gravity="center"
+                android:layout_marginLeft="30dp"
+                android:orientation="horizontal"><!-- layout Colour Temp -->
+                <TextView
+                    android:layout_width="7dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Bright"
+                    android:textColor="@color/color_White"
+                    android:textSize="10dp" />
+
+                <SeekBar
+                    android:id="@+id/seekBar_BrightOfSettingsForSceneXXXX"
+                    android:layout_width="170dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="-10dp"
+                    android:progressTint="@color/color_White"
+                    android:progressBackgroundTint="#FFFFFF"
+                    android:thumbTint="@color/color_White"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/textView_BrightPercentOfSettingsForSceneXXXX"
+                    android:layout_width="7dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="30%"
+                    android:textColor="@color/color_White"
+                    android:textSize="10dp"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="299dp"
+                android:layout_height="40dp"
+                android:background="@color/color_violet1"
+                android:gravity="center"
+                android:layout_marginLeft="30dp"
+                android:orientation="horizontal"><!-- layout Colour Temp -->
+                <TextView
+                    android:layout_width="7dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Speed"
+                    android:textColor="@color/color_White"
+                    android:textSize="10dp" />
+
+                <SeekBar
+                    android:id="@+id/seekBar_SpeedOfSettingsForSceneXXXX"
+                    android:layout_width="170dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="-10dp"
+                    android:progressTint="@color/color_White"
+                    android:progressBackgroundTint="#FFFFFF"
+                    android:thumbTint="@color/color_White"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/textView_SpeedPercentOfSettingsForSceneXXXX"
+                    android:layout_width="7dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="30%"
+                    android:textColor="@color/color_White"
+                    android:textSize="10dp"
+                    />
+
+            </LinearLayout>
+        </LinearLayout> <!-- linearLayout_SettingsForSceneXXXX  -->
+
+        <!-- SCENE: @{ -->
+        <LinearLayout
+            android:id="@+id/linearLayout_Scene"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_violet1"
+            android:visibility="invisible"
+            android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:orientation="horizontal"
+                    android:gravity="right">
+
+                <ImageView
+                    android:id="@+id/imageView_SceneEdit_ShowBSS"
+                    android:layout_width="20dp"
+                    android:layout_height="17dp"
+                    android:layout_marginRight="7dp"
+                    android:src="@drawable/scene_edit1"
+                    android:visibility="invisible"
+                    /> <!-- Scene Edit show "Bright,Saturation,Speed" panel -->
+
+                <ImageView
+                    android:id="@+id/imageView_SceneEdit_ShowC"
+                    android:layout_width="20dp"
+                    android:layout_height="17dp"
+                    android:layout_marginRight="73dp"
+                    android:src="@drawable/scene_edit2"
+                    android:visibility="invisible"
+                    /><!-- Scene Edit show "Color panel" panel -->
+
+                </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="299dp"
+                android:layout_height="70dp"
+                android:background="@color/color_violet1"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_SceneNight"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="25dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/scene"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/textView_SceneNight"
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Night"
+                        android:textColor="@color/color_Gray"
+                        android:textSize="10dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_SceneRead"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="25dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/scene"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/textView_SceneRead"
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Read"
+                        android:textColor="@color/color_Gray"
+                        android:textSize="10dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linearLayout_SceneMeeting"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="25dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/scene"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/textView_SceneMeeting"
+                        android:layout_width="37dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Meeting"
+                        android:textColor="@color/color_Gray"
+                        android:textSize="10dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linearLayout_SceneLeisure"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="23dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/scene"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/textView_SceneLeisure"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Leisure"
+                        android:textColor="@color/color_Gray"
+                        android:textSize="10dp" />
+                </LinearLayout>
+            </LinearLayout>
+           <!--  -->
+            <LinearLayout
+                android:layout_width="299dp"
+                android:layout_height="70dp"
+                android:background="@color/color_violet1"
+                android:layout_marginLeft="25dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_SceneScene1"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="25dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/scene"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/textView_SceneScene1"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Scene1"
+                        android:textColor="@color/color_Gray"
+                        android:textSize="10dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_SceneScene2"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="25dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/scene"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/textView_SceneScene2"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Scene2"
+                        android:textColor="@color/color_Gray"
+                        android:textSize="10dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linearLayout_SceneScene3"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="25dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/scene"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/textView_SceneScene3"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Scene3"
+                        android:textColor="@color/color_Gray"
+                        android:textSize="10dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linearLayout_SceneScene4"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="23dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/scene"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/textView_SceneScene4"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Scene4"
+                        android:textColor="@color/color_Gray"
+                        android:textSize="10dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout> <!-- linearLayout_Scene -->
+        <!-- SCENE: @} -->
+
+    </LinearLayout> <!-- linearLayout_Pano -->
+
+    -->
+</android.support.constraint.ConstraintLayout>

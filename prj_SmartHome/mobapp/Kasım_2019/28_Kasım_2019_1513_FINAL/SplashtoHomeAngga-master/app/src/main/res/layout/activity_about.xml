@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_White1"
+    tools:context="com.example.trident.smart.ActivityAbout">
+    <LinearLayout
+        android:id="@+id/linearLayout_title"
+        android:layout_width="406dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/color_White"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.000"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="2dp">
+        <LinearLayout
+            android:id="@+id/linearLayout_Back"
+            android:layout_width="50dp"
+            android:layout_height="55dp"
+            android:gravity="center">
+            <Button
+                android:id="@+id/button_Back"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:background="@drawable/back"
+                android:textAllCaps="false" />
+        </LinearLayout>
+        <TextView
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="249dp"
+            android:layout_height="match_parent"
+            android:singleLine="true"
+            android:text="@string/about"
+            android:textAllCaps="false"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="395dp"
+        android:layout_height="331dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_White"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_title"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="8dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout_RateUs"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:text="@string/rate_us"
+                android:textColor="@color/color_Black"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="3dp"
+                    android:padding="6dp"
+                    android:src="@drawable/arrow_more" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_AboutTridentSmart"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:text="@string/about_smart"
+                android:textColor="@color/color_Black"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="3dp"
+                    android:padding="6dp"
+                    android:src="@drawable/arrow_more" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_PrivacyPolicy"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:text="@string/privacy_policy"
+                android:textColor="@color/color_Black"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="3dp"
+                    android:padding="6dp"
+                    android:src="@drawable/arrow_more" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_ServiceAgreement"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:text="@string/service_agreement"
+                android:textColor="@color/color_Black"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="3dp"
+                    android:padding="6dp"
+                    android:src="@drawable/arrow_more" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_OpenSourceLicense"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:text="@string/open_source_license"
+                android:textColor="@color/color_Black"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="3dp"
+                    android:padding="6dp"
+                    android:src="@drawable/arrow_more" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:text="@string/version"
+                android:textColor="@color/color_Black"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/textView_Version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.1v"
+                android:textAlignment="textEnd"
+                android:textSize="14dp" />
+
+            <LinearLayout
+                android:layout_width="57dp"
+                android:layout_height="30dp"
+                android:orientation="vertical"></LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_CheckUpdates"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:text="@string/check_updates"
+                android:textColor="@color/color_Black"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/textView_CheckUpdatesInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_updates"
+                android:textSize="14dp" /> <!-- or: update_available -->
+
+            <LinearLayout
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="3dp"
+                    android:padding="6dp"
+                    android:src="@drawable/arrow_more" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView_RightInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="87dp"
+        android:layout_marginTop="116dp"
+        android:textSize="11dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7" /> <!-- All Right Reserved : "©2020 Trident. All Rights Reserved" -->
+
+</android.support.constraint.ConstraintLayout>

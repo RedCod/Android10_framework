@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_White1"
+    tools:context="com.example.trident.smart.ActivityValidTimePeriod">
+    <LinearLayout
+        android:id="@+id/linearLayout_title"
+        android:layout_width="406dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/color_White"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.000"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="2dp">
+        <LinearLayout
+            android:id="@+id/linearLayout_Back"
+            android:layout_width="50dp"
+            android:layout_height="55dp"
+            android:gravity="center">
+            <Button
+                android:id="@+id/button_Back"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:background="@drawable/back"
+                android:textAllCaps="false" />
+        </LinearLayout>
+        <TextView
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="210dp"
+            android:layout_height="match_parent"
+            android:text="@string/valid_time_period"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:textAllCaps="false"
+            android:textSize="16dp" />
+        <Button
+            android:id="@+id/button_Done"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/done"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="44dp"
+        android:text="@string/valid_time_period_descp1"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_title"
+        tools:ignore="MissingConstraints" />
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="395dp"
+        android:layout_height="313dp"
+        android:layout_marginTop="68dp"
+        android:background="@color/color_White"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_title"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="13dp">
+        <LinearLayout
+            android:layout_width="382dp"
+            android:layout_height="281dp"
+            android:baselineAligned="false"
+            android:orientation="vertical">
+            <RadioGroup
+                android:layout_width="324dp"
+                android:layout_height="262dp"
+                android:layout_marginStart="10dp">
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/radioButton_AllDay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layoutDirection="rtl"
+                    android:text="@string/all_day"
+                    android:textSize="16dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
+                    android:text="@string/twentyfour_hours"
+                    android:textSize="12dp" />
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/radioButton_Day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layoutDirection="rtl"
+                    android:text="@string/day"
+                    android:textSize="16dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
+                    android:text="@string/day_descp"
+                    android:textSize="12dp" />
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/radioButton_Night"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layoutDirection="rtl"
+                    android:text="@string/night"
+                    android:textSize="16dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
+                    android:text="@string/night_descp"
+                    android:textSize="12dp" />
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/radioButton_Customized"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layoutDirection="rtl"
+                    android:text="@string/customized"
+                    android:textSize="16dp" />
+                <TextView
+                    android:id="@+id/textView_CustomizedDescp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
+                    android:text="@string/customizded_descp"
+                    android:textSize="12dp" />
+            </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout77dfd"
+        android:layout_width="395dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/color_White"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout8"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="13dp">
+        <LinearLayout
+            android:id="@+id/linearLayout_GoToRepeat"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:text="@string/repeat"
+                android:textColor="@color/color_Black"
+                android:textSize="16dp" />
+            <TextView
+                android:id="@+id/textView_Repeat"
+                android:layout_width="167dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="textEnd"
+                android:text="@string/everyday"
+                android:textSize="14dp" />
+            <LinearLayout
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="3dp"
+                    android:padding="6dp"
+                    android:src="@drawable/arrow_more" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

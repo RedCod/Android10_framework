@@ -1,0 +1,57 @@
+//Smart Home-Thing çalışma mimarisi-Genel.
+
+ 
+
+
+
+
+
+
+###################################################################
+//APP. ile ilgili:
+         * -NOT: VERİTABANINDAN ÇEKİLEN İÇERİKLER,AYARLAR,PARAMETRELER VB. TAMAMI JSON FORMATINDA ÇEKİLECEK.
+         *       BU İÇERİKLER MEVCUT SAYFA VE ALT SAYFAYLA İLİŞKİSEL OLARAK ÇALIŞIYORSA,MEVCUT SAYFADA KULLANILACAKLARI BU SAYFADA PARSE EDEREK UYGULA.
+         *       ANCAK ALT SAYFAYA GİDECEK İÇERİKLER VE PAREMETRELERİ,ALT SAYFAYA SADECE İLGİLİ KAYDIN İNDEX(json satırına ait) DEĞERİNİ GÖNDER VE ALT SAYFADA BU İÇERİĞE ULAŞ VE SAYFAYA GÖRÜNTÜLE/UYGULA.
+         *       ÖRNEĞİN BU SAYFADA HANGİ CİHAZLARIN NE ZAMAN ARALIKLARINDA RAHATSIZ EDİLMEYECEĞİ İLE İLGİLİ KAYITLAR BAŞLIK OLARAK LİSTELENİYOR.
+         *       İŞLETME 1:LİSTVİEW ITEM TIKLANDIĞINDA,İLGİLİ ITEM'a AİT HEM BAŞLIK HEM DE itemDesc(2.item. saat bilgisi,Tekrarla bilgisi,rahatsız edilmeyecek cihazların isim listesi vb bilgisi) ALINIP ALT SAYFAYA GÖNDERİLEBİLİR.
+         *       İŞLETME 2:LİSTVİEW ITEM TIKLANDIĞINDA,İLGİLİ İTEM'a AİT VERİTABANI İNDEX DEĞERİ ALINIR VE SADECE BU DEĞER ALT SAYFAYA GÖNDERİLİR.ALT SAYFADA BU İNDEX'e GÖRE DİĞER BİLGİLER ORADAN ELDE EDİLİR.
+         *       DİKKAT:YUKARIDAKİ HER İKİ İŞLETME DE DEĞERLENDİRİLECEK VE KULLANIŞLILIĞA GÖRE BİRİ SEÇİLİP UYGULANACAK.BU YÖNTEM TÜM APP. SAYFALARI İÇİN GEÇERLİDİR.
+
+
+
+###################################################################
+//p2p ile Device <--> Mobilapp bağlantı süreci:       örnek login_id: "androiddeveloper@gmail.com"
+Mobil_app login olduğunda,mobil_app "androiddeveloper@gmail.com" ile "subscribe" olur.
+Böylelikle yönettiği tüm device'lardan(device komut işlem sonucunu "androiddeveloper@gmail.com" topic ile publish yapacaktır) dönen komut durumlarını dinleyebilir olacaktır.
+Device'dan dönen komut sonuç mesajı "deviceid-ethernet/ON" veya "deviceid-ethernet/OFF" şeklinde olacaktır. Mobil_app bu mesajın sonucuna göre kullanıcıya bilgi gösterir. Örn: ON,OFF.
+
+
+
+
+1)p2p ile device <-> mobil_app bağlantı sağla.
+2)Device,sahip olduğu ethernet ve device_id bilgisini mobil_app'a gönderir (Device --> mobil_app).
+3)mobil_app tarafından device'a kullanıcı kayıt bilgisi(email) ve device'ın ağa bağlanması için ağ bilgilerini(wifi name,pass) gönderir (mobil_app --> Device).
+  Device ise ağ bilgilerini kullanarak ağa bağlanır. Bağlantı OK ise kullanıcı bilgisi(email) ve kendi ethernet bilgisini kullanarak mqtt server'a "subscribe" olur.
+  Örn: "androiddeveloper@gmail.com/ethernet_no".
+  Daha sonra p2p ile mobil_app'a OK mesajı yollar. Aynı zamanda device tarafından device üzerinden işletilen komutların durumu "androiddeveloper@gmail.com" topic ile  "deviceid-ethernet/ON" şeklinde "publish" edilecektir.
+
+4)Device'dan OK mesajı alan mobil_app ise ilgili device'ın aynı bilgileri kullanarak server'da db'ye kaydeder. örn: "androiddeveloper@gmail.com/ethernet_no".
+5)Server kayıt işlemi sonucunda ilgili device'ı server'dan çekilerek listbox'a Item olarak listelenir.
+6)Device kontrolü için tıklanan item("androiddeveloper@gmail.com/ethernet_no") ile "publish" süreci işletilir.
+
+
+
+--------
+/Server:
+Server tarafında çalışan bir servis ile tüm mqtt mesajları analiz edilerek db işlemleri gerçekleştirilir. Örneğin "androiddeveloper@gmail.com" kullanıcıları(uygulamayı kullanan birden fazla kişiler)ından biri lambayı açtı.
+Device "androiddeveloper@gmail.com" topic üzerinden "deviceid-ethernet/ON" mesajını "publish" eder. Server bu bilgiyi analiz ederek db'de ilgili login_id ve device_id bilgisini,yani tablo satırını günceller.
+Örnek: lamba ON,lamba OFF veya "1","0".
+Böylelikle kullanıcılar mobil_app(load olduğunda) üzerinden ilgili cihaza ait durumu görebilirler. Bu yöntem otomatik senaryo işletildiğinde de iyi sonuçlar elde etmek içindir.
+--------
+
+###################################################################
+//Add Device:(Cihaz Ekle)
++Cihaz eklerken cihazın tipi(lamba,rgb lamba,piriz,etc.) cihaz bilgisiyle birlikte veritabanında saklanır.Cihazlar listelenirken cihaz tipi bilinmelidir.Buna göre cihaz lamba ise lamba kontrol ekranına,piriz ise Priz Kontrol ekranına yönlendirilir.
+-------------------------------------------------------------------
+
+

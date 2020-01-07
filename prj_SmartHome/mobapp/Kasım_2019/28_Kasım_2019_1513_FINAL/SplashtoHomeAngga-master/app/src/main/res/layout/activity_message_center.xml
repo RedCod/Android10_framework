@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_White1"
+    tools:context="com.example.trident.smart.ActivityMessageCenter">
+    <LinearLayout
+        android:id="@+id/linearLayout_title"
+        android:layout_width="406dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/color_White"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.000"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="2dp">
+        <LinearLayout
+            android:id="@+id/linearLayout_Back"
+            android:layout_width="50dp"
+            android:layout_height="55dp"
+            android:gravity="center">
+            <Button
+                android:id="@+id/button_Back"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:background="@drawable/back"
+                android:textAllCaps="false" />
+        </LinearLayout>
+        <TextView
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="210dp"
+            android:layout_height="match_parent"
+            android:text="@string/message_center"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:textAllCaps="false"
+            android:textSize="20dp" />  <!-- text value set in the class --><!--style="?android:attr/borderlessButtonStyle" -->
+        <Button
+            android:id="@+id/button_GoToMessageSettingsPage"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/settings"
+            android:textAllCaps="false"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout_MessageCenter"
+        android:layout_width="276dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/viewPager_MessageCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_title"
+        app:layout_constraintVertical_bias="1.0"
+        app:tabMode="scrollable"
+        app:tabPaddingStart="5dp"
+        app:tabTextAppearance="@style/CustomTextAppearanceTab"
+        tools:ignore="MissingConstraints" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager_MessageCenter"
+        android:layout_width="330dp"
+        android:layout_height="430dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/color_White1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.431"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

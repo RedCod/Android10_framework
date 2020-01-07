@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+    <!-- using by CustomListAdapter_DoNotDisturbDevices.java -->
+    <!--
+    android:checkMark="?android:attr/listChoiceIndicatorSingle"
+    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+
+            android:drawableLeft="?android:attr/listChoiceIndicatorMultiple"
+
+   -->
+    <CheckedTextView
+        android:id="@+id/checkedTextView_DeviceName"
+        android:layout_width="355dp"
+        android:layout_height="55dp"
+        android:background="@color/color_White"
+        android:checkMark="?android:attr/listChoiceIndicatorSingle"
+        android:checkMarkTint="@color/color_Red"
+        android:checked="true"
+        android:clickable="true"
+        android:gravity="center"
+        android:paddingLeft="16dp"
+        android:text="CheckedTextView"
+        android:textColor="@color/color_Gray"
+        android:textSize="18dp" />
+</LinearLayout>

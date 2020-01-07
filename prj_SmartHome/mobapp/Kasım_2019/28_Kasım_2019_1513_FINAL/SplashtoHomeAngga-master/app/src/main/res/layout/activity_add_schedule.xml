@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_White1">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="406dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/color_White"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.000"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="2dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout_Back"
+            android:layout_width="50dp"
+            android:layout_height="55dp"
+            android:gravity="center">
+            <Button
+                android:id="@+id/button_Back"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:background="@drawable/back"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+        <TextView
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="223dp"
+            android:layout_height="match_parent"
+            android:text="@string/schedules"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="20dp" />  <!--style="?android:attr/borderlessButtonStyle" -->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_ScheduleList"
+        android:layout_width="match_parent"
+        android:layout_height="381dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/color_White"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/button_AddSchedule"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp">
+
+        <ListView
+            android:id="@+id/listView_Schedule"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:dividerHeight="5dp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout_Empty"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@color/color_White1"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.324"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.436"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="127dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank_box"
+            tools:layout_editor_absoluteX="43dp"
+            tools:layout_editor_absoluteY="64dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_schedule_list"
+            tools:layout_editor_absoluteX="62dp"
+            tools:layout_editor_absoluteY="251dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_AddSchedule"
+        android:layout_width="337dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/add_schedule"
+        android:textAllCaps="false"
+        android:background="@drawable/buttonshape4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView_ScheduleAccuracyInf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/schedule_accuracy"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout_ScheduleList"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+</android.support.constraint.ConstraintLayout>

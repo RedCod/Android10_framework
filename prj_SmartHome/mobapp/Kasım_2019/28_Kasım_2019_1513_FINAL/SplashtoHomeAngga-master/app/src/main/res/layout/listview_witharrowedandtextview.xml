@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/color_White"
+    android:orientation="horizontal" >
+  <!-- using by "RecyclerViewAdapter_RoomManagementRoomItem.java" -->
+    <LinearLayout
+        android:id="@+id/linearLayout_witharrowed"
+        android:layout_width="328dp"
+        android:layout_height="60dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView_Item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/color_Black"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/lw_item_text_size"
+            android:text="textView" />
+        <TextView
+            android:id="@+id/textView_Item_inf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/color_Black"
+            android:layout_marginTop="1dp"
+            android:textSize="10dp"
+            android:text="1 cihaz" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginRight="1dp"
+        android:padding="6dp"
+        android:src="@drawable/arrow_more" />
+</LinearLayout>

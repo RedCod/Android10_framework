@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- https://htmlcolorcodes.com/  -->
+    <color name="color_my_theme">#3cbaed</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#233ED8</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorButton_Login">#3cbaed</color> <!--4ac0f0-->
+    <color name="color_Red">#ff0000</color>
+    <color name="color_Red2">#D60505</color>
+    <color name="bgBottomNavigation">#3cbaed</color>
+    <color name="color_Gray0">#45454D</color>
+    <color name="color_Gray">#6A6A74</color>
+    <color name="color_Gray2">#C8CACD</color>
+    <color name="color_White">#FFFFFF</color>
+    <color name="color_White1">#f1f1f1</color>
+    <color name="color_White2">#dddddd</color>
+    <color name="color_White3">#F9F9F9</color>
+    <color name="color_Black">#000000</color>
+    <color name="color_violet1">#341670</color> <!-- #470252 -->
+    <color name="color_green1">#3EC007</color>
+    <color name="color_green2">#05D681</color>
+    <color name="color_orange1">#EA6D05</color>
+    <color name="color_beige">#FEF7BC</color>
+    <color name="color_blue">#0047F8</color>
+</resources>
+

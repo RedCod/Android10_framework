@@ -1,0 +1,40 @@
+// "Me" tab.  From "ActivityMainPage.java" to come here "FragmentMe.java"
+
+ActivityPersonalCenter.java			//Kişisel veri ve ayarlamaların yapıldığı sayfa. (Profil resmi,Takma ad,Hesap ve Güvenlik,Sıcaklık Birimi,Saat Dilimi)
+activity_personal_center.xml
+ActivityAccountSecurity.java                   // "Hesap ve Güvenlik" veri ve ayarlamaların yapıldığı sayfa.(Cep tel bağla,hesap konumu,parola değiştir,desenli kilit açma,hesabı devre dışı bırak)
+activity_account_security.xml
+ActivityBindMobilePhone.java		       //"Cep Telefonu Bağla"  Email veya cep telefon numarası girilerek Doğrulama koud alınır.Bu sayfadan "ActivityCodeVerification.java" sayfasına yönlendirilir.		
+activity_bind_mobile_phone.xml
+spinner_account_location_item.xml              // "ActivityAccountSecurity.java"'da kullanılan  "Hesap Konumu" Spinner için custom Item.
+ActivityTimeZone.java				//"Saat Dilimi" sayfası.
+activity_time_zone.xml
+ActivityMessageCenter.java			//"Mesaj Merkezi" sayfası.
+activity_message_center.xml
+Fragment_FragmentMe_MessageCenterContent.java //"Mesaj Merkezi" sayfasında yer alan "Alarm,Aile,Bildirimler" fragment.
+fragment_fragment__fragment_me__message_center_content.xml
+ActivityMessageCenterSettings.java		//"Mesaj Merkezi" sayfası için "Ayarlar" barındıracak sayfa.
+activity_message_center_settings.xml
+CustomListAdapter_MessageCenterSettings.java	//"Mesaj Merkezi Ayarları" sayfasına ait ListView.
+ActivityTimeSegment.java 			//"Mesaj Merkezi Ayarları" -> "Zaman Bölümü Ekle" -> //Zaman Bölümü(Segmenti) Ekle sayfası.
+activity_time_segment.xml
+ActivityDoNotDisturbDevices.java		//"Mesaj Merkezi->Mesaj Merkezi Ayarları->Zaman Bölümü Ekle->Cihazları Rahatsız Etmeyin"  //"Cihazları Rahatsız Etmeyin" sayfası. Rahatsız edilmeyecek cihazları seç.
+activity_do_not_disturb_devices.xml
+CustomListAdapter_DoNotDisturbDevices.java	//"Cihazları Rahatsız Etmeyin" listView custom adapter.
+listview_donotdisturbdevices.xml
+ActivityHelpCenter.java	    //"Yardım Merkezi (Help Center)". App. ile ilgili ve cihaz kullanımlarıyla ilgili yardım(FAQ) başlıkları yer alır. Her başlık tıklanarak alt sayfa yardımıyla başlık ile ilgili tüm içerik yer alır.
+activity_help_center.xml
+CustomListAdapter_HelpCenter.java //"Yardım Merkezi(Help Center)" FAQ listView itemleri için.
+listview_textviewandarrow.xml
+ActivityFeedback.java		//"Geri Bildirimim(My Feedback)". Kullanıcının gönderdiği feedback ve cevaplarının listelendiği sayfa.
+activity_feedback.xml
+ActivityFAQView.java		//"FAQ(SSS)"  "Sık sorulan sorular". "ActivityHelpCenter.java" sayfasından seçilen faq başlığı görüntüleme sayfası.
+activity_faqview.xml
+ActivitySettings.java		//"Ayarlar",Uygulama ile ilgili ayarların barındığı sayfa.
+activity_settings.xml
+ActivityAbout.java		//"Hakkında"(Ayarlar -> Hakkında),Uygulama hakkında bilgilerin yer aldığı sayfa.
+activity_about.xml
+ActivityAboutTridentSmart.java	//"Trident Smart Hakkında"
+activity_about_trident_smart.xml
+
+

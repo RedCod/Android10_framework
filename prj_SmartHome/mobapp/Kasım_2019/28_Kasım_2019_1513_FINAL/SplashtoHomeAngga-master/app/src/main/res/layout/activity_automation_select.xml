@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_White1"
+    tools:context="com.example.trident.smart.ActivityAutomationSelect">
+
+    <LinearLayout
+        android:id="@+id/linearLayout_title"
+        android:layout_width="402dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/color_White"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.000"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="2dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout_Back"
+            android:layout_width="50dp"
+            android:layout_height="55dp"
+            android:gravity="center">
+            <Button
+                android:id="@+id/button_Back"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:background="@drawable/back"
+                android:textAllCaps="false" />
+        </LinearLayout>
+        <TextView
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="196dp"
+            android:layout_height="match_parent"
+            android:text="@string/select_automation_trigger"
+            android:textAllCaps="false"
+            android:singleLine="true"
+            android:textSize="20dp"
+            android:textStyle="bold" />  <!--style="?android:attr/borderlessButtonStyle" -->
+        <Button
+            android:id="@+id/button_Done"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:text="@string/ok"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+<!-- no automations available :@{ -->
+    <LinearLayout
+        android:id="@+id/linearLayout_NoAutomationAvailable"
+        android:layout_width="311dp"
+        android:layout_height="235dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.436"
+        tools:ignore="MissingConstraints">
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="127dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank_box"
+            tools:layout_editor_absoluteX="43dp"
+            tools:layout_editor_absoluteY="64dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_automation_available"
+            android:layout_marginLeft="7dp"
+            android:textSize="12dp"
+            android:textColor="@color/color_Gray"
+            tools:layout_editor_absoluteX="62dp"
+            tools:layout_editor_absoluteY="251dp" />
+    </LinearLayout>
+    <!-- no automations available :@} -->
+
+    <ListView
+        android:id="@+id/listView_AutomationList"
+        android:layout_width="357dp"
+        android:layout_height="491dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_title"
+        tools:ignore="MissingConstraints" />
+
+
+
+
+</android.support.constraint.ConstraintLayout>

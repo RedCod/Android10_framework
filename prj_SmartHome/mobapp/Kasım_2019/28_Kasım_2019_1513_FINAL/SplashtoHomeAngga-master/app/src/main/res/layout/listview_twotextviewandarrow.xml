@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/color_White"
+    android:orientation="horizontal" >
+    <!-- using by "CustomListAdapter_MessageCenterSettings.java" -->
+    <LinearLayout
+        android:id="@+id/linearLayout_witharrowed"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView_Item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="textView"
+            android:textColor="@color/color_Black"
+            android:textStyle="bold"
+            android:textSize="@dimen/lw_item_text_size" />
+
+        <TextView
+            android:id="@+id/textView_ItemDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="1dp"
+            android:text="textView desc"
+            android:textColor="@color/color_Black"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="1dp"
+        android:padding="6dp"
+        android:src="@drawable/arrow_more" />
+</LinearLayout>

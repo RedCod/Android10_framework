@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_White1"
+    tools:context="com.example.trident.smart.ActivitySunriseSunset">
+    <LinearLayout
+        android:id="@+id/linearLayout_title"
+        android:layout_width="406dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/color_White"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.000"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="2dp">
+        <LinearLayout
+            android:id="@+id/linearLayout_Back"
+            android:layout_width="50dp"
+            android:layout_height="55dp"
+            android:gravity="center">
+            <Button
+                android:id="@+id/button_Back"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:background="@drawable/back"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+        <TextView
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="210dp"
+            android:layout_height="match_parent"
+            android:singleLine="true"
+            android:text="@string/sunrise_sunset"
+            android:textAllCaps="false"
+            android:textSize="16dp"
+            android:textStyle="bold" />  <!-- text value set in the class --><!--style="?android:attr/borderlessButtonStyle" -->
+        <Button
+            android:id="@+id/button_Done"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/done"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout77"
+        android:layout_width="395dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/color_White"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_title"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="13dp">
+        <LinearLayout
+            android:id="@+id/linearLayout_GoToCurrentCity"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:text="@string/current_city"
+                android:textColor="@color/color_Black"
+                android:textSize="16dp" />
+            <TextView
+                android:id="@+id/textView_CurrentCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="şehir"
+                android:textColor="@color/color_Black"
+                android:textSize="16dp" />
+            <LinearLayout
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="3dp"
+                    android:padding="6dp"
+                    android:src="@drawable/arrow_more" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="395dp"
+        android:layout_height="149dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/color_White"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout77"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="13dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="119dp"
+            android:baselineAligned="false"
+            android:orientation="vertical">
+            <RadioGroup
+                android:layout_width="324dp"
+                android:layout_height="104dp"
+                android:layout_marginStart="15dp">
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/radioButton_Sunrise"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layoutDirection="rtl"
+                    android:text="@string/sunrise" />
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/radioButton_Sunset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layoutDirection="rtl"
+                    android:text="@string/sunset" />
+            </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

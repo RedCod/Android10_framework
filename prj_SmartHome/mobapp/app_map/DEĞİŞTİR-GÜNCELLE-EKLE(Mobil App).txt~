@@ -1,0 +1,19 @@
+26-Aralık-2019
+//DEĞİŞTİR-GÜNCELLE-EKLE(Mobil App). //mobil uygulama üzerinde yapılacak güncellemeler etc.
+---------------------------
+//Mobil tarafta yapılacaklar.:
++Web Servis URL üzerinden parametre olarak veri gönderirken türkçe karakter sorunu meydana geliyor.
+Örnek:http://localhost:8080/REST1/person/get/adi_isim/53/eİsmini
+Bu örnekte "İ" (büyük İ) harfi türkçe karakter sorunu oluşturuyor. Bununla birlikte diğer harfler(ĞğÜüıç,...) aynı sorunu oluşturmaktadır.
+Bu problem için Android tarafında URL ile parametre olarak veri gönderirken bir "UTF-8" tablosu oluşturularak bu verilerin filtrelenmesi gerekir.
+Yani "İ" karakterine karşılık "%c4%b0" gönderilmelidir. Örnek: http://localhost:8080/REST1/person/get/adi_isim/53/e%c4%b0smini
+NOT: Filtrelenmiş veriler servis tarafına ulaşınca normal karaktere döner. Dolayısıyla DB'ye kaydederken tekrar bir filtre vb. gerek kalmaz.
+
++"Mobil Application" Login sayfasında "Ülke Kodu" seçim yaptırılacaktır. Bunun için bir Spinner eklenecek,örn:"Turkey+90".
++Profile Resmi telefon içine kaydedilecek. Mobil app.'i ortak hesapla kullanan her kullanıcı kendi profil resmini kendine göre düzenleyebilmesi için profil resmi kendi telefonunda saklanacak ve oradan yüklenecektir.
+---------------------------
++Home << "Eve Hoşgeldin"  kısmı kaldırılıp sadeve hava durumu görüntülenecek. örn:AlpSmart.app gibi.
++Home << "Cihaz ekle" kısmını da örn:AlpSmart.app gibi yapmak için incele.
++ME->Profil(Kullanıcı-Kişisel Merkez) -> Hesap Ve Güvenlik. << hesap ve güvenlik sayfasını bir üst sayfaya yani "Kullanıcı-Kişisel Merkez" sayfasıyla tek hale getir. Kullanıcı tek sayfada hepsini görebilsin. Örn: AlpSmart.app gibi.
++ME->Mesaj Merkezi << Mesaj merkezi sayfasında bulunan iç tabları(Alarm,Aile,Bildirimler)  kaldır. Tek mesaj tipi listelensin. örn:AlpSmart.app gibi.
+--------------------------

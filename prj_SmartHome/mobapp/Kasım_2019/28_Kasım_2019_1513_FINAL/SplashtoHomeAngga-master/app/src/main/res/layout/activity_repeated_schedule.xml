@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_White1">
+    <!-- ActivityRepeatedSchedule.java -->
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="406dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/color_White"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.000"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="2dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout_Back"
+            android:layout_width="50dp"
+            android:layout_height="55dp"
+            android:gravity="center">
+            <Button
+                android:id="@+id/button_Back"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:background="@drawable/back"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+        <TextView
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="223dp"
+            android:layout_height="match_parent"
+            android:text="@string/repeat"
+            android:textAllCaps="false"
+            android:textSize="20dp" />  <!--style="?android:attr/borderlessButtonStyle" -->
+    </LinearLayout>
+    <!-- ############################################################################################## -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="342dp"
+        android:layout_marginTop="48dp"
+        android:background="@color/color_White1"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:layout_editor_absoluteX="0dp">
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout_Sunday"
+            android:layout_width="fill_parent"
+            android:layout_height="47dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/color_White"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp">
+
+            <TextView
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_weight="1"
+                android:text="@string/Sunday"
+                android:textColor="@color/color_Black"
+                android:textSize="17dp" />
+
+            <CheckBox
+                android:id="@+id/checkBox_Sunday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:layoutDirection="rtl" /><!-- Pazar -->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_Monday"
+            android:layout_width="fill_parent"
+            android:layout_height="47dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/color_White"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            app:layout_constraintVertical_bias="0.003"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp">
+
+            <TextView
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_weight="1"
+                android:text="@string/Monday"
+                android:textColor="@color/color_Black"
+                android:textSize="17dp" />
+
+            <CheckBox
+                android:id="@+id/checkBox_Monday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:layoutDirection="rtl" /><!-- Pazartesi -->
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_Tuesday"
+            android:layout_width="fill_parent"
+            android:layout_height="47dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/color_White"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            app:layout_constraintVertical_bias="0.003"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp">
+
+            <TextView
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_weight="1"
+                android:text="@string/Tuesday"
+                android:textColor="@color/color_Black"
+                android:textSize="17dp" />
+
+            <CheckBox
+                android:id="@+id/checkBox_Tuesday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:layoutDirection="rtl" /><!-- Salı -->
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_Wednesday"
+            android:layout_width="fill_parent"
+            android:layout_height="47dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/color_White"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            app:layout_constraintVertical_bias="0.003"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp">
+
+            <TextView
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_weight="1"
+                android:text="@string/Wednesday"
+                android:textColor="@color/color_Black"
+                android:textSize="17dp" />
+
+            <CheckBox
+                android:id="@+id/checkBox_Wednesday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:layoutDirection="rtl" /><!-- Çarşamba -->
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_Thursday"
+            android:layout_width="fill_parent"
+            android:layout_height="47dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/color_White"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            app:layout_constraintVertical_bias="0.003"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp">
+
+            <TextView
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_weight="1"
+                android:text="@string/Thursday"
+                android:textColor="@color/color_Black"
+                android:textSize="17dp" />
+
+            <CheckBox
+                android:id="@+id/checkBox_Thursday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:layoutDirection="rtl" /><!-- Perşembe -->
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_Friday"
+            android:layout_width="fill_parent"
+            android:layout_height="47dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/color_White"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            app:layout_constraintVertical_bias="0.003"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp">
+
+            <TextView
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_weight="1"
+                android:text="@string/Friday"
+                android:textColor="@color/color_Black"
+                android:textSize="17dp" />
+
+            <CheckBox
+                android:id="@+id/checkBox_Friday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:layoutDirection="rtl" /><!-- Cuma -->
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_Saturday"
+            android:layout_width="fill_parent"
+            android:layout_height="47dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/color_White"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            app:layout_constraintVertical_bias="0.003"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp">
+
+            <TextView
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_weight="1"
+                android:text="@string/Saturday"
+                android:textColor="@color/color_Black"
+                android:textSize="17dp" />
+
+            <CheckBox
+                android:id="@+id/checkBox_Saturday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:layoutDirection="rtl" /><!-- Cumartesi -->
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/repeat_page_info"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+</android.support.constraint.ConstraintLayout>

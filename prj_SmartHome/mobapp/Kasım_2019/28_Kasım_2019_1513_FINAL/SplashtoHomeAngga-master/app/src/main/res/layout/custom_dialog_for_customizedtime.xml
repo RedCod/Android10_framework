@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- used by "ActivityValidTimePeriod.java" -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="176dp"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout11"
+            android:layout_width="320dp"
+            android:layout_height="82dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/linearLayout_From"
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_ScheduleTime_From"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="19:25"
+                    android:textAlignment="center"
+                    android:textColor="@color/color_Black"
+                    android:textSize="35dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView_ScheduleTimedd"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/from"
+                    android:textAlignment="center"
+                    android:textSize="13dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="25dp"
+                android:layout_height="50dp"
+                android:gravity="top"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="25dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="-5dp"
+                    android:layout_marginBottom="30dp"
+                    android:rotation="90"
+                    android:text="|"
+                    android:textAlignment="center"
+                    android:textSize="40dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout_To"
+                android:layout_width="140dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_ScheduleTime_To"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="19:25"
+                    android:textColor="@color/color_Black"
+                    android:textSize="35dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView_ScheduleTidfdfmedd"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/to"
+                    android:textAlignment="center"
+                    android:textSize="13dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout11dfdf"
+            android:layout_width="280dp"
+            android:layout_height="62dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/button_Cancel"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/button_background"
+                android:text="@string/cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary" />
+            <Button
+                android:id="@+id/button_Confirm"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/button_background"
+                android:text="@string/confirm"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

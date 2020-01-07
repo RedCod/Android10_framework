@@ -1,0 +1,95 @@
+//SMART  ActivityMainPage.java -> "came from:"
+FragmentSmart.java
+
+////////+Scene(Görünüm):@{
+Fragment_FragmentSmart_BlankScenarioContent.java
+fragment_fragment_smart__blank_scenario_content.xml
+-
+Fragment_FragmentSmart_ScenarioList.java
+fragment_fragment_smart__scenario_list.xml
+-
+CustomListAdapter_FragmentSmart_ScenarioList.java     ///"Smart" sekmesinde "Görünüm" içeriğinin(senaryolar) bulunduğu ve yönetildiği sayfa.
+listview_scenariolist_fragment_smart.xml
+////////-Scene(Görünüm):@}
+
+///+automation(Otomasyon):@{
+Fragment_FragmentSmart_BlankAutomationContent.java
+fragment_fragment_smart__blank_automation_content.xml
+-
+Fragment_FragmentSmart_AutomationList.java
+fragment_fragment_smart__automation_list.xml
+-
+CustomListAdapter_FragmentSmart_AutomationList.java  //"Smart" sekmesinde "Otomasyon" içeriğinin(otomasyonlar) bulunduğu ve yönetildiği sayfa.
+listview_automationlist_fragment_smart.xml
+///-automation(Otomasyon):}
+
+///Smart Settings(Akıllı Ayarlar):@{
+-for add and edit:
+ActivitySmartSettings.java                      //Senaryo  ayarlarının bulunduğu sayfa.
+activity_smart_settings.xml
+-
+
+listview_activity_smart_settings.xml
+-
+ActivitySwitch.java				//"Görünüm" ve "Otomasyon" içeriklerinde bulunan lamba,priz vb için Switch(on,off) belirlemek için sayfa.
+activity_switch.xml
+-
+ActivityTimeLapse.java				//"Görünüm" ve "Otomasyon" için "Gecikme" süresi eklemek(item olarak) için sayfa.
+activity_time_lapse.xml
+-
+ActivitySmartSettingCover.java			//"ActivitySmartSettings.java","ActivityAutomationSettings.java" sayfalarında bulunan üst resim-tema ayarlamak için sayfa.
+activity_smart_setting_cover.xml
+-
+ActivitySmartSelectAction.java                  //Sayfa:"İşlem Seçin". Senaryo ve Otomasyon için aksiyon seçme sayfası.
+activity_smart_select_action.xml
+-
+ActivityAutomationSelect.java   		//Sayfa: "Tetiklenecek Otomasyon" seçme.
+activity_automation_select.java
+listview_automation_select.xml
+CustomListAdapter_AutomationSelect.java
+-
+ActivityAutomationSettings.java                  //Otomasyon ayarlarının bulunduğu sayfa.
+activity_automation_settings.xml
+SmartAndAutomationSettingsListContents.java
+RecyclerViewAdapter_AutomationSettingsItem.java      //liste de taşınabilen item için (ActivitySmartSettings.java,ActivityAutomationSettings.java)
+ItemMoveCallback_SmartAndAutomationSettingsItem.java //liste de Taşınabilen item için
+CustomListAdapter_AutomationSettings.java            //"ActivityAutomationSettings" yer alan Conditions item için adapter.
+
+SmartAndAutomationItem.java                        //ActivitySmartSettings ve ActivityAutomationSettings de yer alan listelerin içeriklerine ait "item" yapısı.
+SmartAutomationSettingsConditionListContents.java  //AutomationSettings.java'da "Conditions list" item içerikleri için tasarlandı.
+--
+ActivityAutomationSelectCondition.java 		 //Koşul seç sayfası(sıcaklık,nem,hava,hava kalitesi,gün doğumu/gün batımı,program,cihaz).
+activity_automation_select_condition.xml
+ActivityTemperature.java  			//Sıcaklık seçim sayfası.
+activity_temperature.xml  			//Sıcaklık seçim sayfası.
+listview_automation_condition_item.xml //"Condition" şartlar listesine ait Item yapısı.
+ActivityCities.java  		//Şehirlerin listelendiği ve seçilebildiği sayfa
+activity_cities.xml
+ActivityHumidity.java 		//Nem(Kuru,Nemli,Rahat) Condition seçme sayfası.
+activity_humidity.xml
+ActivityWeather.java		//Hava(Bulutlu,Güneşli,Karlı,Puslu,Yağmur) Condition seçme sayfası.
+activity_weather.xml
+Static.java			//Class ve Activity'lerde global de kullanılan ortak "static" tanımlamaları barındırı.
+BetweenActivities.java 		//Activity'ler arasında veri-içerik gönderirken kullanılan etiketleri barındırır.
+ActivityAirQuality.hava 	//Hava Kalitesi(Kirlilik,Mükemmel,İyi) Condition seçme sayfası.
+activity_air_quality.xml
+ActivitySunriseSunset.java  	//Gün Doğumu/Gün Batımı(Gündoğumu,Günbatımı) condition seçme sayfası.
+activity_sunrise_sunset.xml
+ActivitySchedule.java		//Zamanlama-programlama Condition seçme sayfası.
+activity_schedule.xml
+ActivityValidTimePeriod.java 	//Otomasyon->Akıllı ayarlar ekleme/Düzenleme-> "Geçerlilik Zaman Bölümü" sayfası. X otomasyonun hangi zaman dilimlerinde çalışacağını belirlemek için tasarlanmış sayfa.
+activity_valid_time_period.xml
+custom_dialog_for_customizedtime.xml // "activity_valid_time_period.xml" üzerinden "Customized" radiobutton üzerinden "özelleştirilmiş zaman" için tasarlandı.
+--
+ActivitySmartScenes.java	    //"Görünüm" ve "Otomasyon" içeriklerinin listenelip sıralandığı(yukarı aşağı taşınarak) sayfa.
+activity_smart_scenes.xml
+RecyclerViewAdapter_SmartScenesAndAutomationItem.java //"Görünüm" ve "Otomasyon" içeriklerinin sıralanması(yukarı aşağı taşıyarak ana listedeki görünüm sırası) ayarları için.
+ItemMoveCallback_SmartScenesAndAutomationItem.java
+listview_withtextviewandmoveicon.xml
+--
+
+--
+
+
+///Smart Settings(Akıllı Ayarlar):@}
+

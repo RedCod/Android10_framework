@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_White1"
+    >
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="406dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/color_White"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.000"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="2dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout_Back"
+            android:layout_width="50dp"
+            android:layout_height="55dp"
+            android:gravity="center">
+            <Button
+                android:id="@+id/button_Back"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:background="@drawable/back"
+                android:textAllCaps="false" />
+        </LinearLayout>
+        <TextView
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="190dp"
+            android:layout_height="match_parent"
+            android:text="@string/time_lapse"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="20dp" />
+        <Button
+            android:id="@+id/button_OK"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/ok"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+
+    <FrameLayout
+        android:id="@+id/frameLayoutsds2"
+        android:layout_width="395dp"
+        android:layout_height="147dp"
+        android:background="@color/color_White"
+        android:foregroundGravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="8dp">
+    <FrameLayout
+        android:layout_width="192dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="76dp"
+        android:background="@drawable/rectangle_dashed"
+        android:orientation="vertical"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+        <LinearLayout
+            android:layout_width="192dp"
+            android:layout_height="76dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editText_Minute"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="2"
+                android:text="00"
+                android:textAlignment="textEnd" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mn" />
+
+            <EditText
+                android:id="@+id/editText_Second"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:imeOptions="actionPrevious"
+                android:inputType="number"
+                android:maxLength="2"
+                android:text="01"
+                android:textAlignment="textEnd" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sc" />
+        </LinearLayout>
+    </FrameLayout>
+    </FrameLayout>
+
+
+</android.support.constraint.ConstraintLayout>

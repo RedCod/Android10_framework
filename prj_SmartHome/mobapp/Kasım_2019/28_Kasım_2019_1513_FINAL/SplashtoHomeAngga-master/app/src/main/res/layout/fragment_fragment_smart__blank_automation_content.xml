@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="311dp"
+        android:layout_height="235dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.436"
+        tools:ignore="MissingConstraints">
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="127dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank_box"
+            tools:layout_editor_absoluteX="43dp"
+            tools:layout_editor_absoluteY="64dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_automation_description"
+            android:layout_marginLeft="15dp"
+            android:textSize="12dp"
+            android:textColor="@color/color_Gray"
+            tools:layout_editor_absoluteX="62dp"
+            tools:layout_editor_absoluteY="251dp" />
+
+        <Button
+            android:id="@+id/button_GoToAddAutomationPage"
+            android:layout_width="145dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/buttonshape2"
+            android:text="@string/add_automatic_action"
+            android:textAllCaps="false"
+            android:textColor="#FFF"
+            tools:layout_editor_absoluteX="121dp"
+            tools:layout_editor_absoluteY="270dp" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

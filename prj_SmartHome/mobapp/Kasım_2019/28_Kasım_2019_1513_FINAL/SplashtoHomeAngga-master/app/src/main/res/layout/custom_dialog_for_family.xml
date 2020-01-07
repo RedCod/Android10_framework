@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_bg">
+
+    <!-- only dialog title.  using in the ActivityFamilySettings.java,ActivityRoomManagement.java -->
+
+    <TextView
+        android:id="@+id/textView_CustomDialog_Title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_family"
+        android:textAlignment="center"
+        android:textColor="@color/color_Black"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        tools:ignore="MissingConstraints" />
+<!--
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="199dp"
+        android:background="@drawable/dialog_bg"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="4dp">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:inputType="textPersonName"
+            android:text="Name" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoudt"
+            android:layout_width="fill_parent"
+            android:layout_height="81dp"
+            android:background="@drawable/dialog_bg"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="2dp"
+            tools:layout_editor_absoluteY="127dp">
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape3"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape3"
+                android:text="Button" />
+        </LinearLayout>
+
+
+    </LinearLayout>-->
+</android.support.constraint.ConstraintLayout>

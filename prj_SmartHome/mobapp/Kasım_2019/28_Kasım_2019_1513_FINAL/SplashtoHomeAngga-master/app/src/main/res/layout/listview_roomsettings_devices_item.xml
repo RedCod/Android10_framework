@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/color_White"
+    android:orientation="horizontal" >
+
+    <!-- using in "RecyclerViewAdapter_RoomManagementRoomItem.java" -->
+    <ImageView
+        android:id="@+id/imageView_IconPlusOrMinus"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/plus_flat"
+        android:padding="5dp" />
+    <ImageView
+        android:id="@+id/imageView_IconDevice"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="8dp"
+        android:src="@drawable/smart_lamp_icon_color"
+        android:padding="5dp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textView_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:padding="2dp"
+            android:textSize="@dimen/lw_item_text_size"
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/color_Black" />
+        <TextView
+            android:id="@+id/textView_Describtion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="TextView" />
+    </LinearLayout>
+</LinearLayout>

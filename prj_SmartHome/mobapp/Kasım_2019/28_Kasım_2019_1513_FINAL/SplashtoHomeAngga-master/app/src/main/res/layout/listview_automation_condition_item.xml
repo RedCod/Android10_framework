@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@color/color_White"
+    android:id="@+id/linearLayout_MainItemBase"
+    android:orientation="horizontal" >
+    <!-- called by ActivityAutomationSettings.java > "CustomListAdapter_AutomationSettings.java" -->
+    <ImageView
+        android:id="@+id/imageView_Icon"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/lamp"
+        android:padding="5dp" />
+    <LinearLayout
+        android:layout_width="319dp"
+        android:layout_height="70dp"
+        android:orientation="vertical">
+            <TextView
+                android:id="@+id/textView_Item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:padding="2dp"
+                android:singleLine="true"
+                android:text="test"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/color_Black"
+                android:textSize="@dimen/lw_item_text_size" />
+        <TextView
+            android:id="@+id/textView_ItemDescribtion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="test"
+            android:textColor="@color/color_Gray" />
+    </LinearLayout>
+</LinearLayout>

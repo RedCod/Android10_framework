@@ -1,0 +1,39 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.trident.smart.Fragment_FragmentMe_MessageCenterAlarm">
+
+
+    <LinearLayout
+        android:layout_width="311dp"
+        android:layout_height="235dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="68dp"
+        tools:layout_editor_absoluteY="140dp">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/envelope"
+            tools:layout_editor_absoluteX="43dp"
+            tools:layout_editor_absoluteY="64dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_message"
+            android:textColor="@color/color_Gray"
+            android:layout_marginTop="5dp"
+            android:textSize="14dp"
+            tools:layout_editor_absoluteX="62dp"
+            tools:layout_editor_absoluteY="251dp" />
+
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>
