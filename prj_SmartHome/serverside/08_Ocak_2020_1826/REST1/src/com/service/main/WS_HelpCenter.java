@@ -8,13 +8,15 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.service.sub.HelpCenter;
+
 @Path("/HelpCenter")
 public class WS_HelpCenter {
 	
 	/**
 	 * Add help content.
 	 * @param Title			//title of help content.
-	 * @param ContentPath	//help content path. html page name and path on server.
+	 * @param ContentPath	//path of help content. html page name and path on server.
 	 * @return				//return true(as JSON) if adding is successful.
 	 */
 	@GET
@@ -23,9 +25,10 @@ public class WS_HelpCenter {
 	public Response AddHelp(@PathParam("Title")String Title,
 							@PathParam("ContentPath")String ContentPath) {
 		/*
-		 * 
+		 * http://localhost:8080/REST1/HelpCenter/AddHelp/Bu bir yardım başlığıdır1/help1.html
 		 */
-		String response = "";
+		HelpCenter helpCenter = new HelpCenter();
+		String response = helpCenter.addHelp(Title, ContentPath);
 		return Response.status(200).entity(response).build();
 	}
 	
@@ -33,8 +36,8 @@ public class WS_HelpCenter {
 	 * Edit help content.
 	 * @param HelpId	   //which content.		
 	 * @param Title		   //title of help content.	
-	 * @param ContentPath  //help content path. html page name and path on server.	
-	 * @return			  //return true(as JSON) if adding is successful.	
+	 * @param ContentPath  //path of help content. html page name and path on server.	
+	 * @return			  //return true(as JSON) if edit is successful.	
 	 */
 	@GET
 	@Produces("application/json")
@@ -43,9 +46,10 @@ public class WS_HelpCenter {
 							 @PathParam("Title")String Title,
 							 @PathParam("ContentPath")String ContentPath) {
 		/*
-		 * 
+		 * http://localhost:8080/REST1/HelpCenter/EditHelp/2/YARDIM BAŞLIĞI/help2.html
 		 */
-		String response = "";
+		HelpCenter helpCenter = new HelpCenter();
+		String response = helpCenter.editHelp(HelpId, Title, ContentPath);
 		return Response.status(200).entity(response).build();
 	}
 	
@@ -59,9 +63,10 @@ public class WS_HelpCenter {
 	@Path("GetItem/{HelpId}")
 	public Response GetItem(@PathParam("HelpId")int HelpId) {
 		/*
-		 * 
+		 * http://localhost:8080/REST1/HelpCenter/GetItem/2
 		 */
-		String response = "";
+		HelpCenter helpCenter = new HelpCenter();
+		String response = helpCenter.getItem(HelpId);
 		return Response.status(200).entity(response).build();
 	}
 	
@@ -74,11 +79,28 @@ public class WS_HelpCenter {
 	@Path("/GetAllAsList")
 	public Response GetAllAsList() {
 		/*
-		 * 
+		 * http://localhost:8080/REST1/HelpCenter/GetAllAsList
 		 */
-		String response = "";
+		HelpCenter helpCenter = new HelpCenter();
+		String response = helpCenter.getAllAsList();
 		return Response.status(200).entity(response).build();
 	}
 	
+	/**
+	 * Remove specified help Item.
+	 * @param HelpId	//which Item.
+	 * @return			//return true(as JSON) if help item remove is successful.
+	 */
+	@GET
+	@Produces("application/json")
+	@Path("/Remove/{HelpId}")
+	public Response Remove(@PathParam("HelpId")int HelpId)  {
+		/*
+		 * http://localhost:8080/REST1/HelpCenter/Remove/3
+		 */
+		HelpCenter helpCenter = new HelpCenter();
+		String response = helpCenter.remove(HelpId);
+		return Response.status(200).entity(response).build();
+	}
 
 }

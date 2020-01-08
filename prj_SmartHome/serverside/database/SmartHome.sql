@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost
--- Üretim Zamanı: 07 Oca 2020, 16:12:20
+-- Üretim Zamanı: 08 Oca 2020, 16:26:59
 -- Sunucu sürümü: 10.4.8-MariaDB
 -- PHP Sürümü: 7.3.11
 
@@ -256,8 +256,16 @@ CREATE TABLE `tblFeedback` (
   `Id` int(11) NOT NULL,
   `AccountId` int(11) DEFAULT NULL,
   `Content` varchar(255) DEFAULT NULL,
-  `FdDateTime` datetime DEFAULT NULL
+  `FdDateTime` varchar(50) DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Tablo döküm verisi `tblFeedback`
+--
+
+INSERT INTO `tblFeedback` (`Id`, `AccountId`, `Content`, `FdDateTime`) VALUES
+(1, 1, 'Diğerleri', '08-01-2020 15:21'),
+(3, 1, 'Cihaz', '08-01-2020 15:26');
 
 -- --------------------------------------------------------
 
@@ -270,6 +278,14 @@ CREATE TABLE `tblHelpCenter` (
   `Title` varchar(255) DEFAULT NULL,
   `ContentPath` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Tablo döküm verisi `tblHelpCenter`
+--
+
+INSERT INTO `tblHelpCenter` (`Id`, `Title`, `ContentPath`) VALUES
+(1, 'Bu bir yardım başlığıdır1', 'help1.html'),
+(2, 'YARDIM BAŞLIĞI', 'help2.html');
 
 -- --------------------------------------------------------
 
@@ -360,14 +376,15 @@ CREATE TABLE `tblSchedule` (
   `DeviceId` int(11) DEFAULT NULL,
   `ScheduleTime` time DEFAULT NULL,
   `Switch` varchar(10) DEFAULT NULL,
-  `IsActive` int(11) DEFAULT NULL,
+  `IsActive` int(11) DEFAULT 1,
   `Monday` int(11) DEFAULT NULL,
   `Tuesday` int(11) DEFAULT NULL,
   `Wednesday` int(11) DEFAULT NULL,
   `Thursday` int(11) DEFAULT NULL,
   `Friday` int(11) DEFAULT NULL,
   `Saturday` int(11) DEFAULT NULL,
-  `Sunday` int(11) DEFAULT NULL
+  `Sunday` int(11) DEFAULT NULL,
+  `OnlyOnce` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -589,13 +606,13 @@ ALTER TABLE `tblFamilyMember`
 -- Tablo için AUTO_INCREMENT değeri `tblFeedback`
 --
 ALTER TABLE `tblFeedback`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblHelpCenter`
 --
 ALTER TABLE `tblHelpCenter`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblMessageCenter`

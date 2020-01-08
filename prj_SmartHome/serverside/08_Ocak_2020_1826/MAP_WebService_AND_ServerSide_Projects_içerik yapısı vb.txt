@@ -19,7 +19,9 @@
 	[+] = WS_Room.java	//Oda işlemleri(ekle,düzenle,sil,..) Web Service.
 	[+] = WS_DontDisturbDevices.java //Cihazları rahatsız etmeyin.
 	[+] = WS_MessageCenter.java	//Mesaj merkezi(ekle,düzenle,sil,etc.) Web Service.
-	[-] = WS_HelpCenter.java	//Yardım merkezi(ekle,düzenle,sil,etc.) Web Service.
+	[+] = WS_HelpCenter.java	//Yardım merkezi(ekle,düzenle,sil,etc.) Web Service.
+	[+] = WS_Feedback.java 		//Geri bildirim(ekle,düzenle,sil,etc.) Web service.
+	[-] = WS_Schedule.java		//Akıllı cihazlar için Zamanlama-Programlama(ekle,düzenle,sil,etc.)Web service.
 
 +com.service.sub: //WebServiceSub
 	[+] = Account.java	//Kullanıcı Hesap işlemleri için web service alt işlemler.
@@ -29,10 +31,13 @@
 	[+] = Room.java		//Oda işlemleri(ekle,düzenle,sil,..).web service alt işlemleri.
 	[+] = DontDisturbDevices.java	//Cihazları rahatsız etmeyin.web service alt işlemleri.
 	[+] = MessageCenter.java	//Mesaj merkezi.web service alt işlemleri.
-	[-] = HelpCenter.java		//Yardım Merkezi.web service alt işlemleri.
+	[+] = HelpCenter.java		//Yardım Merkezi.web service alt işlemleri.
+	[+] = Feedback.java		//Geri bildirim web service alt işlemleri.
+        [-] = Schedule.java		//Akıllı cihazlar için Zamanlama-Programlama web service alt işlemleri.
+
 
 +com.database: //DATABASE
-	[-] = Database.java	//Veritabanı işlemleri için.
+	[+] = Database.java	//Veritabanı işlemleri için.
 
 +com.common: //Ortak
 	[+] = Date.java //Tarih ile ilgili bilgileri elde etme.

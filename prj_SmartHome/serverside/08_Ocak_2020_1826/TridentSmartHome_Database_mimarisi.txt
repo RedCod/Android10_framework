@@ -148,10 +148,11 @@ Yardım sayfaları genel olduğu için kullanıcıyla vb. ilişkili olmayacak.
 	Friday		//Cum.
 	Saturday	//Cmrts.
 	Sunday		//Paz.
+	OnlyOnce	//"Sadece bir kez" çalış.
 
 //NOT:  Lamba,vb. belirlenen zaman-saate işletilmesi. Lamba ekranından "Schedule" tab ile Schedule sayfasında ilgili cihaza yönelik "program ekle" yapılır.Bu sayfaya cihaza ait ON/OFF yönetim penceresi üzerinden gidildiği için,
 schedule sayfasında da ilgili cihaza yönelik scheduleler listelenir.
-NOT[26Aralık2019]:Bu tabloya bir de cihaz Mqt işletim komutu koyabiliriz. Örn: "/hesapsahibi/cihaz_ethernet/cihaz ON"
+//NOT: "OnlyOnce" row,hiç bir gün belirtilmemişse bu değer 1 yapılarak aktiftir. Yani sadece bir kez çalışır. Eğer herhangi bir gün veya günler seçilmişse,bu değer 0 dır.
 ---------------------------------------------------------------
 //Scenario-Senaryo
 11-Tablo: tblScenario
