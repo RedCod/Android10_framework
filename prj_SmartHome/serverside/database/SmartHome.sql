@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost
--- Üretim Zamanı: 08 Oca 2020, 16:26:59
+-- Üretim Zamanı: 09 Oca 2020, 16:17:57
 -- Sunucu sürümü: 10.4.8-MariaDB
 -- PHP Sürümü: 7.3.11
 
@@ -341,9 +341,11 @@ INSERT INTO `tblRoom` (`Id`, `AccountId`, `FamilyId`, `RoomName`, `ItemSort`) VA
 CREATE TABLE `tblScenario` (
   `Id` int(11) NOT NULL,
   `AccountId` int(11) DEFAULT NULL,
+  `FamilyId` int(11) DEFAULT NULL,
   `Name` varchar(150) DEFAULT NULL,
   `CoverImage` int(11) DEFAULT NULL,
-  `ShowMainPage` int(11) DEFAULT NULL
+  `ShowOnMainPage` int(11) DEFAULT NULL,
+  `ItemSort` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -356,10 +358,10 @@ CREATE TABLE `tblScenarioSub` (
   `Id` int(11) NOT NULL,
   `AccountId` int(11) DEFAULT NULL,
   `ScenarioId` int(11) DEFAULT NULL,
+  `ActionType` varchar(25) DEFAULT NULL,
   `DeviceId` int(11) DEFAULT NULL,
   `DeviceSwitch` varchar(10) DEFAULT NULL,
   `AutomationId` int(11) DEFAULT NULL,
-  `TimeLapse` varchar(15) DEFAULT NULL,
   `TimeLapseValue` varchar(15) DEFAULT NULL,
   `ItemSort` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -386,6 +388,14 @@ CREATE TABLE `tblSchedule` (
   `Sunday` int(11) DEFAULT NULL,
   `OnlyOnce` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Tablo döküm verisi `tblSchedule`
+--
+
+INSERT INTO `tblSchedule` (`Id`, `AccountId`, `DeviceId`, `ScheduleTime`, `Switch`, `IsActive`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday`, `Sunday`, `OnlyOnce`) VALUES
+(1, 1, 4, '11:10:00', 'ON', 1, 1, 1, 1, 1, 1, 1, 1, 0),
+(2, 1, 4, '12:50:00', 'OFF', 1, 1, 1, 1, 1, 1, 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -642,7 +652,7 @@ ALTER TABLE `tblScenarioSub`
 -- Tablo için AUTO_INCREMENT değeri `tblSchedule`
 --
 ALTER TABLE `tblSchedule`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblSettings`

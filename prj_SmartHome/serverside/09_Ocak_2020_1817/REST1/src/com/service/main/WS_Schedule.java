@@ -5,6 +5,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
+import com.service.sub.Schedule;
 
 @Path("/Schedule")
 public class WS_Schedule {
@@ -41,9 +42,10 @@ public class WS_Schedule {
 								@PathParam("Sunday")int Sunday,
 								@PathParam("OnlyOnce")int OnlyOnce) {
 		/*
-		 * 
+		 * http://localhost:8080/REST1/Schedule/AddSchedule/1/4/12:50/OFF/1/1/1/1/1/1/1/0
 		 */
-		String response = "";
+		Schedule schedule = new Schedule();
+		String response = schedule.addSchedule(AccountId, DeviceId, ScheduleTime, Switch, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday, OnlyOnce);
 		return Response.status(200).entity(response).build();
 	}
 	
@@ -77,9 +79,10 @@ public class WS_Schedule {
 								 @PathParam("Sunday")int Sunday,
 								 @PathParam("OnlyOnce")int OnlyOnce) {
 		/*
-		 * 
+		 * http://localhost:8080/REST1/Schedule/EditSchedule/1/11:10/ON/1/1/1/1/1/1/1/0
 		 */
-		String response = "";
+		Schedule schedule = new Schedule();
+		String response = schedule.editSchedule(ScheduleId, ScheduleTime, Switch, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday, OnlyOnce);
 		return Response.status(200).entity(response).build();
 	}
 	
@@ -93,9 +96,10 @@ public class WS_Schedule {
 	@Path("/GetItem/{ScheduleId}")
 	public Response GetItem(@PathParam("ScheduleId")int ScheduleId) {
 		/*
-		 * 
+		 * http://localhost:8080/REST1/Schedule/GetItem/3
 		 */
-		String response = "";
+		Schedule schedule = new Schedule();
+		String response = schedule.getItem(ScheduleId);
 		return Response.status(200).entity(response).build();
 	}
 	
@@ -109,9 +113,10 @@ public class WS_Schedule {
 	@Path("/GetAllAsList/{DeviceId}")
 	public Response GetAllAsList(@PathParam("DeviceId")int DeviceId) {
 		/*
-		 * 
+		 * http://localhost:8080/REST1/Schedule/GetAllAsList/4
 		 */
-		String response = "";
+		Schedule schedule = new Schedule();
+		String response = schedule.getAllAsList(DeviceId);
 		return Response.status(200).entity(response).build();
 	}
 	
@@ -125,9 +130,10 @@ public class WS_Schedule {
 	@Path("/Remove/{ScheduleId}")
 	public Response Remove(@PathParam("ScheduleId")int ScheduleId) {
 		/*
-		 * 
+		 * http://localhost:8080/REST1/Schedule/Remove/3
 		 */
-		String response = "";
+		Schedule schedule = new Schedule();
+		String response = schedule.remove(ScheduleId);
 		return Response.status(200).entity(response).build();
 	}
 	

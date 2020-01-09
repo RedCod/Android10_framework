@@ -148,7 +148,7 @@ Yardım sayfaları genel olduğu için kullanıcıyla vb. ilişkili olmayacak.
 	Friday		//Cum.
 	Saturday	//Cmrts.
 	Sunday		//Paz.
-	OnlyOnce	//"Sadece bir kez" çalış.
+	OnlyOnce	//"Sadece bir kez" çalış sonra IsActive = 0 yap.
 
 //NOT:  Lamba,vb. belirlenen zaman-saate işletilmesi. Lamba ekranından "Schedule" tab ile Schedule sayfasında ilgili cihaza yönelik "program ekle" yapılır.Bu sayfaya cihaza ait ON/OFF yönetim penceresi üzerinden gidildiği için,
 schedule sayfasında da ilgili cihaza yönelik scheduleler listelenir.
@@ -158,10 +158,11 @@ schedule sayfasında da ilgili cihaza yönelik scheduleler listelenir.
 11-Tablo: tblScenario
 	Id
 	AccountId	//tblAccount->Id değeri buraya kaydedilecek.
+	FamilyId	//tblFamily->Id	 değeri buraya kaydedilecek.
 	Name		//senaryo adı
 	CoverImage	//Kapak resmi.Kapak resimleri proje içinde tutulacak.Db'de sadece resim ismini temsilen int türünde bir değer tutulacaktır.Bu değer,proje içinde tutulan "Cover Imageler" array'a index şeklinde verilerek çağrılır.
-	ShowMainPage	//Anasayfada göster. 0,1.
-
+	ShowOnMainPage	//Anasayfada göster. 0,1.
+	ItemSort 	//senaryoların sırası değiştirilebilir. Dolayısıyla buradaki değer,ilgili Item'ın sırasıdır. Örneğin Xsenaryo listede 2.sırada çıkacaksa bu değer "2" olmalıdır.
 //NOT:Senaryolar "Smart->Görünüm" kısmında sıralanır. Senaryolar 2 tabloda tutulur. Bu 1.tablo(tblScenario) üst tablodur. Diğeri(2.tablo) ise "tblScenarioSub" ismindedir ve senaryoya ait cihaz,gecikme,otomasyon vb gibi 
 detayların girildiği tablodur.
 CoverImage'de projede tutulan "Cover Image" array'a index değerine karşılık değer tutulacak. Örn:2. Bu değer çekilerek "Cover Image" array'a index verilerek Scenario'ya Cover resmi yapılır.
@@ -171,10 +172,10 @@ CoverImage'de projede tutulan "Cover Image" array'a index değerine karşılık 
 	Id
 	AccountId	//tblAccount->Id değeri buraya kaydedilecek. 
 	ScenarioId	//tblScenario->Id değeri buraya kaydedilecek.
+	ActionType	//Barındırdığı işlem tipi. örn:"device","automation","time_lapse"
 	DeviceId	//tblDevice->Id	değeri buraya kaydedilecek. not:eğer senaryoya bir cihaz eklenmişse cihaza ait Id değeri buraya kaydedilir.Bu değerle tblDevice'den cihaz çekilir.
 	DeviceSwitch	//Cihaza ait switch değeri girilir. ON/OFF
 	AutomationId	//tblAutomation->Id değeri buraya kaydedilecek. not:Senaryoya otomasyon eklendiğinde seçilen otomasyona ait id değeri buraya kaydedilir.Bu değerle "tblAutomation"'dan otomasyon çekilir.
-	TimeLapse	//Eğer "Time-Lapse" eklenmişse buradaki değer "time_lapse" şeklinde içerik tutar. Yani TimeLapse'ye ait tip değeri.
 	TimeLapseValue	//"Time-Lapse" eklendiğinde buraya saat değeri girilir. Örn: 18dk30sn
 	ItemSort	//Senaryo içeriğinde sırayla çalışacak Item'lerin sırası değiştirilebilir. Dolayısıyla buradaki değer,ilgili Item'ın sırasıdır. Örneğin Cihaz 2.sırada çalışacaksa bu değer "2" olmalıdır.
 

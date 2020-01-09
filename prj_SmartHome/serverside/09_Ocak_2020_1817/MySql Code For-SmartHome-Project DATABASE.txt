@@ -135,9 +135,11 @@ CREATE TABLE IF NOT EXISTS tblSchedule (
 CREATE TABLE IF NOT EXISTS tblScenario (
     Id INT AUTO_INCREMENT,
     AccountId INT,
+    FamilyId INT,
     Name VARCHAR(150),
     CoverImage INT,
-    ShowMainPage INT,
+    ShowOnMainPage INT,
+    ItemSort INT,
     PRIMARY KEY (Id)
 );
 
@@ -146,10 +148,10 @@ CREATE TABLE IF NOT EXISTS tblScenarioSub (
     Id INT AUTO_INCREMENT,
     AccountId INT,
     ScenarioId INT,
+    ActionType VARCHAR(25),
     DeviceId INT,
     DeviceSwitch VARCHAR(10),
     AutomationId INT,
-    TimeLapse VARCHAR(15),
     TimeLapseValue VARCHAR(15),
     ItemSort INT,
     PRIMARY KEY (Id)

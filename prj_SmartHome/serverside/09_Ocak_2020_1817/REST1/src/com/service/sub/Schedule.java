@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS tblSchedule (
 							  int onlyOnce) {
 		String response = "{\"AddSchedule\":[{ \"response\":false}]}";
 		String insert_sql = "INSERT INTO tblSchedule(AccountId,DeviceId,ScheduleTime,Switch,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,OnlyOnce) "
-				+ "VALUES('" + accountId +"','" + deviceId + "','" + scheduleTime +"','" + swtch + "','" + monday + "','" + tuesday + "','" + wednesday + "','" + thursday + "','" + friday + "','" + saturday + "','" + sunday + "','" + onlyOnce + "'";
+				+ "VALUES('" + accountId +"','" + deviceId + "','" + scheduleTime +"','" + swtch + "','" + monday + "','" + tuesday + "','" + wednesday + "','" + thursday + "','" + friday + "','" + saturday + "','" + sunday + "','" + onlyOnce + "')";
 		Database database = new Database();
 		try {
 			database.connect();
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS tblSchedule (
 							   int sunday,
 							   int onlyOnce) {
 		String response = "{\"EditSchedule\":[{ \"response\":false}]}";
-		String update_sql = "UPDATE tblSchedule SET ScheduleTime='" + scheduleTime+"',Switch='" + swtch+"',Monday='" + monday +"',Tuesday='" + tuesday +"',Wednesday='" + wednesday +"',Thursday='" + thursday +"',Friday='" + friday +"',Saturday='" +saturday +"',Sunday='" + sunday +"',OnlyOnce='" + onlyOnce +"'";
+		String update_sql = "UPDATE tblSchedule SET ScheduleTime='" + scheduleTime+"',Switch='" + swtch+"',Monday='" + monday +"',Tuesday='" + tuesday +"',Wednesday='" + wednesday +"',Thursday='" + thursday +"',Friday='" + friday +"',Saturday='" +saturday +"',Sunday='" + sunday +"',OnlyOnce='" + onlyOnce +"' WHERE Id='" + scheduleId +"'";
 		Database database = new Database();
 		try {
 			database.connect();
@@ -185,12 +185,86 @@ CREATE TABLE IF NOT EXISTS tblSchedule (
 		return content;
 	}
 	
+	/**
+	 * Get schedule Items as list.
+	 * @param deviceId	//related which device?
+	 * @return			//return schedule Items list as JSON.
+	 */
 	public String getAllAsList(int deviceId) {
-		//<ZZZZZZZZZZZZZZZ
-		return "";
-	}
+		String query_sql = "SELECT *FROM tblSchedule";
+		Database database = new Database();
+		String content = "{\"AllList\":[\n";
+		try {
+			database.connect();
+			ResultSet resultSet  = database.queryForResultSet(query_sql);
+			int count = 0;
+            while (resultSet.next()) {
+	           	 if(count == 0)
+	        		 content +="{\n";
+	        	 else
+	        		content +=",\n{\n";
+	                content += "\"Id\":"+resultSet.getInt(1) + ",\n";
+	                content += "\"AccountId\":"+resultSet.getInt(2) + ",\n";
+	                content += "\"DeviceId\":"+resultSet.getInt(3) + ",\n";
+	                content += "\"ScheduleTime\":\""+resultSet.getString(4) + "\",\n";
+	                content += "\"Switch\":\""+resultSet.getString(5) + "\",\n";
+	                content += "\"IsActive\":\""+resultSet.getInt(6) + "\",\n";
+	                content += "\"Monday\":\""+resultSet.getInt(7) + "\",\n";
+	                content += "\"Tuesday\":\""+resultSet.getInt(8) + "\",\n";
+	                content += "\"Wednesday\":\""+resultSet.getInt(9) + "\",\n";
+	                content += "\"Thursday\":\""+resultSet.getInt(10) + "\",\n";
+	                content += "\"Friday\":\""+resultSet.getInt(11) + "\",\n";
+	                content += "\"Saturday\":\""+resultSet.getInt(12) + "\",\n";
+	                content += "\"Sunday\":\""+resultSet.getInt(13) + "\",\n";
+	                content += "\"OnlyOnce\":\""+resultSet.getInt(14) + "\"";
+	                content +="\n}";
+                count++;
+           } 
+            content += "\n]}";
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				database.close();
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return content;
+	}//getAllAsList()
 	
-	
-	
+	/**
+	 * Delete specified schedule Item.
+	 * @param scheduleId //which device.
+	 * @return			//return true(as JSON) 
+	 */
+	public String remove(int scheduleId) {
+		String response = "{\"Remove\":[{ \"response\":false}]}";
+		String sql = "DELETE FROM tblSchedule WHERE Id='" + scheduleId + "'";
+		Database database = new Database();
+		try {
+			database.connect();
+			int s = database.execSQL(sql);
+			if(s > 0)
+				response = "{\"Remove\":[{ \"response\":true}]}";
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				database.close();
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return response;
+	}//remove()
 
 }
