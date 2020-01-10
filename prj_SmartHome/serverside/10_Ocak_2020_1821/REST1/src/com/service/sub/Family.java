@@ -45,9 +45,9 @@ CREATE TABLE IF NOT EXISTS tblFamilyMember (
 	 * @param familyLocation //Ailenin haritadaki lokasyonu.
 	 * @return				//return true(as JSON) if Family added successful.
 	 */
-	public String addFamily(int accountId,String familyName,String roomsId,String familyLocation) {
-		String response = "{\"AddFamily\":[{ \"response\":false}]}";
-		synchronized(this) {//Tek tek eriş:tblFamily'e eklenen son kayıta ait Id değeri alını ve tblFamilyMember'de kullanılır.
+	public synchronized String addFamily(int accountId,String familyName,String roomsId,String familyLocation) {
+		    //Tek tek eriş:tblFamily'e eklenen son kayıta ait Id değeri alını ve tblFamilyMember'de kullanılır.
+		    String response = "{\"AddFamily\":[{ \"response\":false}]}";
 			Database database = new Database();
 			try {
 				String insert_sql = "INSERT INTO tblFamily(AccountId,FamilyName,RoomsId,FamilyLocation)"
@@ -84,7 +84,6 @@ CREATE TABLE IF NOT EXISTS tblFamilyMember (
 					e.printStackTrace();
 				}
 			}
-		}//synchronized
 		return response;
 	}//addFamily()
 	
