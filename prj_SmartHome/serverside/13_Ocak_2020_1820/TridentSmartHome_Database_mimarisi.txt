@@ -1,0 +1,304 @@
+//VERİTABANI:
+
+---------------------------------------------------------------
+//Hesaplar:
+1-Tablo: tblAccount
+	Id
+	Country		//örn: Turkey+90
+	Email
+	PhoneNumber
+	Password
+	Nickname
+	AccountLocation		//Hesap Konumu. Hesabın kayıtlı olduğu sunucu. Avrupa,Türkiye,
+	TemperatureUnit		//Sıcaklık Birimi: C,F
+	TimeZone
+	VerificationCode
+	IsActive
+
+//NOT:Yeni bir hesap açılırken sistem email/phone adresine bir VKod gönderir ve email/phone adresi ile kod'u bu tabloya kaydeder.Kullanıcı VKod'u girdiğinde email/phone ile VKod db de eşleştirilir ve hesap oluşturulur.
+Hesap oluşturulurken "tblAccountProfile" tablosuna da ilgili veriler girilir. Ayrıca hesap oluşturulurken aynı zamanda default olarak bir Aile oluşturulur ve yine default olarak 5 adet de oda oluşturulur.
+Oluşturulan Aile bu hesap ile ilişkilendirilir ve oluşturulan odalar da aileyle ilişkilendirilir.
+---------------------------------------------------------------
+//Cihazlar:
+2-Tablo: tblDevice
+	Id
+	AccountId	//tblAccount->Id değeri buraya kaydedilecek.
+	FamilyId	//tblFamily->Id	değeri buraya kaydedilecek.
+	DeviceLocation  //tblRoom->Id değeri buraya kaydedilecek."Cihazın yeri",cihazın içinde bulunduğu odayı temsil eder.Yani "Oda id" değerini burada tutacağız.Örn: Mutfak.
+	DeviceName
+	VirtualId	//Sanal kimlik.  6rakamlı_sayı + mac_adress  
+	IpAddress
+	MacAddress
+	DeviceType	//Cihaz tipi: Lamba,Anahtar,Piriz,..
+	DeviceTimeZone	//cihaz saat dilimi.
+	OnlineStatus	//Cihazın erişilebilir olup olmadığı:0=false,1=true. Bunun için "MQTT Keep Alive – PINGREQ & PINGRES" kullanılacaktır.
+	ItemSort	//Cihazların sırası değiştirilebilir. Dolayısıyla buradaki değer,ilgili Item'ın sırasıdır. Örneğin cihaz bulunduğu odadaki listede 2.sırada çıkacaksa bu değer "2" olmalıdır.
+
+//NOT:Cihaz oluşturulurken kullanılacak tablodur.Bu tabloya cihaz bilgileri ve cihaza erişecek hesabın id değeri (tblAccount->Id) tutulur. Böylelikle cihazın sahibi olan hesap(kime ait) belirlenmiş olur.
+Kullanıcı hesap "Aailesi" ailesini seçtiğinde,FamilyId'e göre cihazlar listelenir. Aileye ait cihazları filtrelemek için "FamilyId" eklendi.
+Kullanıcı hesap "Aodası"nı seçtiğinde,RoomId'e göre cihazlar listelenir.Odaya ait cihazları filtrelemek için "RoomId" eklendi.
+NOT:"VirtualId" değeri mac_addres başına eklenmiş birkaç haneli rakamdan oluşmaktadır. Bu kimlik cihazla mqtt arasındaki iletişim için kullanılabilir.
+    Örneğin: 101 + mac_address.  "101" değeri user Account Id değeri + mac_addressi şekilinde hazırlanabilir.
+Böylelikle cihazın mqtt arasındaki iletişim komutu daha kısa olur. Örn: "/101/mac_address/OFF"  Aksi halde şöyle olmalıdır: "/kerimfirat@gmail.com-veya telefon/mac_address/OFF"
+Böyle bir iletişim hali tercih edildiğinde,cihaz ekleme aşamasında cihaz tarafına Account yerine AccountId değeri gönderilmelidir.Böylece cihaz bu bilgiler doğrultusunda mqtt'ya subscribe/publisher olur.
+---------------------------------------------------------------
+//Aile:
+3-Tablo: tblFamily
+	Id
+	AccountId	//tblAccount->Id değeri buraya kaydedilecek.
+	FamilyName
+	RoomsId		//tblRoom->Id  //not: Aileye ait odaların id değerleri buraya eklenir.Oda Id değerleri string olarak örn: "1,2,5,6,8,12" şeklinde kaydedilir.
+	FamilyLocation  //Ailenin haritadaki konumu.
+
+//NOT:Hesap ilk olarak oluşturulurken bir Aile oluşturulması istenir.Kullanıcı bir aile ismi girer ve buradaki süreç tamamlanır.Ancak hemen akabinde buradaki "Id" değeri alınarak "tblFamilyMember" tablosuna kayıt girilir.
+Aynı zamanda "tblAccount->Id" değeri buraya kaydedilir ki aileye ait Id değerini doğru çekebilelim ve "tblFamilyMember" tablosunda kullanabilelim.
+//NOT: Aileye ait odaların id değerleri buraya eklenir.Oda Id değerleri string olarak örn: "1,2,5,6,8,12" şeklinde kaydedilir. 
+  Kullanıcı X ailesini seçtiğinde,o aileye ait odaların görüntülenebilmesi için "RoomsId" sutunundan çekilen bu id değerleri split(",") edilerek ve daha sonra "convert to int"  yapılarak tblRoom'da karşılığı çekilir.
+---------------------------------------------------------------
+//Aile Üyeleri:
+4-Tablo: tblFamilyMember
+	Id
+	FamilyId	//tblFamily->Id değeri buraya kaydedilecek.
+	AccountId	//tblAccount->Id değeri buraya kaydedilecek.  not:Aile üyesi hesap.
+	AccountIsAdmin	//Bu değerler aile üyesinin bu aile üzerindeki admin yetkisini belirler. Eğer admin=1,normal=0.
+
+//NOT:Bu tablo MobilApp'dan "Ev Yönetimi->Xaile->Aile Ayarları" sayfasında "Üye Ekle" buttonu ile Aileye üye eklemek için tasarlandı.Aile yöneticisi olan bir hesap,farklı bir TridentSmart hesabını buraya üye yapabilir ve yetki verebilir.
+İlk olarak aile "tblFamily" den oluşturulmaya başlanır ve paralel olarak buradaki süreç de tamamlanır. Bir Aileyi ilk oluşturan "Hesap" sahibi,aynı zamanda admin yetkisine sahip olarak o aileye üye yapılır.
+Admin yetkisine sahip hesap,aile ve aile bünyesinde bulunan cihazları ekleyebilir ve silebilir.Normal kullanıcı sadece cihazları işletebilir.
+Aileleri listelemek ve üzerinde işlem yapmak(admin ise) isteyen bir hesap sahibi,sorguyu ilk olarak bu tabloya çeker. Burdan aldığı "FamilyId" değeri ile "tblFamily->Id" ile where yaparak aile bilgisini çeker.
+Aynı zamanda bir aile silindiğinde(eğer o ailede başka bir admin yetkilisi hesap yok ise),aileye ait tüm cihazlar ve üyeler de silinir. Eğer o aileye ait admin yetkisine sahip başka bir üye hesap var ise,
+işlemi yapan admin yetkilisi üye kişi sadece kendini o aileden siler. Bu tablolar(tblFamily,tblFamilyMember) insert,update ve delete durumlarında ilişkili çalışır.
+---------------------------------------------------------------
+//Odalar:
+5-Tablo: tblRoom
+	Id
+	AccountId	//tblAccount->Id değeri buraya kaydedilecek. 
+	FamilyId	//tblFamily->Id değeri buraya kaydedilecek.
+	RoomName
+	ItemSort 	//Odaların sırası değiştirilebilir. Dolayısıyla buradaki değer,ilgili Item'ın sırasıdır. Örneğin oda listede 2.sırada çıkacaksa bu değer "2" olmalıdır.
+//NOT:
+---------------------------------------------------------------
+//Cihazları Rahatsız Etmeyin:
+6-Tablo: tblDontDisturbDevices
+	Id
+	AccountId	//tblAccount->Id değeri buraya kaydedilecek.
+	Title		//örn:Zaman Bölümünü Rahatsız Etmeyin1. Buraya varchar olarak sayı(rahatsız etme sayısı) girilecek.
+	TimeStart	//Alarmın otomatik başlayacağı zaman. örn: 12:05
+	TimeEnd		//Alarmın otomatik biteceği zaman.    örn: 12:30
+        DevicesId	//tblDevices->Id  not: Cihazların id değerleri buraya eklenir.Cihazların Id değerleri string olarak örn: "1,2,5,6,8,12" şeklinde kaydedilir.
+	Monday		//Pzts.
+	Tuesday		//Sal.
+	Wednesday	//Çarş.
+	Thursday	//Perş.
+	Friday		//Cum.
+	Saturday	//Cmrts.
+	Sunday		//Paz.
+
+//NOT: "Me"tab->Mesaj Merkezi->Ayarlar.
+Belirlenen zaman dilimleri arasında,belirlenen cihazların rahatsız edilmemesi...
+//NOT: Cihazların id değerleri buraya eklenir.Cihazların Id değerleri string olarak örn: "1,2,5,6,8,12" şeklinde kaydedilir. 
+ Kullanıcı "Zaman bölümünü rahat etmeyin_X" seçtiğinde,"DevicesId" sutunundan çekilen bu id değerleri split(",") edilerek ve daha sonra "convert to int"  yapılarak cihazların listelendiği listede ilgili id değerine sahip cihaz Checkbox işaretlenir. Ayrıca bir senaryo veya otomasyon vb. tetikleneceği zaman,sunucu tarafında da bu değerler aynı şekilde kontrol edilerek buna göre cihazlar işletilir.
+//NOT:Title row'a varchar olarak "rahatsız etme sayısı" varchar olarak girilecek. Bu değer çekilerek mobil app. tarafında "Zaman Bölümü Rahatsız EtmeyinX" şeklinde birleştirilecek.
+
+---------------------------------------------------------------
+//Mesaj Merkezi = Alarm,Bildirimler:
+7-Tablo: tblMessageCenter
+	Id
+	AccountId	//tblAccount->Id değeri buraya kaydedilecek.	
+	Message
+	MessageDateTime	//20-12-2020 14:45
+	MessageType	//Alarm=1,Aile=2,Bildirim=3
+
+//NOT:Ürün ve cihazlarla ilgili bildirimler vb. 
+Mobil app yeni versiyonunda,cihazlara ait senaryoların işletilmesiyle ilgili bildirimler de bu tabloda yer alacak. Örneğin saat 07:10 da bir lamba ON yapılmak için Schedule yapılmışsa,o saat geldiğinde Schedule işletildiğinde buraya bildirim eklenir ve kullanıcıya gösterilir.
+---------------------------------------------------------------
+//Yardım Merkezi:
+8-Tablo: tblHelpCenter
+	Id
+	Title		//Yardım konu başlığı
+	ContentPath	//html sayfa path.		
+
+//NOT:Yardım merkezinde Cihazlar/ürünler ile ilgili "Yardım" konu başlıkları tutulur.
+Yardım içerikleri html sayfası olarak App. proje içinde(belki serverdan tutarız ordan url ile görüntülenir) yer alacak ve ordan görüntülenecek.
+Yardım sayfaları html olarak kullanılacak çünkü içeriğinde resimlerle tarif vb. bulunacak.
+Yardım sayfaları genel olduğu için kullanıcıyla vb. ilişkili olmayacak.
+---------------------------------------------------------------
+//Geri Bildirim:
+9-Tablo: tblFeedback
+	Id
+	AccountId	//tblAccount->Id değeri buraya kaydedilecek.
+	Content
+	FbDateTime
+
+//NOT:Kullanıcı tarafından gönderilen geri bildirimler.Kullanıcı kendi "Feedback"'larını görüntüleyebilir.
+ Me->Yardım Merkezi->Geri Bildirim.
+---------------------------------------------------------------
+//Schedule-Program,
+10-Tablo: tblSchedule
+	Id
+	AccountId	//tblAccount->Id değeri buraya kaydedilecek.
+	DeviceId	//tblDevice->Id	değeri buraya kaydedilecek.
+	ScheduleTime	//18:30  //sadece saat.
+	Switch		//yapılacak işlem. ON/OFF
+	IsActive	//Schedule aktif/deaktif??.
+	Monday		//Pzrt.
+	Tuesday		//Sal.
+	Wednesday	//Çarş.
+	Thursday	//Perş.
+	Friday		//Cum.
+	Saturday	//Cmrts.
+	Sunday		//Paz.
+	OnlyOnce	//"Sadece bir kez" çalış sonra IsActive = 0 yap.
+
+//NOT:  Lamba,vb. belirlenen zaman-saate işletilmesi. Lamba ekranından "Schedule" tab ile Schedule sayfasında ilgili cihaza yönelik "program ekle" yapılır.Bu sayfaya cihaza ait ON/OFF yönetim penceresi üzerinden gidildiği için,
+schedule sayfasında da ilgili cihaza yönelik scheduleler listelenir.
+//NOT: "OnlyOnce" row,hiç bir gün belirtilmemişse bu değer 1 yapılarak aktiftir. Yani sadece bir kez çalışır. Eğer herhangi bir gün veya günler seçilmişse,bu değer 0 dır.
+---------------------------------------------------------------
+//Scenario-Senaryo
+11-Tablo: tblScenario
+	Id
+	AccountId	//tblAccount->Id değeri buraya kaydedilecek.
+	FamilyId	//tblFamily->Id	 değeri buraya kaydedilecek.
+	Name		//senaryo adı
+	CoverImage	//Kapak resmi.Kapak resimleri proje içinde tutulacak.Db'de sadece resim ismini temsilen int türünde bir değer tutulacaktır.Bu değer,proje içinde tutulan "Cover Imageler" array'a index şeklinde verilerek çağrılır.
+	ShowOnMainPage	//Anasayfada göster. 0,1.
+	ItemSort 	//senaryoların sırası değiştirilebilir. Dolayısıyla buradaki değer,ilgili Item'ın sırasıdır. Örneğin Xsenaryo listede 2.sırada çıkacaksa bu değer "2" olmalıdır.
+//NOT:Senaryolar "Smart->Görünüm" kısmında sıralanır. Senaryolar 2 tabloda tutulur. Bu 1.tablo(tblScenario) üst tablodur. Diğeri(2.tablo) ise "tblScenarioSub" ismindedir ve senaryoya ait cihaz,gecikme,otomasyon vb gibi 
+detayların girildiği tablodur.
+CoverImage'de projede tutulan "Cover Image" array'a index değerine karşılık değer tutulacak. Örn:2. Bu değer çekilerek "Cover Image" array'a index verilerek Scenario'ya Cover resmi yapılır.
+---------------------------------------------------------------
+//Scenario-Senaryo,alt tablosu
+12-Tablo: tblScenarioSub
+	Id
+	AccountId	//tblAccount->Id değeri buraya kaydedilecek. 
+	ScenarioId	//tblScenario->Id değeri buraya kaydedilecek.
+	ActionType	//Barındırdığı işlem tipi. örn:"device","automation","time_lapse"
+	DeviceId	//tblDevice->Id	değeri buraya kaydedilecek. not:eğer senaryoya bir cihaz eklenmişse cihaza ait Id değeri buraya kaydedilir.Bu değerle tblDevice'den cihaz çekilir.
+	DeviceSwitch	//Cihaza ait switch değeri girilir. ON/OFF
+	AutomationId	//tblAutomation->Id değeri buraya kaydedilecek. not:Senaryoya otomasyon eklendiğinde seçilen otomasyona ait id değeri buraya kaydedilir.Bu değerle "tblAutomation"'dan otomasyon çekilir.
+	TimeLapseValue	//"Time-Lapse" eklendiğinde buraya saat değeri girilir. Örn: 18dk30sn
+	Command		//Eğer Device eklendiyse buraya çalıştırma komutu girilecek. örn: "/hesap/devicexx/ON"
+	ItemSort	//Senaryo içeriğinde sırayla çalışacak Item'lerin sırası değiştirilebilir. Dolayısıyla buradaki değer,ilgili Item'ın sırasıdır. Örneğin Cihaz 2.sırada çalışacaksa bu değer "2" olmalıdır.
+
+//NOT:Senaryo'ya ait iki tablo(tblScenario,tblScenarioSub) ilişkili çalışır.Üst tabloya,senaryoyla ilgili temel bilgiler girilir. Sub tablosuna senaryoyla ilgili Item'lar girilir. 
+Senaryoya "Device(lamp,wall plug),Time-Lapse(gecikme),Otomasyonlar" senaryo işlemi olarak eklenebilir.Bunların herbiri bir Item olarak senaryoda yer alır.Ayrıca Item'ların çalışma sıraları değiştirilebilir.
+---------------------------------------------------------------
+//Automation-Otomasyon
+13-Tablo: tblAutomation
+	Id
+	AccountId	   //tblAccount->Id değeri buraya kaydedilecek.
+        FamilyId	//tblFamily->Id	 değeri buraya kaydedilecek.
+	Name		   //Otomasyon adı
+	CoverImage	   //Kapak resmi.Kapak resimleri proje içinde tutulacak.Db'de sadece resim ismini temsilen int türünde bir değer tutulacaktır.Bu değer,proje içinde tutulan "Cover Imageler" array'a index şeklinde verilerek çağrılır.
+	AutomationCondition //"Tüm koşullar karşılandığında=all","koşullardan herhangi biri karşılandığında=any"
+	ValidTimePeriod	  //TamGün=24 saat,
+			    Gün=gündoğumdan günbatımına kadar,
+			    Gece=günbatımından gündoğumuna kadar,
+			    Özelleştir=12:00-15:14
+
+//NOT:Otomasyon işlevi 5 adet tabloyla ilişkili çalışır.
+1)tblAutomation                        = Genel bilgileri barındırır.
+2)tblAutomationOperations              = işlemler barındırır. Device,Time-Lapse,Otomasyon.
+3)tblAutomationRepeat                  = Geçerlilik zaman bölümüyle ilişkili çalışan "Tekrarla" içeriği. Otomasyonun tekrarlanacağı zaman dilimi.
+4)tblAutomationCondition               = Koşullar-Şartlar. Örn:Hava kalitesi,Sıcaklık,etc.
+5)tblAutomationConditionScheduleRepeat = Koşullar "Program(schedule)"'a ait "Tekrarla(Repeat)" içeriklerini barındır.
+---------------------------------------------------------------
+//Automation-Otomasyon "İşlemleri"
+14-Tablo: tblAutomationOperations
+	Id
+	AccountId	//tblAccount->Id değeri buraya kaydedilecek. 
+	AutomationId	   //tblAutomation->Id değeri buraya kaydedilecek. İşlemin hangi otomasyona ait olduğunu tesbit etmek.
+	ActionType	  //Barındırdığı işlem tipi. örn:"device","automation","time_lapse"
+	DeviceId	   //tblDevice->Id değeri buraya kaydedilecek. not:eğer otomasyona bir cihaz eklenmişse cihaza ait Id değeri buraya kaydedilir.Bu değerle tblDevice'den cihaz çekilir.
+	DeviceSwitch	   //Cihaza ait switch değeri girilir. ON/OFF
+	AutomationIdAssign //tblAutomation->Id not:Bir otomasyona başka bir otomasyon gösterilebilir.İşlemler için başka otomasyon eklenmişse,ilgili otomasyon Id değeri buraya kaydedilir.
+	TimeLapse	   //Eğer "Time-Lapse" eklenmişse buradaki değer "time_lapse" şeklinde içerik tutar. Yani TimeLapse'ye ait tip değeri.
+	TimeLapseValue	  //"Time-Lapse" eklendiğinde buraya saat değeri girilir. Örn: 18dk30sn
+	Command		  //Eğer Device eklendiyse buraya çalıştırma komutu girilecek. örn: "/hesap/devicexx/ON"
+	ItemSort	  //Senaryo içeriğinde sırayla çalışacak Item'lerin sırası değiştirilebilir. Dolayısıyla buradaki değer,ilgili Item'ın sırasıdır. Örneğin Cihaz 2.sırada çalışacaksa bu değer "2" olmalıdır.
+
+//NOT:Bu tabloya "İşlemler(Device,Time-Lapse,Otomasyon)" eklenir.Dolayısıyla otomasyonda çalışacak cihaz,otomasyon vb. işlemleri tblAutomation tablosuna ilişkili olarak çalışır.
+-"İşlemlere" Cihaz eklenmişse "DeviceId" ve "DeviceSwitch" row'lara değer girilir.
+-"İşlemlere" bir otomasyon eklenirse,ilgili otomasyonun Id'si "AutomationIdAssign" row'a eklenir.
+-"İşlemlere" bir Time-Lapse eklenirse,"TimpeLapse" row'a "time_lapse" değeri girilir(Mobil App'da Time-Lapse'nin static değeri type olarak tutulur) ve "TimeValue" row'a gecikme değeri(10dk15sn) girilir.
+-"ItemSort" ise "İşlemler" item'in çalışma sırasını belirler. 
+---------------------------------------------------------------
+//Automation-Otomasyon Geçerlilik Zaman Bölümü-Tekrarla
+15-Tablo: tblAutomationRepeat
+	Id
+	AccountId	//tblAccount->Id değeri buraya kaydedilecek. 
+	AutomationId	//tblAutomation->Id değeri buraya kaydedilecek. Row'un hangi otomasyona ait olduğunu tesbit etmek.
+	Monday		//Pzrt.
+	Tuesday		//Sal.
+	Wednesday	//Çarş.
+	Thursday	//Perş.
+	Friday		//Cum.
+	Saturday	//Ctsi.
+	Sunday		//Paz.
+//NOT:Otomasyona ait "Geçerlilik Zaman Bölümü"ne ait gün belirtimleri bu tabloda tutulur. Yine aynı şekilde tblAutomation tablosuyla ilişkili çalışır.
+Otomasyonun geçerli olduğu zaman bölümü(dilimi-aralığı).
+---------------------------------------------------------------
+//Automation-Otomasyon Condition(Koşullar)
+16-Tablo: tblAutomationCondition
+	Id
+	AccountId	//tblAccount->Id değeri buraya kaydedilecek. 
+	AutomationId		//tblAutomation->Id değeri buraya kaydedilecek. Row'un hangi otomasyona ait olduğunu tesbit etmek.
+	ConditionName		//Koşul isimleri rakamla temsil edilir. 1=Sıcaklık,2=Nem,3=Hava,4=Hava Kalitesi,5=Gün Doğumu/Batımı,6=Program(schedule),7=Cihaz.
+	ConditionValue		//Koşul değerleri.
+	DeviceId		//tblDevice->Id değeri buraya kaydedilecek. not:eğer otomasyon koşullarına bir cihaz eklenmişse cihaza ait Id değeri buraya kaydedilir.Bu değerle tblDevice'den cihaz çekilir.
+	DeviceSwitch		//Cihaza ait switch değeri girilir. ON/OFF
+	CurrentCity		//Mevcut şehir.
+
+//NOT:Otomasyon içinde yer  alan "Koşullar" bu tabloda yer alır. Otomasyonda bulunan koşullar çeşitli yapıda olabilir.Örneğin "Sıcaklık" için tutulan değer ile "Hava" koşul değerleri aynı yapıda değildir.
+      Bu nedenle ortak şekilde "NameRepresentation" başlığı altında "Koşul" ismini temsilen sayısal değerler tutulacaktır.
+      Bu değerler şöyle olmalıdır:
+      1=Sıcaklık
+      2=Nem	
+      3=Hava
+      4=Hava Kalitesi
+      5=Gün Doğumu/Gün Batımı
+      6=Program(schedule)     //Buna ilişkili olarak saat ve gün değerleri çalışacağı için ayrı bir tabloyla buna destek verilecek.
+      7=Cihaz                 //DeviceId de tutulacak cihazId değeri ile otomasyona koşul olarak eklenen cihaza erişilir.
+Ayrıca "NameRepresentation" row'a göre "Value" row da barındırabileceği değerler şöyledir:
+NameRepresentation|Value
+	1	    <45        //1=Sıcaklık Küçüktür(<) 45c.
+	1           =40        //1=Sıcaklık eşittir(=) 40
+	1           >35	       //1=Sıcaklık büyüktür(>) 35
+	2           1          //2=Nem,value=1(Rahat),value=2(Kuru),value=3(Nemli)
+	3           1          //3=Hava,value=1(Bulutlu),value=2(Güneşli),value=3(karlı),value=4(puslu),value=5(yağmurlu)
+	4           1          //4=Hava Kalitesi, value=1(Mükemmel),value=2(iyi),value=3(kirlilik)
+	5           1	       //5=Gün Doğumu/Gün Batımı,value=1(Gündoğumu),value=2(Günbatımı)
+	6	    15:20      //6=Program,value=15:20(saat)
+	7           -	       //7=Cihaz,value=-(nothing). not:"7" değeri "cihazı" temsil eder.Bu durumda "DeviceId" row'a tblDevice->Id değeri girilir.
+---------------------------------------------------------------
+//Automation-Otomasyon Program(Schedule) Tekrarla:
+17-Tablo: tblAutomationConditionScheduleRepeat
+	Id
+	AccountId	//tblAccount->Id değeri buraya kaydedilecek. 
+	AutomationId	//tblAutomation->Id değeri buraya kaydedilecek. Koşul'un hangi otomasyona ait olduğunu tesbit etmek.
+	ConditionId	//tblAutomationCondition->Id değeri buraya kaydedilecek. İlgili Koşulun Id değeri buraya kaydedilecek.Böylelikle bu schedule repeat hangi koşula ait olduğu anlaşılır.
+	Monday		//Pzrt.
+	Tuesday		//Sal.
+	Wednesday	//Çarş.
+	Thursday	//Perş.
+	Friday		//Cum.
+	Saturday	//Ctsi.
+	Sunday		//Paz.
+
+//NOT:Bu tablo "tblAutomationCondition" tablosuyla ilişkili çalışacak. tblAutomationCondition tablosuna 6=Program(schedule) girildiğinde buraya da ilişkili olarak kayıt girilir.
+Girilen kayıt tblAutomationCondition tablosunda yer alan 6=Program(schedule) Item'ine ait repeat içeriğini barındıracaktır.
+---------------------------------------------------------------
+//Settings-Ayarlar:
+18-Tablo: tblSettings
+	Id
+	AccountId	//tblAccount->Id
+	DontDisturb	//Cihazları Rahatsız etmeyin durumu aktif veya pasif.  Aktif = 1, Pasif=0. Schedule işletileceği zaman bu değere bakılır. Eğer aktif ise,"Cihazları Rahatsız Etme" içeriğine bakılır.Cihaz varsa işletilmez.
+	Sound		//uygulama sesleri. NOT:Belkibu değeri telefon içinde tutuabiliriz.
+	PushNotification //Bildirimler	    NOT:Belki bu değeri telefon içinde tutabiliriz.
+
+//Mobil uygulamaya ait ayarlar buraya kaydedilir.
+---------------------------------------------------------------
+
+
+
+

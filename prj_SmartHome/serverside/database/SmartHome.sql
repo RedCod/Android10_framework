@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost
--- Üretim Zamanı: 10 Oca 2020, 16:22:20
+-- Üretim Zamanı: 13 Oca 2020, 16:21:40
 -- Sunucu sürümü: 10.4.8-MariaDB
 -- PHP Sürümü: 7.3.11
 
@@ -58,6 +58,7 @@ INSERT INTO `tblAccount` (`Id`, `Email`, `PhoneNumber`, `Password`, `Nickname`, 
 CREATE TABLE `tblAutomation` (
   `Id` int(11) NOT NULL,
   `AccountId` int(11) DEFAULT NULL,
+  `FamilyId` int(11) DEFAULT NULL,
   `Name` varchar(150) DEFAULT NULL,
   `CoverImage` int(11) DEFAULT NULL,
   `AutomationCondition` varchar(10) DEFAULT NULL,
@@ -111,11 +112,13 @@ CREATE TABLE `tblAutomationOperations` (
   `Id` int(11) NOT NULL,
   `AccountId` int(11) DEFAULT NULL,
   `AutomationId` int(11) DEFAULT NULL,
+  `ActionType` varchar(25) DEFAULT NULL,
   `DeviceId` int(11) DEFAULT NULL,
   `DeviceSwitch` varchar(10) DEFAULT NULL,
   `AutomationIdAssign` int(11) DEFAULT NULL,
   `TimeLapse` varchar(10) DEFAULT NULL,
   `TimeLapseValue` varchar(15) DEFAULT NULL,
+  `Command` varchar(50) DEFAULT NULL,
   `ItemSort` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -363,8 +366,16 @@ CREATE TABLE `tblScenarioSub` (
   `DeviceSwitch` varchar(10) DEFAULT NULL,
   `AutomationId` int(11) DEFAULT NULL,
   `TimeLapseValue` varchar(15) DEFAULT NULL,
+  `Command` varchar(50) DEFAULT NULL,
   `ItemSort` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Tablo döküm verisi `tblScenarioSub`
+--
+
+INSERT INTO `tblScenarioSub` (`Id`, `AccountId`, `ScenarioId`, `ActionType`, `DeviceId`, `DeviceSwitch`, `AutomationId`, `TimeLapseValue`, `Command`, `ItemSort`) VALUES
+(1, 1, 1, 'device', 4, 'ON', 0, '0', '/kerimfirathesap/device1macadresss/ON', 1);
 
 -- --------------------------------------------------------
 
@@ -646,7 +657,7 @@ ALTER TABLE `tblScenario`
 -- Tablo için AUTO_INCREMENT değeri `tblScenarioSub`
 --
 ALTER TABLE `tblScenarioSub`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblSchedule`
