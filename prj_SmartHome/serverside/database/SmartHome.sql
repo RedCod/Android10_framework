@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost
--- Üretim Zamanı: 13 Oca 2020, 16:21:40
+-- Üretim Zamanı: 14 Oca 2020, 16:29:51
 -- Sunucu sürümü: 10.4.8-MariaDB
 -- PHP Sürümü: 7.3.11
 
@@ -75,7 +75,7 @@ CREATE TABLE `tblAutomationCondition` (
   `Id` int(11) NOT NULL,
   `AccountId` int(11) DEFAULT NULL,
   `AutomationId` int(11) DEFAULT NULL,
-  `ConditionName` varchar(15) DEFAULT NULL,
+  `ConditionType` varchar(15) DEFAULT NULL,
   `ConditionValue` varchar(50) DEFAULT NULL,
   `DeviceId` int(11) DEFAULT NULL,
   `DeviceSwitch` varchar(10) DEFAULT NULL,
@@ -116,7 +116,6 @@ CREATE TABLE `tblAutomationOperations` (
   `DeviceId` int(11) DEFAULT NULL,
   `DeviceSwitch` varchar(10) DEFAULT NULL,
   `AutomationIdAssign` int(11) DEFAULT NULL,
-  `TimeLapse` varchar(10) DEFAULT NULL,
   `TimeLapseValue` varchar(15) DEFAULT NULL,
   `Command` varchar(50) DEFAULT NULL,
   `ItemSort` int(11) DEFAULT NULL
@@ -351,6 +350,14 @@ CREATE TABLE `tblScenario` (
   `ItemSort` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Tablo döküm verisi `tblScenario`
+--
+
+INSERT INTO `tblScenario` (`Id`, `AccountId`, `FamilyId`, `Name`, `CoverImage`, `ShowOnMainPage`, `ItemSort`) VALUES
+(1, 1, 1, 'Senaryo1', 15, 1, 1),
+(2, 1, 1, 'Senaryo2', 16, 1, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -375,7 +382,8 @@ CREATE TABLE `tblScenarioSub` (
 --
 
 INSERT INTO `tblScenarioSub` (`Id`, `AccountId`, `ScenarioId`, `ActionType`, `DeviceId`, `DeviceSwitch`, `AutomationId`, `TimeLapseValue`, `Command`, `ItemSort`) VALUES
-(1, 1, 1, 'device', 4, 'ON', 0, '0', '/kerimfirathesap/device1macadresss/ON', 1);
+(1, 1, 1, 'device', 4, 'ON', 0, '0', '/kerimfirathesap/device1macadresss/ON', 1),
+(2, 1, 1, 'device', 44, 'OFF', 0, '0', '/virtualaddress/OFF', 2);
 
 -- --------------------------------------------------------
 
@@ -651,13 +659,13 @@ ALTER TABLE `tblRoom`
 -- Tablo için AUTO_INCREMENT değeri `tblScenario`
 --
 ALTER TABLE `tblScenario`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblScenarioSub`
 --
 ALTER TABLE `tblScenarioSub`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblSchedule`
