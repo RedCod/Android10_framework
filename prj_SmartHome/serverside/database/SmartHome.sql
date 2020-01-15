@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost
--- Üretim Zamanı: 14 Oca 2020, 16:29:51
+-- Üretim Zamanı: 15 Oca 2020, 16:13:18
 -- Sunucu sürümü: 10.4.8-MariaDB
 -- PHP Sürümü: 7.3.11
 
@@ -62,7 +62,17 @@ CREATE TABLE `tblAutomation` (
   `Name` varchar(150) DEFAULT NULL,
   `CoverImage` int(11) DEFAULT NULL,
   `AutomationCondition` varchar(10) DEFAULT NULL,
-  `ValidTimePeriod` varchar(50) DEFAULT NULL
+  `ValidTimePeriod` varchar(50) DEFAULT NULL,
+  `CurrentCity` varchar(50) DEFAULT NULL,
+  `IsActive` int(11) DEFAULT 1,
+  `ItemSort` int(11) DEFAULT NULL,
+  `Monday` int(11) DEFAULT NULL,
+  `Tuesday` int(11) DEFAULT NULL,
+  `Wednesday` int(11) DEFAULT NULL,
+  `Thursday` int(11) DEFAULT NULL,
+  `Friday` int(11) DEFAULT NULL,
+  `Saturday` int(11) DEFAULT NULL,
+  `Sunday` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -119,25 +129,6 @@ CREATE TABLE `tblAutomationOperations` (
   `TimeLapseValue` varchar(15) DEFAULT NULL,
   `Command` varchar(50) DEFAULT NULL,
   `ItemSort` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Tablo için tablo yapısı `tblAutomationRepeat`
---
-
-CREATE TABLE `tblAutomationRepeat` (
-  `Id` int(11) NOT NULL,
-  `AccountId` int(11) DEFAULT NULL,
-  `AutomationId` int(11) DEFAULT NULL,
-  `Monday` int(11) DEFAULT NULL,
-  `Tuesday` int(11) DEFAULT NULL,
-  `Wednesday` int(11) DEFAULT NULL,
-  `Thursday` int(11) DEFAULT NULL,
-  `Friday` int(11) DEFAULT NULL,
-  `Saturday` int(11) DEFAULT NULL,
-  `Sunday` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -490,12 +481,6 @@ ALTER TABLE `tblAutomationOperations`
   ADD PRIMARY KEY (`Id`);
 
 --
--- Tablo için indeksler `tblAutomationRepeat`
---
-ALTER TABLE `tblAutomationRepeat`
-  ADD PRIMARY KEY (`Id`);
-
---
 -- Tablo için indeksler `tblDevice`
 --
 ALTER TABLE `tblDevice`
@@ -599,12 +584,6 @@ ALTER TABLE `tblAutomationConditionScheduleRepeat`
 -- Tablo için AUTO_INCREMENT değeri `tblAutomationOperations`
 --
 ALTER TABLE `tblAutomationOperations`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Tablo için AUTO_INCREMENT değeri `tblAutomationRepeat`
---
-ALTER TABLE `tblAutomationRepeat`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

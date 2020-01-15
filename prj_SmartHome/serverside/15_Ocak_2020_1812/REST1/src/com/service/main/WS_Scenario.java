@@ -21,7 +21,7 @@ public class WS_Scenario {
 	 * @param CoverImage		//cover image index value as int.
 	 * @param ShowOnMainPage	//show on main page. 1 or 0.
 	 * @param ItemSort			//sorting number in scenario list. //listede kaçıncı sırada yer aldığı. 
-	 * @return					//return ScenarioId (tblScenario->Id) as JSON if adding is successful else return false. Because we will use this value for adding scenario sub process to tblScenarioSub.
+	 * @return					//return ScenarioId (tblScenario->Id) as JSON if adding is successful.Else return false. Because we will use this value for adding scenario sub process to tblScenarioSub.
 	 */
 	@GET
 	@Produces("application/json")
@@ -130,24 +130,23 @@ public class WS_Scenario {
 	 */
 	@GET
 	@Produces("application/json")
-	@Path("/EditScenarioAction/{ActionId}/{ActionType}/{DeviceVirtualAddress}/{DeviceSwitch}/{AutomationId}/{TimeLapseValue}/{ItemSort}")
+	@Path("/EditScenarioAction/{ActionId}/{DeviceVirtualAddress}/{DeviceSwitch}/{AutomationId}/{TimeLapseValue}/{ItemSort}")
     public Response EditScenarioAction(@PathParam("ActionId")int ActionId,
-    								   @PathParam("ActionType")String ActionType,
     								   @PathParam("DeviceVirtualAddress")String DeviceVirtualAddress,
     								   @PathParam("DeviceSwitch")String DeviceSwitch,
     								   @PathParam("AutomationId")int AutomationId,
     								   @PathParam("TimeLapseValue")String TimeLapseValue,
     								   @PathParam("ItemSort")int ItemSort) {
 		/*
-		 * http://localhost:8080/REST1/Scenario/EditScenarioAction/2/device/virtualaddress/OFF/0/0/2
+		 * http://localhost:8080/REST1/Scenario/EditScenarioAction/2/virtualaddress/OFF/0/0/2
 		 */
 		Scenario scenario = new Scenario();
-		String response = scenario.editScenarioAction(ActionId, ActionType,DeviceVirtualAddress, DeviceSwitch, AutomationId, TimeLapseValue, ItemSort);
+		String response = scenario.editScenarioAction(ActionId,DeviceVirtualAddress, DeviceSwitch, AutomationId, TimeLapseValue, ItemSort);
 		return Response.status(200).entity(response).build();
 	}
 	
 	/**
-	 * Get All Scenario as Items.
+	 * Get All Scenario as Items.(tüm senaryoları çek.senaryoları listelemek için)
 	 * @param AccountId	//which account
 	 * @param FamilyId  //which family
 	 * @return			//return All Scenario list as JSON.
@@ -185,7 +184,7 @@ public class WS_Scenario {
 	/**
 	 * Remove Scenario. Delete all related actions when scenario is deleted. (tblScenario,tblScenarioSub)
 	 * @param ScenarioId //which scenario.
-	 * @return			//return true(as JSON) if remove scenario successful.
+	 * @return			//return true(as JSON) if remove scenario is successful.
 	 */
 	@GET
 	@Produces("application/json")
@@ -202,7 +201,7 @@ public class WS_Scenario {
 	/**
 	 * Remove scenario action item. 
 	 * @param ActionId	//which action
-	 * @return			//return true(as JSON) if remove action successful.
+	 * @return			//return true(as JSON) if remove action is successful.
 	 */
 	@GET
 	@Produces("application/json")
@@ -219,7 +218,7 @@ public class WS_Scenario {
 	/**
 	 * Perform scenario. Senaryoyu gerçekleştir-işlet. (Bu süreç Server yazılımı tarafından "mqtt işlet motoru" olarak oluşturulmuş modül tarafından işletilecek.)
 	 * @param ScenarioId	//which scenario.
-	 * @return				//return Scenario Actions List as JSON. (senaryoda yer alan işlem itemleri liste olarak return et)
+	 * @return				//return Scenario Actions List as JSON. (senaryoda yer alan işlem itemleri liste olarak return et.)
 	 */
 	@GET
 	@Produces("application/json")

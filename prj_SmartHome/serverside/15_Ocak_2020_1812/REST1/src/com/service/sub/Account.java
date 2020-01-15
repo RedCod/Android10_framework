@@ -377,7 +377,6 @@ CREATE TABLE IF NOT EXISTS tblAccount (
             		  "tblScenarioSub",
             		  "tblAutomation",
             		  "tblAutomationOperations",
-            		  "tblAutomationRepeat",
             		  "tblAutomationCondition",
             		  "tblAutomationConditionScheduleRepeat",
             		  "tblSettings"

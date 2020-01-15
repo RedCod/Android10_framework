@@ -167,6 +167,16 @@ CREATE TABLE IF NOT EXISTS tblAutomation (
     CoverImage INT,
     AutomationCondition VARCHAR(10),
     ValidTimePeriod VARCHAR(50),
+    CurrentCity	VARCHAR(50),
+    IsActive INT DEFAULT 1,
+    ItemSort INT,
+    Monday INT,
+    Tuesday INT,
+    Wednesday INT,
+    Thursday INT,
+    Friday INT,
+    Saturday INT,
+    Sunday INT,
     PRIMARY KEY (Id)
 );
 
@@ -185,22 +195,8 @@ CREATE TABLE IF NOT EXISTS tblAutomationOperations (
     PRIMARY KEY (Id)
 );
 
-15:tblAutomationRepeat
-CREATE TABLE IF NOT EXISTS tblAutomationRepeat (
-    Id INT AUTO_INCREMENT,
-    AccountId INT,
-    AutomationId INT,
-    Monday INT,
-    Tuesday INT,
-    Wednesday INT,
-    Thursday INT,
-    Friday INT,
-    Saturday INT,
-    Sunday INT,
-    PRIMARY KEY (Id)
-);
 
-16:tblAutomationCondition
+15:tblAutomationCondition
 CREATE TABLE IF NOT EXISTS tblAutomationCondition (
     Id INT AUTO_INCREMENT,
     AccountId INT,
@@ -213,7 +209,7 @@ CREATE TABLE IF NOT EXISTS tblAutomationCondition (
     PRIMARY KEY (Id)
 );
 
-17:tblAutomationConditionScheduleRepeat
+16:tblAutomationConditionScheduleRepeat
 CREATE TABLE IF NOT EXISTS tblAutomationConditionScheduleRepeat (
     Id INT AUTO_INCREMENT,
     AccountId INT,
@@ -229,7 +225,7 @@ CREATE TABLE IF NOT EXISTS tblAutomationConditionScheduleRepeat (
     PRIMARY KEY (Id)
 );
 
-18:tblSettings
+17:tblSettings
 CREATE TABLE IF NOT EXISTS tblSettings (
     Id INT AUTO_INCREMENT,
     AccountId INT,

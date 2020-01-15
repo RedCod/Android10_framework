@@ -201,7 +201,6 @@ CREATE TABLE IF NOT EXISTS tblScenarioSub (
 	/**
 	 * Edit Scenario Action.
 	 * @param actionId			//which action
-	 * @param actionType		//determines the type of action. this value should be:"device","automation","time_lapse",...
 	 * @param DeviceVirtualAddress //device virtual address.  produce: maccaddres+deviceId
 	 * @param deviceSwitch		//device switch state:ON/OFF if device is editing.
 	 * @param automationId      //automation Id value. if automation is editing.
@@ -210,7 +209,6 @@ CREATE TABLE IF NOT EXISTS tblScenarioSub (
 	 * @return					//return true(as JSON) if edit scenario action successful.
 	 */
 	public String editScenarioAction(int actionId,
-			                         String actionType,
 			                         String deviceVirtualAddress,
 			                         String deviceSwitch,
 			                         int automationId,
@@ -218,7 +216,7 @@ CREATE TABLE IF NOT EXISTS tblScenarioSub (
 			                         int itemSort) {
 		String response = "{\"EditScenarioAction\":[{ \"response\":false}]}";
 		String produce_command = "/"+deviceVirtualAddress+"/" +deviceSwitch; //exp: "/devicevirtualaddress/ON"
-		String sql = "UPDATE tblScenarioSub SET ActionType='" + actionType+"',DeviceSwitch='"+deviceSwitch+"',AutomationId='"+automationId+"',TimeLapseValue='"+timeLapseValue+"',Command='"+produce_command +"',ItemSort='"+itemSort+"' WHERE Id='"+actionId+"'";
+		String sql = "UPDATE tblScenarioSub SET DeviceSwitch='"+deviceSwitch+"',AutomationId='"+automationId+"',TimeLapseValue='"+timeLapseValue+"',Command='"+produce_command +"',ItemSort='"+itemSort+"' WHERE Id='"+actionId+"'";
 		Database database = new Database();
 		try {
 			database.connect();

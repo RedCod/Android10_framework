@@ -195,13 +195,24 @@ Senaryoya "Device(lamp,wall plug),Time-Lapse(gecikme),Otomasyonlar" senaryo işl
 			    Gün=gündoğumdan günbatımına kadar,
 			    Gece=günbatımından gündoğumuna kadar,
 			    Özelleştir=12:00-15:14
-
+	CurrentCity	//mevcut şehir
+	IsActive	//Otomasyon aktif mi? aktif = 1, pasif = 0
+        ItemSort	//Otomasyon içeriğinde sırayla çalışacak Item'lerin sırası değiştirilebilir. Dolayısıyla buradaki değer,ilgili Item'ın sırasıdır. Örneğin XOtomasyon 2.sırada yer alıyorsa bu değer "2" olmalıdır.
+	Monday		//Pzrt.
+	Tuesday		//Sal.
+	Wednesday	//Çarş.
+	Thursday	//Perş.
+	Friday		//Cum.
+	Saturday	//Ctsi.
+	Sunday		//Paz.
 //NOT:Otomasyon işlevi 5 adet tabloyla ilişkili çalışır.
 1)tblAutomation                        = Genel bilgileri barındırır.
 2)tblAutomationOperations              = işlemler barındırır. Device,Time-Lapse,Otomasyon.
-3)tblAutomationRepeat                  = Geçerlilik zaman bölümüyle ilişkili çalışan "Tekrarla" içeriği. Otomasyonun tekrarlanacağı zaman dilimi.
 4)tblAutomationCondition               = Koşullar-Şartlar. Örn:Hava kalitesi,Sıcaklık,etc.
 5)tblAutomationConditionScheduleRepeat = Koşullar "Program(schedule)"'a ait "Tekrarla(Repeat)" içeriklerini barındır.
+
+//NOT:Otomasyona ait "Geçerlilik Zaman Bölümü" "ValidTimePeriod" row'da tutulur.
+//Tekrarla kısmı için günlere ait row'lar tanımlandı.
 ---------------------------------------------------------------
 //Automation-Otomasyon "İşlemleri"
 14-Tablo: tblAutomationOperations
@@ -222,23 +233,8 @@ Senaryoya "Device(lamp,wall plug),Time-Lapse(gecikme),Otomasyonlar" senaryo işl
 -"İşlemlere" bir Time-Lapse eklenirse,"TimpeLapse" row'a "time_lapse" değeri girilir(Mobil App'da Time-Lapse'nin static değeri type olarak tutulur) ve "TimeValue" row'a gecikme değeri(10dk15sn) girilir.
 -"ItemSort" ise "İşlemler" item'in çalışma sırasını belirler. 
 ---------------------------------------------------------------
-//Automation-Otomasyon Geçerlilik Zaman Bölümü-Tekrarla
-15-Tablo: tblAutomationRepeat
-	Id
-	AccountId	//tblAccount->Id değeri buraya kaydedilecek. 
-	AutomationId	//tblAutomation->Id değeri buraya kaydedilecek. Row'un hangi otomasyona ait olduğunu tesbit etmek.
-	Monday		//Pzrt.
-	Tuesday		//Sal.
-	Wednesday	//Çarş.
-	Thursday	//Perş.
-	Friday		//Cum.
-	Saturday	//Ctsi.
-	Sunday		//Paz.
-//NOT:Otomasyona ait "Geçerlilik Zaman Bölümü"ne ait gün belirtimleri bu tabloda tutulur. Yine aynı şekilde tblAutomation tablosuyla ilişkili çalışır.
-Otomasyonun geçerli olduğu zaman bölümü(dilimi-aralığı).
----------------------------------------------------------------
 //Automation-Otomasyon Condition(Koşullar)
-16-Tablo: tblAutomationCondition
+15-Tablo: tblAutomationCondition
 	Id
 	AccountId	//tblAccount->Id değeri buraya kaydedilecek. 
 	AutomationId		//tblAutomation->Id değeri buraya kaydedilecek. Row'un hangi otomasyona ait olduğunu tesbit etmek.
@@ -271,7 +267,7 @@ NameRepresentation|Value
 	7           -	       //7=Cihaz,value=-(nothing). not:"7" değeri "cihazı" temsil eder.Bu durumda "DeviceId" row'a tblDevice->Id değeri girilir.
 ---------------------------------------------------------------
 //Automation-Otomasyon Program(Schedule) Tekrarla:
-17-Tablo: tblAutomationConditionScheduleRepeat
+16-Tablo: tblAutomationConditionScheduleRepeat
 	Id
 	AccountId	//tblAccount->Id değeri buraya kaydedilecek. 
 	AutomationId	//tblAutomation->Id değeri buraya kaydedilecek. Koşul'un hangi otomasyona ait olduğunu tesbit etmek.
@@ -288,7 +284,7 @@ NameRepresentation|Value
 Girilen kayıt tblAutomationCondition tablosunda yer alan 6=Program(schedule) Item'ine ait repeat içeriğini barındıracaktır.
 ---------------------------------------------------------------
 //Settings-Ayarlar:
-18-Tablo: tblSettings
+17-Tablo: tblSettings
 	Id
 	AccountId	//tblAccount->Id
 	DontDisturb	//Cihazları Rahatsız etmeyin durumu aktif veya pasif.  Aktif = 1, Pasif=0. Schedule işletileceği zaman bu değere bakılır. Eğer aktif ise,"Cihazları Rahatsız Etme" içeriğine bakılır.Cihaz varsa işletilmez.
