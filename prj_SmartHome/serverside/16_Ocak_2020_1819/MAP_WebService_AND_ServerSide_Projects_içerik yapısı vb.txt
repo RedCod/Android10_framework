@@ -1,0 +1,95 @@
+//jSmartHomeServerSide "Server" Java projesi içerik haritası(MAP).
+
++com.smart.main:
+	[-] = Main.java  //Projenin START aldığı class.
+
+
+
+
+
+
+===============================================================================
+//REST1 "Server" Java WebServis projesi içerik haritası(MAP).
+
++com.service.main://WebService Main
+	[+] = WS_Account.java	//Kullanıcı Hesap işlemleri(Login,Create,Edit,Forgot Password etc.). Web Service.
+ 	[+] = WS_Device.java	//Akıllı cihaz(device) işlemleri(Cihaz ekle,Edit,Sil-Kaldır). Web Service.
+	[+] = WS_Family.java	//Aile işlemleri(aile ekle,düzenle,sil) Web Service.
+	[+] = WS_FamilyMember.java //Aile üyeleriyle ilgili işlemler(üye oluştur,üye erişim izinleri,üyeyi sil,etc.). WebService
+	[+] = WS_Room.java	//Oda işlemleri(ekle,düzenle,sil,..) Web Service.
+	[+] = WS_DontDisturbDevices.java //Cihazları rahatsız etmeyin.
+	[+] = WS_MessageCenter.java	//Mesaj merkezi(ekle,düzenle,sil,etc.) Web Service.
+	[+] = WS_HelpCenter.java	//Yardım merkezi(ekle,düzenle,sil,etc.) Web Service.
+	[+] = WS_Feedback.java 		//Geri bildirim(ekle,düzenle,sil,etc.) Web service.
+	[+] = WS_Schedule.java		//Akıllı cihazlar için Zamanlama-Programlama(ekle,düzenle,sil,etc.)Web service.
+	[+] = WS_Scenario.java		//Akıllı cihazlar için senaryo oluşturma(ekle,düzenle,sil,etc.) Web Service.
+	[-] = WS_Automation.java	//Akıllı cihazlar için otomasyon oluşturma(ekle,düzenle,sil,etc.) Web Service.
+
++com.service.sub: //WebServiceSub
+	[+] = Account.java	//Kullanıcı Hesap işlemleri için web service alt işlemler.
+ 	[+] = Device.java	//Akıllı cihaz(device) işlemleri için web service alt işlemler.
+	[+] = Family.java	//Aile işlemleri için web service alt işlemler.
+	[+] = FamilyMember.java	//Aile üyeleriyle ilgili web service alt işlemleri.
+	[+] = Room.java		//Oda işlemleri(ekle,düzenle,sil,..).web service alt işlemleri.
+	[+] = DontDisturbDevices.java	//Cihazları rahatsız etmeyin.web service alt işlemleri.
+	[+] = MessageCenter.java	//Mesaj merkezi.web service alt işlemleri.
+	[+] = HelpCenter.java		//Yardım Merkezi.web service alt işlemleri.
+	[+] = Feedback.java		//Geri bildirim web service alt işlemleri.
+        [+] = Schedule.java		//Akıllı cihazlar için Zamanlama-Programlama web service alt işlemleri.
+	[+] = Scenario.java		//Akıllı cihazlar için senaryo oluşturma web service alt işlemleri.
+	[-] = Automation.java		//Akıllı cihazlar için otomasyon oluşturma web service alt işlemleri.
+
++com.database: //DATABASE
+	[+] = Database.java	//Veritabanı işlemleri için.
+
++com.common: //Ortak
+	[+] = Date.java //Tarih ile ilgili bilgileri elde etme.
+	[+] = Time.java //Zaman ile ilgili bilgileri elde etme.
+	[+] = Log.java 	//Proje içinde loglama ve Debug işlemlerini yönetmek.
+	[+] = ActionType.java	//İşlem tipleri(senaryo,otomasyon etc. içeriklerini ayrıştırma)
+	[+] = DeviceType.java	//Cihaz tiplerini tanımlama.(lamp,wall_plug,etc.)
+
++com.mqtt://MQTT ile ilgili işlemler,motor etc.
+	[-] = Mqtt.java	//Mqtt çalıştırma,komut çalıştırma etc.
+
+
+
+===============================================================================
+!!!!!!!!!!!!!!!!!!!!!!!!! NOTLAR !!!!!!!!!!!!!!!!!!!!!!!!!!!!! (Mobil App,WebService,ServerSide tarafları için):
+1=MOBİL APP tarafında login işlemi sırasında girilen kullanıcı adının email mi(içinde @ varsa emaildir),telefon numarası(hepsi rakam olmalı) mı olduğunu kontrol et.
+
+2=WebServis[not1]@{
+	+Hesap Oluşturma Aşaması+:
+	-Kullanıcının Tel veya Email'e bir doğrulama kodu gönder.
+	-Email'i ve doğrulama kodunu account tablosunda tut.
+	-Kullanıcı tarafından Doğrulama Kodu,Email/Telefon,password alarak yarım kalan hesabı oluştur.
+[not1]:@}
+WebServis[not 2]:@{
+	-Profil resmi upload webservis üzerinden şimdilik yapılamıyor(webservis üzerinden veya android tarafından farklı bir yol ile çözülecek).
+	-[24-12-2019 12:40] Pofil resmi app/telefon içinde kullanıcıya özel tutulacak. Servere upload edilmeyecek!
+[not 2]:@}
+
+3=Cihaz:"Cihaz Bilgiler" kısmında "Sinyal gücü" kısmı kaldırılacak. Not:tuya'da(güncel) yok.
+3=Cihaz: Bir cihazın online/offline olduğunu anlamak için "MQTT Keep Alive – PINGREQ & PINGRES" kullanılarak cihazın hayatta olduğunu belirlenir(dbye ilgili cihaz karşılığına durumu yaz). 
+         Böylelikle "Xcihaz=online" şeklinde kullanıcıya gösterilir.
+4=Cihaz: Cihazın son durumu:"açık/kapalı,lamba renk,ışık şiddeti,vb." gibi durumu "MQTT Retained Messages" ile sağlanacak. Böylelikle veritabanında cihaza ait bu bilgileri tutmamız gerekmez.
+	  Çünkü cihaza aç komutu örn: [ON,lambarenk,ışıkşiddeti,..] bu şekilde gönderilir.Bu mesaj cihaza ait topic'de "retained message" ile kalacaktır.Çihazı kapatırken de aynı mesaj alınıp üzerinde sadece "OFF" şeklinde değişiklik 		  yapılarak gönderilir. Böylelikle aynı cihazı kullanan 1'den fazla kullanıcı,cihazın son ayarı üzerinden devam edecektir.
+5=MOBİL APP tarafında Lamba aç/kapa sayfasındaki "Renkli" kısmına ait ve "Scene" kısmına ait renk seçimleri ve buna bağlı ayarlar(Bright,Colour Temp,vb.) kullanıcıya özeldir.Bu yüzden telefonda "Preference" olarak saklanacak.
+  Ancak son kullanılan renk ve ayar genel olmalıdır. Yani A kullanıcısı Renk=Kırmızı ve Bright=50 olarak ayarladığında,B kullanıcısı bunu kendi tarafında görmelidir. Bu da MQTT'nin "Retained Messages" özelliğiyle yapılacaktır.
+  Yani son yayınlanan mesaj,aynı topic'e bağlanan/sonradan bağlanan tüm clientlere aktarılır. "Retained Messages" özelliği,son mesajı yeni bir mesaj gelene kadar tutar.
+  Örn: Lamba aç sayfasına geçiş yapıldığında,retain message alınır(örnk: [OFF,Color,Brightseviyesi,ColourTemp,Saturation],son kullanımda lamba kapatılmış.). Bu mesaj şu şekilde düzenlenir ve gönderilir.
+  Örn:gönderi mesajı:[ON,Color,Brightseviyesi,ColourTemp,Saturation]. Burdaki "Saturation",beyaz ışık seçildiği durumlarda bu değer "0(sıfır)" olarak belirlenir. Eğer kullanıcı renkli ışık sekmesine veya Scene sekmesinden seçim yaparsa,
+  Preference ile tutulan kullanıcının seçimine göre ilgili mesaj gönderilir. Ayrıca kullanıcı renkli sekmede ve Scene sekmelerinde renk vb. değişikliği yaptığında,bu değerler preference'ye örn: Scene1,Scene2 şeklinde kaydedilecek.
+
+6=Serverside-cihaz:"Cihazları Rahatsız Etmeyin"(tblDontDisturbDevices)'da bulunan cihazların "Schedule" process'i çalışmaz.Schedule işletileceği zaman "tblDontDisturbDevices" tablosunda ilgili cihazın bulunup bulunmadığını kontrol ettir.
+		    Eğer cihaz varsa "Schedule" processi çalıştırma ve "tblSchedule"'da "Switch"'i o anda OFF yap.
+
+7=MOBİL APP:Scenario(Senaryo) ve Automation(Otomasyon) içeriklerine ait item'lar silinebilmelidir.Örn:Senaryo içinde yer alan bir cihaz item silinerek içerikten çıkartılabilir olmalıdır.Bu işlem için liste içinde Item sola doğru çekilerek veya Item içeriğine girerek ordan silinmesi için button konulmalıdır.
+
+8=MOBİL APP: Mobil App'dan senaryo ve otomasyon kaydedilirken,server tarafına cihazın mqtt tarafından çalıştırılabilmesi için gerekli komut "/accounthesap/cihazvirtualadress/ON" şekilinde olacağı için,server tarafına cihazın virtualId değerini de göndereceğiz.NOT:VirtualId değeri "macaddress+cihazId" değeri ile üretilir.
+
+9=MOBİL APP: Senaryo ve Otomasyonlara ait "Condition" ve "Action"'lar silinirken: Silinen Item Id değeri "SilinenlerList" içinde tutulacak.Nihayi olarak Senaryo/Otomasyon güncellendikten hemen sonra,bu liste içinde bulunan Id değerleriyle ilgili tablo içindekileri sil.
+
+
+
+

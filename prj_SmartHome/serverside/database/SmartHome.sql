@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost
--- Üretim Zamanı: 15 Oca 2020, 16:13:18
+-- Üretim Zamanı: 16 Oca 2020, 16:20:53
 -- Sunucu sürümü: 10.4.8-MariaDB
 -- PHP Sürümü: 7.3.11
 
@@ -89,27 +89,14 @@ CREATE TABLE `tblAutomationCondition` (
   `ConditionValue` varchar(50) DEFAULT NULL,
   `DeviceId` int(11) DEFAULT NULL,
   `DeviceSwitch` varchar(10) DEFAULT NULL,
-  `CurrentCity` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Tablo için tablo yapısı `tblAutomationConditionScheduleRepeat`
---
-
-CREATE TABLE `tblAutomationConditionScheduleRepeat` (
-  `Id` int(11) NOT NULL,
-  `AccountId` int(11) DEFAULT NULL,
-  `AutomationId` int(11) DEFAULT NULL,
-  `ConditionId` int(11) DEFAULT NULL,
-  `Monday` int(11) DEFAULT NULL,
-  `Tuesday` int(11) DEFAULT NULL,
-  `Wednesday` int(11) DEFAULT NULL,
-  `Thursday` int(11) DEFAULT NULL,
-  `Friday` int(11) DEFAULT NULL,
-  `Saturday` int(11) DEFAULT NULL,
-  `Sunday` int(11) DEFAULT NULL
+  `CurrentCity` varchar(50) DEFAULT NULL,
+  `Monday` int(11) DEFAULT -1,
+  `Tuesday` int(11) DEFAULT -1,
+  `Wednesday` int(11) DEFAULT -1,
+  `Thursday` int(11) DEFAULT -1,
+  `Friday` int(11) DEFAULT -1,
+  `Saturday` int(11) DEFAULT -1,
+  `Sunday` int(11) DEFAULT -1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -469,12 +456,6 @@ ALTER TABLE `tblAutomationCondition`
   ADD PRIMARY KEY (`Id`);
 
 --
--- Tablo için indeksler `tblAutomationConditionScheduleRepeat`
---
-ALTER TABLE `tblAutomationConditionScheduleRepeat`
-  ADD PRIMARY KEY (`Id`);
-
---
 -- Tablo için indeksler `tblAutomationOperations`
 --
 ALTER TABLE `tblAutomationOperations`
@@ -572,12 +553,6 @@ ALTER TABLE `tblAutomation`
 -- Tablo için AUTO_INCREMENT değeri `tblAutomationCondition`
 --
 ALTER TABLE `tblAutomationCondition`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Tablo için AUTO_INCREMENT değeri `tblAutomationConditionScheduleRepeat`
---
-ALTER TABLE `tblAutomationConditionScheduleRepeat`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
