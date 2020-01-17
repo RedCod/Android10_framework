@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost
--- Üretim Zamanı: 16 Oca 2020, 16:20:53
+-- Üretim Zamanı: 17 Oca 2020, 16:27:50
 -- Sunucu sürümü: 10.4.8-MariaDB
 -- PHP Sürümü: 7.3.11
 
@@ -75,6 +75,14 @@ CREATE TABLE `tblAutomation` (
   `Sunday` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Tablo döküm verisi `tblAutomation`
+--
+
+INSERT INTO `tblAutomation` (`Id`, `AccountId`, `FamilyId`, `Name`, `CoverImage`, `AutomationCondition`, `ValidTimePeriod`, `CurrentCity`, `IsActive`, `ItemSort`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday`, `Sunday`) VALUES
+(1, 1, 1, 'Otomasyon_1', 16, 'OR', '0', 'Istanbul', 0, 3, 1, 1, 1, 1, 1, 1, 1),
+(2, 1, 1, 'Otomasyon1', 14, 'any', 'tamgün', 'istanbul', 1, 1, 1, 1, 1, 1, 1, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -99,6 +107,14 @@ CREATE TABLE `tblAutomationCondition` (
   `Sunday` int(11) DEFAULT -1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Tablo döküm verisi `tblAutomationCondition`
+--
+
+INSERT INTO `tblAutomationCondition` (`Id`, `AccountId`, `AutomationId`, `ConditionType`, `ConditionValue`, `DeviceId`, `DeviceSwitch`, `CurrentCity`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday`, `Sunday`) VALUES
+(1, 1, 1, 'humidity', '44', 0, '-', 'istanbul', 0, 0, 0, 0, 0, 0, 0),
+(2, 1, 1, 'air_quality', 'ortakalite', 0, '-', 'istanbul', 1, 1, 1, 1, 1, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -117,6 +133,13 @@ CREATE TABLE `tblAutomationOperations` (
   `Command` varchar(50) DEFAULT NULL,
   `ItemSort` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Tablo döküm verisi `tblAutomationOperations`
+--
+
+INSERT INTO `tblAutomationOperations` (`Id`, `AccountId`, `AutomationId`, `ActionType`, `DeviceId`, `DeviceSwitch`, `AutomationIdAssign`, `TimeLapseValue`, `Command`, `ItemSort`) VALUES
+(1, 1, 1, 'device', 1, 'OFF', 0, '0:0', '/device_virtualaddress/OFF', 2);
 
 -- --------------------------------------------------------
 
@@ -145,6 +168,34 @@ CREATE TABLE `tblDevice` (
 INSERT INTO `tblDevice` (`Id`, `AccountId`, `FamilyId`, `DeviceLocation`, `DeviceName`, `VirtualId`, `IpAddress`, `MacAddress`, `DeviceType`, `DeviceTimeZone`, `ItemSort`) VALUES
 (1, 1, 1, 1, 'Lamba', '1fdfdbsfddmacaddress', '155.114.', 'macadrrss', 'lamp', 'istanbul', 3),
 (7, 1, 1, 1, 'lambam', 'fdr34343', '555.4.154.12', 'dfd5df5macadres', 'lamp', 'istanbul', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `tblDeviceGroup`
+--
+
+CREATE TABLE `tblDeviceGroup` (
+  `Id` int(11) NOT NULL,
+  `AccountId` int(11) DEFAULT NULL,
+  `FamilyId` int(11) DEFAULT NULL,
+  `GroupName` varchar(100) DEFAULT NULL,
+  `GroupLocation` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `tblDeviceGroupSub`
+--
+
+CREATE TABLE `tblDeviceGroupSub` (
+  `Id` int(11) NOT NULL,
+  `AccountId` int(11) DEFAULT NULL,
+  `GroupId` int(11) DEFAULT NULL,
+  `DeviceId` int(11) DEFAULT NULL,
+  `VirtualId` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -361,7 +412,8 @@ CREATE TABLE `tblScenarioSub` (
 
 INSERT INTO `tblScenarioSub` (`Id`, `AccountId`, `ScenarioId`, `ActionType`, `DeviceId`, `DeviceSwitch`, `AutomationId`, `TimeLapseValue`, `Command`, `ItemSort`) VALUES
 (1, 1, 1, 'device', 4, 'ON', 0, '0', '/kerimfirathesap/device1macadresss/ON', 1),
-(2, 1, 1, 'device', 44, 'OFF', 0, '0', '/virtualaddress/OFF', 2);
+(2, 1, 1, 'device', 44, 'OFF', 0, '0', '/virtualaddress/OFF', 2),
+(4, 1, 2, 'automation', 0, NULL, 1, '0', '-', 3);
 
 -- --------------------------------------------------------
 
@@ -468,6 +520,18 @@ ALTER TABLE `tblDevice`
   ADD PRIMARY KEY (`Id`);
 
 --
+-- Tablo için indeksler `tblDeviceGroup`
+--
+ALTER TABLE `tblDeviceGroup`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Tablo için indeksler `tblDeviceGroupSub`
+--
+ALTER TABLE `tblDeviceGroupSub`
+  ADD PRIMARY KEY (`Id`);
+
+--
 -- Tablo için indeksler `tblDontDisturbDevices`
 --
 ALTER TABLE `tblDontDisturbDevices`
@@ -547,25 +611,37 @@ ALTER TABLE `tblAccount`
 -- Tablo için AUTO_INCREMENT değeri `tblAutomation`
 --
 ALTER TABLE `tblAutomation`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblAutomationCondition`
 --
 ALTER TABLE `tblAutomationCondition`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblAutomationOperations`
 --
 ALTER TABLE `tblAutomationOperations`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblDevice`
 --
 ALTER TABLE `tblDevice`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- Tablo için AUTO_INCREMENT değeri `tblDeviceGroup`
+--
+ALTER TABLE `tblDeviceGroup`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Tablo için AUTO_INCREMENT değeri `tblDeviceGroupSub`
+--
+ALTER TABLE `tblDeviceGroupSub`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblDontDisturbDevices`
@@ -619,7 +695,7 @@ ALTER TABLE `tblScenario`
 -- Tablo için AUTO_INCREMENT değeri `tblScenarioSub`
 --
 ALTER TABLE `tblScenarioSub`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblSchedule`
