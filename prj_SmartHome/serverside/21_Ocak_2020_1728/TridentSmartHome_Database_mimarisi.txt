@@ -294,10 +294,9 @@ NameRepresentation|Value
 //Settings-Ayarlar:
 18-Tablo: tblSettings
 	Id
-	AccountId	//tblAccount->Id
-	DontDisturb	//Cihazları Rahatsız etmeyin durumu aktif veya pasif.  Aktif = 1, Pasif=0. Schedule işletileceği zaman bu değere bakılır. Eğer aktif ise,"Cihazları Rahatsız Etme" içeriğine bakılır.Cihaz varsa işletilmez.
-	Sound		//uygulama sesleri. NOT:Belkibu değeri telefon içinde tutuabiliriz.
-	PushNotification //Bildirimler	    NOT:Belki bu değeri telefon içinde tutabiliriz.
+	AccountId		//tblAccount->Id
+	DontDisturbDevices	//Cihazları Rahatsız etmeyin durumu aktif veya pasif.  Aktif = 1, Pasif=0. Schedule işletileceği zaman bu değere bakılır. Eğer aktif ise,"Cihazları Rahatsız Etme" içeriğine bakılır.Cihaz varsa işletilmez.
+	PushNotification 	//Bildirimler. Bildirimleri kullanıcıya gönderirken kontrol edilecek değer.
 
 //Mobil uygulamaya ait ayarlar buraya kaydedilir.
 ---------------------------------------------------------------

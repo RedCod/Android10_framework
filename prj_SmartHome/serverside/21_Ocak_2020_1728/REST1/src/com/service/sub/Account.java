@@ -115,7 +115,8 @@ CREATE TABLE IF NOT EXISTS tblAccount (
 		 */
 		
 		int exec_state = 0;
-		String sql ="";
+		String update_sql ="";
+		String query_sql_for_settings = "";//tblSettings'a ayarlar eklemek için sorgu oluştur.
 		String response = "{\"CreateNewAccount\":[{ \"response\":false}]}"; //default
 /*
 	-tblAccount
@@ -131,20 +132,29 @@ CREATE TABLE IF NOT EXISTS tblAccount (
 	VerificationCode
 	IsActive
  */
-		if(isEmailOrPhone(email_or_phone).equals(IS_PHONE_NUMBER))
-			sql = "UPDATE tblAccount SET PhoneNumber='" + email_or_phone +"',Password='" + password +"',AccountLocation='"+ account_location + "' WHERE PhoneNumber='" + email_or_phone + "' AND VerificationCode='" + verification_code +"'";//tblAccount
-		else if(isEmailOrPhone(email_or_phone).equals(IS_EMAIL)) 
-			sql = "UPDATE tblAccount SET Email='" + email_or_phone +"',Password='" + password +"',AccountLocation='"+ account_location +"' WHERE Email='" + email_or_phone + "' AND VerificationCode='" + verification_code +"'";//tblAccount
+		if(isEmailOrPhone(email_or_phone).equals(IS_PHONE_NUMBER)) {
+			update_sql = "UPDATE tblAccount SET PhoneNumber='" + email_or_phone +"',Password='" + password +"',AccountLocation='"+ account_location + "' WHERE PhoneNumber='" + email_or_phone + "' AND VerificationCode='" + verification_code +"'";//tblAccount
+			query_sql_for_settings = "SELECT Id FROM tblAccount WHERE PhoneNumber='" + email_or_phone +"'";
+		}else if(isEmailOrPhone(email_or_phone).equals(IS_EMAIL)) { 
+			update_sql = "UPDATE tblAccount SET Email='" + email_or_phone +"',Password='" + password +"',AccountLocation='"+ account_location +"' WHERE Email='" + email_or_phone + "' AND VerificationCode='" + verification_code +"'";//tblAccount
+			query_sql_for_settings = "SELECT Id FROM tblAccount WHERE Email='" + email_or_phone +"'";
+		}
 		Database database = new Database();
 		try {
 			database.connect();
-			exec_state = database.execSQL(sql);
+			exec_state = database.execSQL(update_sql);
 			//debug:
 			if(Log.DEBUG) {
 				Log.println(TAG, "createNewAccount: exec_state1:" + exec_state);
 			}
-			if(exec_state > 0)
+			if(exec_state > 0) {
 				response = "{\"CreateNewAccount\":[{ \"response\":true}]}";
+				//query from tblAccount for settings:
+				String accountId = database.query(query_sql_for_settings);
+				com.service.sub.Settings settings = new com.service.sub.Settings();
+				//insert default value to tblSettings.
+				settings.addSettings(Integer.valueOf(accountId), 1, 1);
+			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -350,8 +360,6 @@ CREATE TABLE IF NOT EXISTS tblAccount (
 				 *tblFamilyMember
 				 *tblRoom
 				 *tblDontDisturbDevices
-				 *tblDontDisturbDevicesRepeat
-				 *tblDontDisturbDevicesDevice
 				 *tblMessageCenter
 				 *tblHelpCenter
 				 *tblFeedback
@@ -360,10 +368,8 @@ CREATE TABLE IF NOT EXISTS tblAccount (
 				 *tblScenarioSub
 				 *tblAutomation
 				 *tblAutomationOperations
-				 *tblAutomationRepeat
 				 *tblAutomationCondition
-				 *tblAutomationConditionScheduleRepeat
-				 *
+				 *tblSettings
 				 */
               String[] arrTables = {
             		  "tblAccount",

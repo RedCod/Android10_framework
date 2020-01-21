@@ -72,7 +72,7 @@ public class Database {
 	/**
 	 * for Query
 	 * @param sql_code SQL Query code.
-	 * @return  return query result as JSON.
+	 * @return  return query result 
 	 * @throws SQLException if a database access error occurs
 	 */
   public String query(String sql_code) throws SQLException {

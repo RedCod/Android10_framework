@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost
--- Üretim Zamanı: 17 Oca 2020, 16:27:50
+-- Üretim Zamanı: 21 Oca 2020, 15:27:07
 -- Sunucu sürümü: 10.4.8-MariaDB
 -- PHP Sürümü: 7.3.11
 
@@ -183,6 +183,16 @@ CREATE TABLE `tblDeviceGroup` (
   `GroupLocation` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Tablo döküm verisi `tblDeviceGroup`
+--
+
+INSERT INTO `tblDeviceGroup` (`Id`, `AccountId`, `FamilyId`, `GroupName`, `GroupLocation`) VALUES
+(2, 1, 1, 'GroupBebekOdası', 'Bebek Odası'),
+(3, 1, 1, 'Group3', 'Yemek Odası'),
+(4, 1, 1, 'GroupÇöp', 'Yemek Odası'),
+(5, 1, 1, 'GROUPMUTFAK', 'Mutfak');
+
 -- --------------------------------------------------------
 
 --
@@ -196,6 +206,14 @@ CREATE TABLE `tblDeviceGroupSub` (
   `DeviceId` int(11) DEFAULT NULL,
   `VirtualId` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Tablo döküm verisi `tblDeviceGroupSub`
+--
+
+INSERT INTO `tblDeviceGroupSub` (`Id`, `AccountId`, `GroupId`, `DeviceId`, `VirtualId`) VALUES
+(5, 1, 2, 4, 'macaddres4'),
+(6, 1, 2, 5, 'macaddress5');
 
 -- --------------------------------------------------------
 
@@ -455,10 +473,16 @@ INSERT INTO `tblSchedule` (`Id`, `AccountId`, `DeviceId`, `ScheduleTime`, `Switc
 CREATE TABLE `tblSettings` (
   `Id` int(11) NOT NULL,
   `AccountId` int(11) DEFAULT NULL,
-  `DontDisturb` int(11) DEFAULT NULL,
-  `Sound` int(11) DEFAULT NULL,
+  `DontDisturbDevices` int(11) DEFAULT NULL,
   `PushNotification` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Tablo döküm verisi `tblSettings`
+--
+
+INSERT INTO `tblSettings` (`Id`, `AccountId`, `DontDisturbDevices`, `PushNotification`) VALUES
+(1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -635,13 +659,13 @@ ALTER TABLE `tblDevice`
 -- Tablo için AUTO_INCREMENT değeri `tblDeviceGroup`
 --
 ALTER TABLE `tblDeviceGroup`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblDeviceGroupSub`
 --
 ALTER TABLE `tblDeviceGroupSub`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblDontDisturbDevices`
@@ -707,7 +731,7 @@ ALTER TABLE `tblSchedule`
 -- Tablo için AUTO_INCREMENT değeri `tblSettings`
 --
 ALTER TABLE `tblSettings`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

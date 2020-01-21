@@ -241,8 +241,7 @@ CREATE TABLE IF NOT EXISTS tblAutomationCondition (
 CREATE TABLE IF NOT EXISTS tblSettings (
     Id INT AUTO_INCREMENT,
     AccountId INT,
-    DontDisturb INT,
-    Sound INT,
+    DontDisturbDevices INT,
     PushNotification INT,
     PRIMARY KEY (Id)
 );

@@ -25,6 +25,7 @@
 	[+] = WS_Schedule.java		//Akıllı cihazlar için Zamanlama-Programlama(ekle,düzenle,sil,etc.)Web service.
 	[+] = WS_Scenario.java		//Akıllı cihazlar için senaryo oluşturma(ekle,düzenle,sil,etc.) Web Service.
 	[+] = WS_Automation.java	//Akıllı cihazlar için otomasyon oluşturma(ekle,düzenle,sil,etc.) Web Service.
+	[+] = WS_Settings.java		//Mobil App'a yönelik ayarları yönetir(ekle,düzenle) Web Service.
 	
 
 +com.service.sub: //WebServiceSub
@@ -41,6 +42,7 @@
         [+] = Schedule.java		//Akıllı cihazlar için Zamanlama-Programlama web service alt işlemleri.
 	[+] = Scenario.java		//Akıllı cihazlar için senaryo oluşturma web service alt işlemleri.
 	[+] = Automation.java		//Akıllı cihazlar için otomasyon oluşturma web service alt işlemleri.
+	[+] = Settings.java		//Mobil App'a yönelik ayarların yönetildiği Web service alt işlemleri.
 
 +com.database: //DATABASE
 	[+] = Database.java	//Veritabanı işlemleri için.
@@ -94,7 +96,7 @@ WebServis[not 2]:@{
 9=MOBİL APP: Senaryo ve Otomasyonlara ait "Condition" ve "Action"'lar silinirken: Silinen Item Id değeri "SilinenlerList" içinde tutulacak.Nihayi olarak Senaryo/Otomasyon güncellendikten hemen sonra,bu liste içinde bulunan Id değerlerle ilgili tablo içindekileri sil.
 
 10=MOBİL APP:Device group(cihaz grubu)'na ait cihazlar silinirken:Silinen cihazların Id değerleri "SilinenlerList" içinde tutulacak. Nihayi olarak Grup "Kaydet" yapıldıktan hemen sonra,bu liste içinde bulunan Id değerlerle ilgili tablo içindekileri sil.
-  
+11=MOBİLL APP:Ayarlar->Uygulama sesleri(Sound),mobil cihaz içinde saklanacak.
 
 
 
