@@ -1,0 +1,2047 @@
+//Smart Home Web Servis linkleri:
+
+===========================================================
+-Account(Hesap):
+//Kullanıcı login işlemi:
+	/**
+	 * Kullanıcı Login işlemi.
+	 * @param EmailOrPhone //must contain the "@" character if content is email.Otherwise all must contain digits for telephone number. These will be controlled by MobilApplication.
+	 * @param Password		 //user password. As md5 value
+	 * @return				//return account info(Id,Email,PhoneNumber) if login is successfuly as JSON.
+	 */
+http://localhost:8080/REST1/Account/Login/kerimfirat@gmail.com/123456
+
+{"Login":[{"Id": 1, "Email": "kerimfirat@gmail.com", "PhoneNumber": "05439728313"}]}
+-----------------------------------------------------------
+//Hesap Oluştur:
+	/**
+	 * Hesap Oluştur.
+	 * @param EmailOrPhone		//must contain the "@" character if content is email.Otherwise all must contain digits for telephone number. These will be controlled by MobilApplication.
+	 * @param VerificationCode		//verification code
+	 * @param Password				//password for be login.As md5 value
+	 * @param AccountLocation		//for account location and determine Time Zone.
+	 * @return						//return true(as JSON) if successful.
+	 */
+http://localhost:8080/REST1/Account/CreateAccount/kertenkele@test.com/554106/password123/Turkey
+
+{"CreateNewAccount":[{ "response":true}]}
+or 
+{"CreateNewAccount":[{ "response":false}]}
+-----------------------------------------------------------
+//Edit Nickname:
+	/**
+	 * Hesap Değiştir/Güncelle
+	 * @param AccountId		//For edit. exp: "where AccountId = 44"
+	 * @param AccountName   //Account(email_or_phone)
+	 * @param Nickname		// user's nickname.
+	 * @return				//return true(as JSON) if successful.
+	 */
+http://localhost:8080/REST1/Account/EditNickName/44/kerimfirat@gmail.com/my_nickname
+
+{"EditAccount":[{ "response":true}]}
+or
+{"EditAccount":[{ "response":false}]}
+-----------------------------------------------------------
+//Bind Mobile Phone(cep telefonu bağla):
+	/**  
+	 *  For bind mobile phone to account(Cep telefonu bağla). !!!!ATTENTION!!!:checks if the number is a member
+	 * @param AccountId		//For edit. exp: "where AccountId = 44"
+	 * @param AccountName	//Account(email_or_phone)
+	 * @param PhoneNumber	//Phone number for bind.
+	 * @return				//return true(as JSON) if successful.
+	 */
+http://localhost:8080/REST1/Account/BindMobilePhone/44/kerimfirat@gmail.com/05439728313
+
+{"EditAccount":[{ "response":true}]}
+or
+{"EditAccount":[{ "response":false}]}
+-----------------------------------------------------------
+//Edit Account Location(Hesap konumu):
+	/**
+	 * Edit account location(Hesap konumu). exp: Turkey
+	 * @param AccountId			//For edit. exp: "where AccountId = 44"
+	 * @param AccountName 		//Account(email_or_phone)
+	 * @param AccountLocation	//for Account location. exp:Turkey
+	 * @return					//return true(as JSON) if successful.
+	 */
+http://localhost:8080/REST1/Account/EditAccountLocation/44/kerimfirat@gmail.com/Turkiye
+
+{"EditAccount":[{ "response":true}]}
+or
+{"EditAccount":[{ "response":false}]}
+-----------------------------------------------------------
+//Change login password(login şifresini değiştir):
+	/**
+	 * Change account(login) password. 
+	 * @param AccountId			//For edit. exp: "where AccountId = 44"
+	 * @param AccountName       //Account(email_or_phone)
+	 * @param Password			//new Account login password.As md5 value
+	 * @param VerificationCode  //because we requested a Verification code for to change the password.
+	 * @return					//return true(as JSON) if successful.
+	 */
+http://localhost:8080/REST1/Account/ChangeLoginPassword/44/kerimfirat@gmail.com/yenisifrem123/554106
+
+{"EditAccount":[{ "response":true}]}
+or
+{"EditAccount":[{ "response":false}]}
+-----------------------------------------------------------
+//Edit Temperature Unit:
+	/**
+	 * For edit "Temperature Unit". 
+	 * @param AccountId			//For edit. exp: "where AccountId = 44"
+	 * @param AccountName		//Account(email_or_phone)
+	 * @param TemperatureUnit	//temperature unit (sıcaklık birimi)
+	 * @return					//return true(as JSON) if successful.
+	 */
+http://localhost:8080/REST1/Account/EditTemperatureUnit/44/kerimfirat@gmail.com/F
+
+{"EditAccount":[{ "response":true}]}
+or
+{"EditAccount":[{ "response":false}]}
+-----------------------------------------------------------
+//Edit Time Zone:
+	/**
+	 * For edit "Time Zone".
+	 * @param AccountId	//For edit. exp: "where AccountId = 44"
+	 * @param AccountName //Account(email_or_phone)
+	 * @param TimeZone	//Time zone. exp: "Turkey"
+	 * @return			//return true(as JSON) if successful.
+	 */
+http://localhost:8080/REST1/Account/EditTimeZone/44/kerimfirat@gmail.com/TurkeyS
+
+{"EditAccount":[{ "response":true}]}
+or
+{"EditAccount":[{ "response":false}]}
+-----------------------------------------------------------
+//Get verification code for new account(yeni hesap oluşturmak için onay kodu al):
+	/**
+	 * "Hesap İşlemleri" Get verification code for "New Account".
+	 * @param EmailOrPhone	//must contain the "@" character if content is email.Otherwise all must contain digits for telephone number. These will be controlled by MobilApplication.
+	 * @return				//3=account not exists. 2=account already exists. 1=successful. 0=unsuccessful.  as JSON
+	 */
+http://localhost:8080/REST1/Account/GetVerificationCode-NewAccount/test@test
+
+{"GetVerificationCode":[{ "response":1}]}
+or
+others..(see return)
+-----------------------------------------------------------
+//Get verification code for forgot password(şifremi unuttum için onay kodu al):
+	/** 
+	 * "Hesap İşlemleri" Get verification code for "Forgot Password".
+	 * @param EmailOrPhone	//must contain the "@" character if content is email.Otherwise all must contain digits for telephone number. These will be controlled by MobilApplication.
+	 * @return				//3=account not exists. 2=account already exists. 1=successful. 0=unsuccessful.  as JSON
+	 */
+http://localhost:8080/REST1/Account/GetVerificationCode-ForgotPassword/test@test
+
+{"GetVerificationCode":[{ "response":1}]}
+or
+others...(see return)
+-----------------------------------------------------------
+//Get verification code for change password(şifre değiştirmek için onay kodu al):
+	/**
+	 * "Hesap İşlemleri" Get verification code for "Change Password".	
+	 * @param EmailOrPhone	//must contain the "@" character if content is email.Otherwise all must contain digits for telephone number. These will be controlled by MobilApplication.
+	 * @return				//3=account not exists. 2=account already exists. 1=successful. 0=unsuccessful.  as JSON
+	 */
+http://localhost:8080/REST1/Account/GetVerificationCode-ChangePassword/test@test
+
+{"GetVerificationCode":[{ "response":1}]}
+or
+others...(see return)
+-----------------------------------------------------------
+//Get account Item(Hesap bilgilerini al):
+	/**
+	 * Get account Item.
+	 * @param AccountId	//which account?
+	 * @param AccountName //Account(email_or_phone)
+	 * @return			//return account info as JSON.
+	 */
+http://localhost:8080/REST1/Account/GetAccount/1/kerimfirat@gmail.com
+
+{"GetAccount":[{"Id": 1, "Email": "kerimfirat@gmail.com", "PhoneNumber": "05439728313", "Nickname": "raptiye", "AccountLocation": "unknow", "TemperatureUnit": "C", "TimeZone": "istanbul"}]}
+-----------------------------------------------------------
+//Remove account:
+	/**
+	 * Remove account.
+	 * @param AccountId //which account
+	 * @param AccountName //Account(email_or_phone)
+	 * @return			//return true(as JSON) if successful.
+	 */
+http://localhost:8080/REST1/Account/RemoveAccount/6/kerimfirat@gmail.com
+{"RemoveAccount":[{ "response":true}]}
+or
+{"RemoveAccount":[{ "response":false}]}
+===========================================================
+-Automation(Otomasyon):
+
+//Add automation(otomasyon ekle):
+	/**
+	 * Add automation
+	 * @param AccountId				//which account
+	 * @param AccountName			//account(email_or_phone).for improving security
+	 * @param FamilyId				//wich family
+	 * @param AutomationName		//automation name
+	 * @param CoverImage			//cover image index value as int.
+	 * @param AutomationCondition	//"all condition" OR "any condition". Tüm koşullar karşılandığında VEYA Koşullardan herhangi biri karşılandığında.
+	 * @param ValidTimePeriod		//TamGün=24 saat, Gün=gündoğumdan günbatımına kadar,Gece=günbatımından gündoğumuna kadar,Özelleştir=12:00-15:14
+	 * @param CurrentCity			//current city
+	 * @param ItemSort				//sorting number in automation list. //otomasyonun listede kaçıncı sırada yer aldığı.
+	 * @param Monday				//day to repeat for Monday. 1 or 0
+	 * @param Tuesday				//day to repeat for Tuesday. 1 or 0
+	 * @param Wednesday				//day to repeat for Wednesday. 1 or 0
+	 * @param Thursday				//day to repeat for Thursday. 1 or 0
+	 * @param Friday				//day to repeat for Friday. 1 or 0
+	 * @param Saturday				//day to repeat for Saturday. 1 or 0
+	 * @param Sunday				//day to repeat for Sunday. 1 or 0
+	 * @return						//return AutomationId(tblAutomation->Id) as JSON if adding is successful.Else return false. Because we will use this value for adding automation "conditions" and "Action" process to other table related to tblAutomation.
+	 */
+http://localhost:8080/REST1/Automation/AddAutomation/1/test@gmail.com/1/Otomasyon1/14/any/tamg%C3%BCn/istanbul/1/1/1/1/1/1/1/1
+
++//eklenen otomasyona ait Id(son kayıt) değerini döndür.
+{"AddAutomation":[{ "response":5}]}
+-----------------------------------------------------------
+//Add condition(şart ekle):
+	/**
+	 * Add automation condition to "tblAutomationCondition" table.
+	 * @param AccountId			//which account
+	 * @param AccountName		//account(email_or_phone).for improving security
+	 * @param AutomationId		//which automation
+	 * @param ConditionType		//wich condition. "koşul tipi. örn:temperature,humidity,weather,air_quality,etc."
+	 * @param ConditionValue	//condition value. örn: bulutlu,güneşli,karlı,etc. Bu değer "sabit değer" olarak eklenecek.Bu şartın Mobil app tarafından karşılığı dile uygun gösterilecek. 
+	 * @param DeviceId			//which device if added device.
+	 * @param DeviceSwitch		//device switch state:ON/OFF if added device. Use the device status as a condition.
+	 * @param CurrentCity		//city where the condition is met.
+	 * @param Monday	       //day to repeat for Monday. 1 or 0
+	 * @param Tuesday		   //day to repeat for Tuesday. 1 or 0
+	 * @param Wednesday		   //day to repeat for Wednesday. 1 or 0
+	 * @param Thursday		   //day to repeat for Thursday. 1 or 0
+	 * @param Friday		  //day to repeat for Friday. 1 or 0
+	 * @param Saturday		  //day to repeat for Saturday. 1 or 0
+	 * @param Sunday		  //day to repeat for Sunday. 1 or 0
+	 * @return				//return true(as JSON) if condition add to tblAutomationCondition table.
+	 */
+http://localhost:8080/REST1/Automation/AddCondition/1/test@gmail.com/1/humidity/44/0/-/istanbul/0/0/0/0/0/0/0
+
+{"AddCondition":[{ "response":true}]}
+or
+{"AddCondition":[{ "response":false}]}
+-----------------------------------------------------------
+//Add action(Aksiyon-Eylem ekle):
+	/**
+	 * Add automation action to "tblAutomationOperation" table.
+	 * @param AccountId				//which account
+	 * @param AccountName			//account(email_or_phone)
+	 * @param AutomationId			//wich automation. This value get "tblAutomation->Id"
+	 * @param ActionType			//determines the type of action. this value should be: "device","automation","time_lapse",...
+	 * @param DeviceId				//which device if added device.
+	 * @param DeviceVirtualAddress	//device virtual address. produce: macaddress+deviceId
+	 * @param DeviceSwitch			//device switch state:ON/OFF  if added device.
+	 * @param AutomationIdAssign	//automation id value. if added automation.(Action olarak bir otomasyon eklenirse)
+	 * @param TimeLapseValue		//time lapse value. iff added TimeLapse
+	 * @param ItemSort				//Item sort value. Sort number in the action list.
+	 * @return						//return true(as JSON) if action add to "tblAutomationOperation" table.
+	 */
+http://localhost:8080/REST1/Automation/AddAction/1/test@gmail.com/1/device/1/virtualaddress/ON/0/0/1
+
+{"AddAction":[{ "response":true}]}
+or
+{"AddAction":[{ "response":false}]}
+-----------------------------------------------------------
+//Edit Automation:
+	/**
+	 * Edit Automation
+	 * @param AccountId				//which account
+	 * @param AccountName			//account(email_or_phone)
+	 * @param AutomationId			//which automation. so Id
+	 * @param CoverImage			//cover image index value as int.
+	 * @param AutomationCondition	//automation condition. all OR any
+	 * @param ValidTimePeriod		//valid time period (Geçerlilik zaman bölümü)
+	 * @param CurrentCity			//current city
+	 * @param Monday				//day to repeat for Monday. 1 or 0
+	 * @param Tuesday				//day to repeat for Tuesday. 1 or 0
+	 * @param Wednesday				//day to repeat for Wednesday. 1 or 0
+	 * @param Thursday				//day to repeat for Thursday. 1 or 0
+	 * @param Friday				//day to repeat for Friday. 1 or 0
+	 * @param Saturday				//day to repeat for Saturday. 1 or 0
+	 * @param Sunday				//day to repeat for Sunday. 1 or 0
+	 * @return						//return true(as JSON) if automation edit successful
+	 */
+http://localhost:8080/REST1/Automation/EditAutomation/1/test@gmail.com/1/Otomasyon_1/16/OR/0/Istanbul/1/1/1/1/1/1/1
+
+{"EditAutomation":[{ "response":true}]}
+or
+{"EditAutomation":[{ "response":false}]}
+-----------------------------------------------------------
+//Activate Automation(otomasyonu aktif hale getir):
+    /**
+     * Activate out automation.  
+     * @param AccountId		//which account
+     * @param AccountName	//Account(email_or_phone). For improving security.
+     * @param AutomationId //which automation
+     * @return			   //return true(as JSON) if activate out successful.
+     */
+http://localhost:8080/REST1/Automation/ActivateAutomation/AccountId/test@gmail.com/1
+
+{"ActivateAutomation":[{ "response":true}]}
+-----------------------------------------------------------
+//Deactive Automation(otomasyonu pasif hale getir):
+	/**
+	 * Deactivate out automation
+	 * @param AccountId		//which account
+	 * @param AccountName 	//Account(email_or_phone)
+	 * @param AutomationId	//which automation
+	 * @return				//return true(as JSON) if deactive out successful
+	 */
+http://localhost:8080/REST1/Automation/DeactivateAutomation/1/test@gmail.com/1
+
+{"DeactivateAutomation":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit automation item sort(otomasyon sırasını düzenle/değiştir.)
+	/**
+	 * Edit automation Item sort.
+	 * @param AccountId	 	//which account
+	 * @param AccountName	//Account(email_or_phone)
+	 * @param AutomationId	//which automation
+	 * @param ItemSort		//new item sort value.
+	 * @return				//return true(as JSON) if edit automation ItemSort successful. 
+	 */
+http://localhost:8080/REST1/Automation/EditAutomationItemSort/1/test@gmail.com/1/3
+
+{"EditAutomation":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit automation conditions:
+	/**
+	 * Edit automation condition.
+	 * @param AccountId		 //which account
+	 * @param AccountName	//Account(email_or_phone)
+	 * @param ConditionId	 //which condition. so Id of tblAutomationCondition
+	 * @param ConditionType	 //determines the type of condition. "koşul tipi. örn:temperature,humidity,weather,air_quality,etc."
+	 * @param ConditionValue //condition value. örn: bulutlu,güneşli,karlı,etc. Bu değer "sabit değer" olarak eklenecek.Bu şartın Mobil app tarafından karşılığı dile uygun gösterilecek.
+	 * @param DeviceSwitch	 //device switch state: ON/OFF if device is editing. (koşul olarak bir cihaz durumu eklenmişse)
+	 * @param CurrentCity	 //current city.
+	 * @param Monday				//day to repeat for Monday. 1 or 0
+	 * @param Tuesday				//day to repeat for Tuesday. 1 or 0
+	 * @param Wednesday				//day to repeat for Wednesday. 1 or 0
+	 * @param Thursday				//day to repeat for Thursday. 1 or 0
+	 * @param Friday				//day to repeat for Friday. 1 or 0
+	 * @param Saturday				//day to repeat for Saturday. 1 or 0
+	 * @param Sunday				//day to repeat for Sunday. 1 or 0
+	 * @return				 //return true(as JSON) if edit automation successful
+	 */
+http://localhost:8080/REST1/Automation/EditCondition/1/test@gmail.com/2/air_quality/ortakalite/-/istanbul/1/1/1/1/1/1/1
+
+{"EditCondition":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit action:
+	/**
+	 * Edit automation action to "tblAutomationOperation" table.
+	 * @param AccountId				//which account
+	 * @param AccountName			//Account(email_or_phone)
+	 * @param ActionId				//which action. so Id of tblAutomationOperation table.
+	 * @param DeviceVirtualAddress	//device virtual address. produce: macaddress+deviceId
+	 * @param DeviceSwitch			//device switch state:ON/OFF  if added device.
+	 * @param AutomationIdAssign	//automation id value. if added automation.(Action olarak bir otomasyon eklenirse)
+	 * @param TimeLapseValue		//time lapse value. if added TimeLapse
+	 * @param ItemSort				//Item sort value. Sort number in the action list.
+	 * @return						//return true(as JSON) if action add to "tblAutomationOperation" table.
+	 */
+http://localhost:8080/REST1/Automation/EditAction/1/test@gmail.com/1/device_virtualaddress/OFF/0/0:0/2
+
+{"EditAction":[{ "response":true}]}
+-----------------------------------------------------------
+//Get all automationas list(tüm otomasyonları liste olarakal):
+	/**
+	 * Get all automation as Items.(tüm otomasyonları listele)
+	 * @param AccountId	//which account
+	 * @param AccountName //Account(email_or_phone)
+	 * @param FamilyId	//which family
+	 * @return			//return all automation list as JSON.
+	 */
+http://localhost:8080/REST1/Automation/GetAllAutomationsAsList/1/test@gmail.com/1
+
+{"AllAutomationList":[
+{
+"Id":1,
+"AccountId":1,
+"FamilyId":1,
+"Name":"Otomasyon_1",
+"CoverImage":16,
+"AutomationCondition":"OR",
+"ValidTimePeriod":"0",
+"CurrentCity":"Istanbul",
+"IsActive":0,
+"ItemSort":3,
+"Monday":1,
+"Tuesday":1,
+"Wednesday":1,
+"Thursday":1,
+"Friday":1,
+"Saturday":1,
+"Sunday":1
+},
+{
+"Id":2,
+"AccountId":1,
+"FamilyId":1,
+"Name":"Otomasyon1",
+"CoverImage":14,
+"AutomationCondition":"any",
+"ValidTimePeriod":"tamgün",
+"CurrentCity":"istanbul",
+"IsActive":1,
+"ItemSort":1,
+"Monday":1,
+"Tuesday":1,
+"Wednesday":1,
+"Thursday":1,
+"Friday":1,
+"Saturday":1,
+"Sunday":1
+},
+{
+"Id":5,
+"AccountId":1,
+"FamilyId":1,
+"Name":"Otomasyon1",
+"CoverImage":14,
+"AutomationCondition":"any",
+"ValidTimePeriod":"tamgün",
+"CurrentCity":"istanbul",
+"IsActive":1,
+"ItemSort":1,
+"Monday":1,
+"Tuesday":1,
+"Wednesday":1,
+"Thursday":1,
+"Friday":1,
+"Saturday":1,
+"Sunday":1
+}
+]}
+-----------------------------------------------------------
+//Get all conditions as list:
+	/**
+	 * Get all conditions Items.(otomasyona ait tüm "condition/koşulları" liste olarak getir) 
+	 * @param AccountId		//which account
+	 * @param AccountName 	//Account(email_or_phone)
+	 * @param AutomationId	//which automation.
+	 * @return				//return automation condition list as JSON.
+	 */
+http://localhost:8080/REST1/Automation/GetAllConditionsAsList/1/test@gmail.com/1
+{"AllConditionsList":[
+{
+"Id":1,
+"AccountId":1,
+"AutomationId":1,
+"ConditionType":"humidity",
+"ConditionValue":"44",
+"DeviceId":0,
+"DeviceSwitch":"-",
+"CurrentCity":"istanbul",
+"Monday":0,
+"Tuesday":0,
+"Wednesday":0,
+"Thursday":0,
+"Friday":0,
+"Saturday":0,
+"Sunday":0
+},
+{
+"Id":2,
+"AccountId":1,
+"AutomationId":1,
+"ConditionType":"air_quality",
+"ConditionValue":"ortakalite",
+"DeviceId":0,
+"DeviceSwitch":"-",
+"CurrentCity":"istanbul",
+"Monday":1,
+"Tuesday":1,
+"Wednesday":1,
+"Thursday":1,
+"Friday":1,
+"Saturday":1,
+"Sunday":1
+},
+{
+"Id":4,
+"AccountId":1,
+"AutomationId":1,
+"ConditionType":"humidity",
+"ConditionValue":"44",
+"DeviceId":0,
+"DeviceSwitch":"-",
+"CurrentCity":"istanbul",
+"Monday":0,
+"Tuesday":0,
+"Wednesday":0,
+"Thursday":0,
+"Friday":0,
+"Saturday":0,
+"Sunday":0
+}
+]}
+-----------------------------------------------------------
+//Get all actions:
+	/**
+	 * Get all Automation actions Items as list.(tüm otomasyon actionsları listele)
+	 * @param AccountId		//which account
+	 * @param AccountName	//Account(email_or_phone)
+	 * @param AutomationId	//which automation
+	 * @return				//return all actions items as JSON.
+	 */
+http://localhost:8080/REST1/Automation/GetAllActionsAsList/1/test@gmail.com/1
+{"AllActionsList":[
+{
+"Id":1,
+"AccountId":1,
+"AutomationId":1,
+"ActionType":"device",
+"DeviceId":1,
+"DeviceSwitch":"OFF",
+"AutomationIdAssign":0,
+"TimeLapseValue":"0:0",
+"Command":"/device_virtualaddress/OFF",
+"ItemSort":2
+},
+{
+"Id":3,
+"AccountId":1,
+"AutomationId":1,
+"ActionType":"device",
+"DeviceId":1,
+"DeviceSwitch":"ON",
+"AutomationIdAssign":0,
+"TimeLapseValue":"0",
+"Command":"/virtualaddress/ON",
+"ItemSort":1
+}
+]}
+-----------------------------------------------------------
+//Remove automation:
+	/**
+	 * Remove Automation. Delete all related conditions,conditionschedulerepeat,actions when automation is deleted.
+	 * Related tables: tblAutomation,tblAutomationCondition,tblAutomationOperation
+	 * @param AccountId		//which account. for improving security
+	 * @param AccountName 	//Account(email_or_phone). for improving security
+	 * @param AutomationId	//which automation. 
+	 * @return				//return true(as JSON) if remove automation is successful.
+	 */
+http://localhost:8080/REST1/Automation/RemoveAutomation/1/test@gmail.com/3
+
+{"RemoveAutomation":[{ "response":true}]}
+or
+{"RemoveAutomation":[{ "response":false}]}
+-----------------------------------------------------------
+//Remove condition:
+	/**
+	 * Remove condition in tblAutomationCondition.
+	 * @param AccountId 	//which account
+	 * @param AccountName	//Account
+	 * @param ConditionId	//which condition
+	 * @return				//return true(as JSON) if remove condition is successful.
+	 */
+http://localhost:8080/REST1/Automation/RemoveCondition/1/test@gmail.com/3
+
+{"RemoveCondition":[{ "response":true}]}
+or
+{"RemoveCondition":[{ "response":false}]}
+-----------------------------------------------------------
+//Remove action:
+	/**
+	 * Remove automation action.
+	 * @param AccountId //which account
+	 * @param AccountName //Account
+	 * @param ActionId	//which action
+	 * @return			//return true(as JSON) if remove action is successful.
+	 */
+http://localhost:8080/REST1/Automation/RemoveAction/1/test@gmail.com/2
+
+{"RemoveAction":[{ "response":true}]}
+-----------------------------------------------------------
+//Perform automation:
+	/**
+	 * Perform automation. Otomasyonu gerçekleştir-işlet(tetikle).(Bu süreç Server yazılımı tarafından "mqtt işlet motoru" olarak oluşturulmuş modül tarafından işletilecek.)
+	 * @param AccountId     //which account
+	 * @param AccountName 	//Account
+	 * @param AutomationId	//which automaiton
+	 * @return				//return true(as JSON) if successful.//İPTAL:return automation Actions List as JSON. (otomasyonda yer alan işlem itemleri liste olarak return et.)
+	 */
+http://localhost:8080/REST1/Automation/PerformAutomation/1/test@gmail.com/1
+
+{"PerformAutomation":[{ "response":true}]}
+===========================================================
+-Device(Cihazlar):
+
+//Add device(cihaz ekle):
+	/**
+	 * Add smart device.
+	 * @param AccountId		//Accout Id. this value get from tlbAccount->Id
+	 * @param AccountName   //Account(email_or_phone). for improving security
+	 * @param FamilyId		//Family Id. Get from tblFamily->Id
+	 * @param RoomId		//Room id. So device location. Get from tblRoom->Id
+	 * @param DeviceName	//Device name.
+	 * @param VirtualAddress //consist of AccountId + MacAddress
+	 * @param IpAddress		 //device ip address
+	 * @param MacAddress	//device mac address
+	 * @param DeviceType	//device type. exp: "lamp","wall_plug"
+	 * @param DeviceTimeZone //device time zone. Exp: Europa/Istanbul	
+	 * @return				 //return true(as JSON) if device added successful.
+	 */
+http://localhost:8080/REST1/Device/AddDevice/1/test@gmail.com/5/1/Lamba1/111macadres/78.55.41.15/macaddres/lamp/Istanbul
+
+{"AddDevice":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit device name:
+	/**
+	 * Edit device name.
+	 * @param AccountId	 //which account.
+	 * @param AccountName //Account(email_or_phone)
+	 * @param DeviceId   //Device Id. Which Device?
+	 * @param DeviceName //new device name.
+	 * @return 			//return true(as JSON) if device name edit successful.
+	 */
+http://localhost:8080/REST1/Device/EditName/1/test@gmail.com/1/LambaMasam5
+
+{"EditName":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit device location:
+	/**
+	 * Edit device location. 
+	 * @param AccountId		 //which account
+	 * @param AccountName	 //Account(email_or_phone) 
+	 * @param DeviceId  	 //Device Id. Which device?
+	 * @param DeviceLocation //tblRoom->Id. Location = Mutfak or Yemek Odası etc.	
+	 * @return				//return true(as JSON) if edit device location successful.
+	 */
+http://localhost:8080/REST1/Device/EditLocation/1/test@gmail.com/1/7
+
+{"EditLocation":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit device sort(cihaz sıralamasını düzenle):
+	/**
+	 * Edit device sort.(Cihaz sıralamasını ayarla/değiştir.)
+	 * @param AccountId	//which account
+	 * @param AccountName //Account
+	 * @param DeviceId	//which device.
+	 * @param SortValue //sorting value.
+	 * @return			//return true(as JSON) if device sorting update successful.
+	 */
+http://localhost:8080/REST1/Device/EditDeviceSort/1/test@gmail.com/1/3
+
+{"EditDeviceSort":[{ "response":true}]}
+-----------------------------------------------------------
+//Get one device item(bir cihazın bilgilerini getir):
+	/**
+	 * Get one device Item.
+	 * @param AccountId //which account
+	 * @param AccountName //Account
+	 * @param DeviceId //which device? 
+	 * @return		  //return device Item as JSON.
+	 */
+http://localhost:8080/REST1/Device/GetItem/1/test@gmail.com/1
+
+{"Item":[
+{
+"Id":1,
+"AccountId":1,
+"FamilyId":1,
+"DeviceLocation":7,
+"DeviceName":"LambaMasam5",
+"VirtualId":"1fdfdbsfddmacaddress",
+"IpAddress":"155.114.",
+"MacAddress":"macadrrss",
+"DeviceType":"lamp",
+"DeviceTimeZone":"istanbul",
+"ItemSort":3
+}
+]}
+-----------------------------------------------------------
+//Get all device as list(tüm cihazları liste olarak getir):
+	/**
+	 * Get all device as list according to the account and family.
+	 * @param AccountId	//which account?
+	 * @param AccountName //Account(email_or_phone)
+	 * @param FamilyId	//which family. related family.
+	 * @return			//return all item list as JSON.
+	 */
+http://localhost:8080/REST1/Device/GetAllAsList/1/test@gmail.com/1
+
+{"AllList":[
+{
+"Id":1,
+"AccountId":1,
+"FamilyId":1,
+"DeviceLocation":7,
+"DeviceName":"LambaMasam5",
+"VirtualId":"1fdfdbsfddmacaddress",
+"IpAddress":"155.114.",
+"MacAddress":"macadrrss",
+"DeviceType":"lamp",
+"DeviceTimeZone":"istanbul",
+"ItemSort":3
+},
+{
+"Id":7,
+"AccountId":1,
+"FamilyId":1,
+"DeviceLocation":1,
+"DeviceName":"lambam",
+"VirtualId":"fdr34343",
+"IpAddress":"555.4.154.12",
+"MacAddress":"dfd5df5macadres",
+"DeviceType":"lamp",
+"DeviceTimeZone":"istanbul",
+"ItemSort":1
+}
+]}
+
+-----------------------------------------------------------
+//Remove device(cihazı sil/kaldır):
+	/**
+	 * Remove Device(Cihazı Sil/Kaldır).
+	 * @param AccountId	//which account
+	 * @param AccountName //Account.
+	 * @param DeviceId	 //which device
+	 * @return 		 	//return true(as JSON) if remove device successful.
+	 */
+http://localhost:8080/REST1/Device/RemoveDevice/1/test@gmail.com/1
+
+{"RemoveDevice":[{ "response":true}]}
+===========================================================
+-Device Group(Cihazları grupla):
+
+//Add device group(Cihaz grubu oluştur):
+	/**
+	 * Add device group.
+	 * @param AccountId		 //which account
+	 * @param AccountName 	 //Account(email_or_phone). for improving security
+	 * @param FamilyId		 //which family
+	 * @param GroupName		 //group name
+	 * @param GroupLocation	 //group location. exp: Mutfak
+	 * @return				 //return id value of added group row. (Eklenen kayda ait id değerini döndür.
+	 */
+http://localhost:8080/REST1/DeviceGroup/AddGroup/1/test@gmail.com/1/GroupMutfak/Mutfak
+
++//tblDeviceGroup'e eklenen son kayıta ait Id değeri alını ve tblDeviceGroupSub'de kullanılır.
+{"AddGroup":[{ "response": 6 }]}
+
+-----------------------------------------------------------
+//Add device(cihaz ekle):
+	/**
+	 * Add device to device group(to tblDeviceGroupSub).  Use this method for "add" and "edit". (Hem cihaz eklemek için hem de güncellemek için kullanılacak.)
+	 * @param AccountId				//which account
+	 * @param AccountName		    //Account
+	 * @param GroupId				//related which group
+	 * @param DeviceId				//device Id
+	 * @param DeviceVirtualId    	//device virtual address. macaddres+deviceid
+	 * @return						//return true(as JSON) if add is successful.
+	 */
+http://localhost:8080/REST1/DeviceGroup/AddDevice/1/test@gmail.com/1/5/macaddress1225
+
+{"AddDevice":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit group name(grup adı düzenle):
+	/**
+	 * Edit group name
+	 * @param AccountId	//which account. for improving security
+	 * @param AccountName //Account(email_or_phone). for improving security
+	 * @param RowId	//related group row Id.
+	 * @param GroupName	//group name
+	 * @return			//return true(as JSON) if successful
+	 */
+http://localhost:8080/REST1/DeviceGroup/EditGroupName/1/test@gmail.com/5/GROUPMUTFAK
+
+{"EditGroupName":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit group location(grup lokasyonu değiştir):
+	/**
+	 * Edit group location
+	 * @param AccountId	//which account
+	 * @param AccountName //Account
+	 * @param RowId		//related group row Id.
+	 * @param GroupLocation	//group location exp:Mutfak
+	 * @return				//return true(as JSON) if successful
+	 */
+http://localhost:8080/REST1/DeviceGroup/EditGroupLocation/1/test@gmail.com/1/Mutfak2
+
+{"EditGroupLocation":[{ "response":true}]}
+-----------------------------------------------------------
+//Get group devices as list(grup içeriğini liste olarak getir):
+	/**
+	 * Get content of group.(one group can accommodate a lot of device)
+	 * @param AccountId //which accoun
+	 * @param AccountName //Account
+	 * @param GroupId	//which Group
+	 * @return			//return devices list as JSON.
+	 */
+http://localhost:8080/REST1/DeviceGroup/GetGroupDevicesAsList/1/test@gmail.com/1
+
+{"DevicesList":[
+{
+"Id":7,
+"AccountId":1,
+"GroupId":1,
+"DeviceId":5,
+"DeviceVirtualId":"macaddress1225"
+}
+]}
+-----------------------------------------------------------
+//Get all group as list(tüm grupları getir):
+	/**
+	 * Get all devicegroup as list according to the account and family.
+	 * @param AccountId	//which account
+	 * @param AccountName //Account
+	 * @param FamilyId	//which family
+	 * @return			//return group list as JSON.
+	 */
+http://localhost:8080/REST1/DeviceGroup/GetAllGroupsAsList/1/test@gmail.com/1
+
+{"GroupsList":[
+{
+"Id":2,
+"AccountId":1,
+"FamilyId":1,
+"GroupName":"GroupBebekOdası",
+"GroupLocation":"Bebek Odası"
+},
+{
+"Id":3,
+"AccountId":1,
+"FamilyId":1,
+"GroupName":"Group3",
+"GroupLocation":"Yemek Odası"
+},
+{
+"Id":4,
+"AccountId":1,
+"FamilyId":1,
+"GroupName":"GroupÇöp",
+"GroupLocation":"Yemek Odası"
+},
+{
+"Id":5,
+"AccountId":1,
+"FamilyId":1,
+"GroupName":"GROUPMUTFAK",
+"GroupLocation":"Mutfak"
+},
+{
+"Id":6,
+"AccountId":1,
+"FamilyId":1,
+"GroupName":"GroupMutfak",
+"GroupLocation":"Mutfak"
+}
+]}
+-----------------------------------------------------------
+//Remove device(cihazı gruptan kaldır):
+	/**
+	 * Remove device in the Device Group. 
+	 * @param AccountId //whihc account. for improving security
+	 * @param AccountName //Account. for improving security		
+	 * @param RowId		//which item. 
+	 * @return			//return true(as JSON) if successful.
+	 */
+http://localhost:8080/REST1/DeviceGroup/RemoveDevice/1/test@gmail.com/1
+
+{"RemoveDevice":[{ "response":true}]}
+-----------------------------------------------------------
+//Remove device group(cihaz grubunu kaldır):
+	/**
+	 * Remove device group.
+	 * @param AccountId  //which account.
+	 * @param AccountName //Account
+	 * @param RowId	    //which group. so related group Id.
+	 * @return			//return true(as JSON) if successful.
+	 */
+http://localhost:8080/REST1/DeviceGroup/RemoveGroup/1/test@gmail.com/1
+
+{"RemoveGroup":[{ "response":true}]}
+===========================================================
+-DontDisturbDevices(cihazları rahatsız etmeyin):
+
+//Add "don't disturb devices"(rahatsız edilmeyecek cihazları ekle):
+	/**
+	 * Add "Don't disturb Devices" (Cihazları Rahatsız Etmeyin).
+	 * @param AccountId		//which account.
+	 * @param AccountName 		//Account(email_or_phone). For improving security
+	 * @param TimeStart		//Time start. exp:12:00
+	 * @param TimeEnd		//Time end.   exp:13:00 
+	 * @param DevicesId		//Selected Devices Ids. exp: "10,102,35,14" ..
+	 * @param Monday		//day to repeat for Monday. 1 or 0
+	 * @param Tuesday		//day to repeat for Tuesday. 1 or 0
+	 * @param Wednesday		//day to repeat for Wednesday. 1 or 0
+	 * @param Thursday		//day to repeat for Thursday. 1 or 0
+	 * @param Friday		//day to repeat for Friday. 1 or 0
+	 * @param Saturday		//day to repeat for Saturday. 1 or 0
+	 * @param Sunday		//day to repeat for Sunday. 1 or 0
+	 * @return				//return true(as JSON) if "Don't disturb devices" Added successful.
+	 */
+http://localhost:8080/REST1/DontDisturbDevices/Add/4/test@gmail.com/13:55/16:00/4,5,9,101/1/1/1/1/1/1/1
+
+{"Add":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit "don't disturb device"(rahatsız edilmeyecek cihazları editle):
+	/**
+	 * Edit "Don't disturb Devices" (Cihazları Rahatsız Etmeyin)
+	 * @param AccountId     //which account
+	 * @param AccountName   //Account
+	 * @param RowId			//which item Id.
+	 * @param TimeStart		//Time start. exp:12:00
+	 * @param TimeEnd		//Time end.	  exp:13:00
+	 * @param DevicesId		//Selected Devices Ids. exp:"10,102,35,14". //seçilen tüm cihazların id değerleri:exp: "10,102,35,14".
+	 * @param Monday		//day to repeat for Monday. 1 or 0
+	 * @param Tuesday		//day to repeat for Tuesday. 1 or 0
+	 * @param Wednesday		//day to repeat for Wednesday. 1 or 0
+	 * @param Thursday		//day to repeat for Thursday. 1 or 0
+	 * @param Friday		//day to repeat for Friday. 1 or 0
+	 * @param Saturday		//day to repeat for Saturday. 1 or 0
+	 * @param Sunday		//day to repeat for Sunday. 1 or 0
+	 * @return				//return true(as JSON) if "Don't disturb devices" Edit successful.
+	 */
+http://localhost:8080/REST1/DontDisturbDevices/Edit/1/test@gmail.com/10/18:57/19:10/4,5,9,101/1/1/1/1/1/1/1
+
+{"Edit":[{ "response":true}]}
+-----------------------------------------------------------
+//Get item(as JSON). Item getir:
+	/**
+	 * Get Item(as JSON). Item getir.
+	 * @param AccountId //which account
+	 * @param AccountName //Account
+	 * @param RowId	//which item.
+	 * @return		//return item as JSON. Or return false(as JSON) if the item doen't exists.
+	 */
+http://localhost:8080/REST1/DontDisturbDevices/GetItem/1/test@gmail.com/10
+{"Item":[
+{
+"Id":31,
+"AccountId":4,
+"Title":"1",
+"TimeStart":"18:57",
+"TimeEnd":"19:10",
+"DevicesId":"4,5,9,101",
+"Monday":1,
+"Tuesday":1,
+"Wednesday":1,
+"Thursday":1,
+"Friday":1,
+"Saturday":1,
+"Sunday":1
+}
+]}
+-----------------------------------------------------------
+//Get all as list(json). Tümünü listele JSON olarak:
+	/**
+	 * Get all as list(JSON). Tümünü listele(JSON olarak).
+	 * @param AccountId	//account Id.
+	 * @param AccountName //Account
+	 * @return	return all as list(as JSON). Or return false(as JSON) if the table is empty.
+	 */
+http://localhost:8080/REST1/DontDisturbDevices/GetAllAsList/4/test@gmail.com
+
+{"AllList":[
+{
+"Id":2,
+"AccountId":1,
+"Title":"Rahatsız Etme2",
+"TimeStart":"11:00",
+"TimeEnd":"11:30",
+"DevicesId":"5",
+"Monday":1,
+"Tuesday":1,
+"Wednesday":1,
+"Thursday":1,
+"Friday":1,
+"Saturday":1,
+"Sunday":1
+},
+{
+"Id":3,
+"AccountId":1,
+"Title":"Rahatsız Etme3",
+"TimeStart":"10:02",
+"TimeEnd":"10:55",
+"DevicesId":"4",
+"Monday":1,
+"Tuesday":1,
+"Wednesday":1,
+"Thursday":1,
+"Friday":1,
+"Saturday":1,
+"Sunday":1
+}
+]}
+-----------------------------------------------------------
+//Remove "don't disturb devices"(cihazları rahatsız etmeyin item sil)
+	/**
+	 * Remove "Don't disturb Devices" (Cihazları Rahatsız Etmeyin)
+	 * @param AccountId //which account
+	 * @param AccountName //Account
+	 * @param RowId	//which item("Disturb Devices") Id.
+	 * @return		//return true(as JSON) if "Don't disturb devices" Remove successful.
+	 */
+http://localhost:8080/REST1/DontDisturbDevices/Remove/1/test@gmail.com/28
+
+{"Remove":[{ "response":true}]}
+===========================================================
+-Family(Aile):
+
+//Add family(aile ekle):
+	/**
+	 * Add family.
+	 * @param AccountId			//which account.Ailenin ait olduğu Hesap.
+	 * @param AccountName 		//Account(email_or_phone). for improving security
+	 * @param FamilyName  		//Aile adı.
+	 * @param RoomsId			//Id values for rooms. exp: "1,2,5,6,9,11"
+	 * @param FamilyLocation	//family geographic location.
+	 * @return					//return true(as JSON) if Family added successful.
+	 */
+http://localhost:8080/REST1/Family/AddFamily/1/test@gmail.com/Aile4/1,2,3,4,5/loc
+
+{"AddFamily":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit name:
+	/**
+	 * Edit family name.
+	 * @param AccountId		 //which account
+	 * @param AccountName	 //Account
+	 * @param RowId		     //which Family row.
+	 * @param FamilyName	//new family name value.
+	 * @return  			//return true(as JSON) if Family name update successful.
+	 */
+http://localhost:8080/REST1/Family/EditName/1/test@gmail.com/6/Aile_4
+
+{"EditName":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit family rooms:
+	/**
+	 * Edit rooms of family-Aile odalarını düzenle-ata.
+	 * @param AccountId		//which account
+	 * @param AccountName 	//Account
+	 * @param RowId		  //which Family.
+	 * @param RoomsIds	//id values for rooms as string. exp: "1,2,4,5,8,10,11"
+	 * @return			//return true(as JSON) if family rooms update successful.
+	 */
+http://localhost:8080/REST1/Family/EditRooms/1/test@gmail.com/6/55,6,8,7
+
+{"EditRooms":[{ "response":true}]}
+or
+{"EditRooms":[{ "response":false}]}
+-----------------------------------------------------------
+//Edit family location(geographic):
+	/**
+	 * Edit family geographic location.
+	 * @param AccountId		//which account
+	 * @param AccountName	//Account
+	 * @param RowId			//which Family.
+	 * @param FamilyLocation	//new location value.
+	 * @return					//return true(as JSON) if family new location update successful.
+	 */
+http://localhost:8080/REST1/Family/EditLocation/1/test@gmail.com/6/newloc
+
+{"EditLocation":[{ "response":true}]}
+-----------------------------------------------------------
+//Get family as Item:
+	/**
+	 * Get info of one family.
+	 * @param AccountId //which account
+	 * @param AccountName //Account
+	 * @param RowId	//which family.
+	 * @return			//return family items as JSON.
+	 */
+http://localhost:8080/REST1/Family/GetItem/1/test@gmail.com/5
+{"Item":[
+{
+"Id":1,
+"AccountId":1,
+"FamilyName":"Aile1",
+"RoomsId":"1,2,3,4,5",
+"FamilyLocation":"loc"
+}
+]}
+-----------------------------------------------------------
+//Get all family list as Json:
+	/**
+	 * Get all family as List.
+	 * @param AccountId	//related which account
+	 * @param AccountName //Account
+	 * @return		    //return all family list as JSON.
+	 */
+http://localhost:8080/REST1/Family/GetAllAsList/1/test@gmail.com
+{"AllList":[
+{
+"Id":1,
+"AccountId":1,
+"FamilyName":"Aile1",
+"RoomsId":"1,2,3,4,5",
+"FamilyLocation":"loc"
+},
+{
+"Id":4,
+"AccountId":1,
+"FamilyName":"Aile2",
+"RoomsId":"1,2,3,4,5",
+"FamilyLocation":"loc"
+},
+{
+"Id":5,
+"AccountId":1,
+"FamilyName":"Aile3",
+"RoomsId":"1,2,3,4,5",
+"FamilyLocation":"loc"
+},
+{
+"Id":7,
+"AccountId":1,
+"FamilyName":"Aile4",
+"RoomsId":"1,2,3,4,5",
+"FamilyLocation":"loc"
+}
+]}
+-----------------------------------------------------------
+//Remove family:
+	/**
+	 * Remove family - Aile sil/kaldır
+	 * @param AccountId 	//which account
+	 * @param AccountName 	//Account
+	 * @param RowId		//which family Id.
+	 * @return				//return true(as JSON) if remove family successful.
+	 */
+http://localhost:8080/REST1/Family/RemoveFamily/1/test@gmail.com/6
+
+{"RemoveFamily":[{ "response":true}]}
+or 
+{"RemoveFamily":[{ "response":false}]}
+===========================================================
+-Family Member(Aile üyeleri):
+
+//Add family member:
+	/**
+	 * Add family member if the member has an account.
+	 * @param AccountId 	//which account.
+	 * @param AccountName	//Account(email_or_phone). for improving security
+	 * @param FamilyId		//which family.
+	 * @param AccountId		//which account.
+	 * @param AccountIsAdmin//account is admin set 1 else 0.
+	 * @return				//return true(as JSON) if adding is successful.
+	 */
+http://localhost:8080/REST1/FamilyMember/AddMember/1/test@gmail.com/1/0
+
+{"AddMember":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit family member:
+	/**
+	 * Edit family member. Edit just admin state.
+	 * @param AccountId			//which account. for improving security
+	 * @param AccountName 		//Account(email_or_phone). for improving security
+	 * @param MemberRowId			//which member. WHERE Id
+	 * @param AccountIsAdmin	// admin = 1,normal=0
+	 * @return					//return true(as JSON) if edit is successful.
+	 */
+http://localhost:8080/REST1/FamilyMember/EditMember/1/test@gmail.com/11/1
+{"EditMember":[{ "response":true}]}
+-----------------------------------------------------------
+//Get family member as item:
+	/**
+	 * Get Family member as Item.
+	 * @param AccountId 	//which account
+	 * @param AccountName	//Account
+	 * @param MemberRowId	//which member.
+	 * @return			//return family member Item as JSON.
+	 */
+http://localhost:8080/REST1/FamilyMember/GetItem/1/test@gmail.com/3
+{"Item":[
+{
+"Id":3,
+"FamilyId":5,
+"AccountId":1,
+"AccountIsAdmin":0
+}
+]}
+-----------------------------------------------------------
+//Get all family member as list:
+	/**
+	 * Get all family member of family as list.
+	 * @param AccountId	//which account
+	 * @param AccountName	//Account
+	 * @param FamilyId	//which family.
+	 * @return			//return all family member list as JSON.
+	 */
+http://localhost:8080/REST1/FamilyMember/GetAllAsList/1/test@gmail.com/4
+{"AllList":[
+{
+"Id":1,
+"FamilyId":1,
+"AccountId":1,
+"AccountIsAdmin":1
+},
+{
+"Id":2,
+"FamilyId":1,
+"AccountId":1,
+"AccountIsAdmin":1
+},
+{
+"Id":11,
+"FamilyId":1,
+"AccountId":1,
+"AccountIsAdmin":1
+},
+{
+"Id":13,
+"FamilyId":1,
+"AccountId":1,
+"AccountIsAdmin":0
+}
+]}
+-----------------------------------------------------------
+//Set as family admin:
+	/**
+	 * Set as family administrator.
+	 * @param AccountId //which account
+	 * @param AccountName 	//Account
+	 * @param FamilyId //which family Id.
+	 * @return		   //return true(as JSON) if set family admin successful.
+	 */
+http://localhost:8080/REST1/FamilyMember/SetFamilyAdmin/1/test@gmail.com/5
+
+{"SetFamilyAdmin":[{ "response":true}]}
+-----------------------------------------------------------
+//Remove family admin state:
+	/**
+	 * Remove family admin.
+	 * @param AccountId //which account.
+	 * @param AccountName //Account
+	 * @param FamilyId	//which family Id.
+	 * @return			//return true(as JSON) if remove family admin successful.
+	 */
+http://localhost:8080/REST1/FamilyMember/RemoveFamilyAdmin/1/test@gmail.com/5
+{"RemoveFamilyAdmin":[{ "response":true}]}
+-----------------------------------------------------------
+//Remove family member:
+	/**
+	 * Remove family member.
+	 * @param AccountId		//which account
+	 * @param AccountName 	//Account
+	 * @param MemberRowId	//which member.
+	 * @return			//return true(as JSON) if remove member is successful.
+	 */
+http://localhost:8080/REST1/FamilyMember/RemoveMember/1/test@gmail.com/10
+{"RemoveMember":[{ "response":true}]}
+===========================================================
+-Feedback(Geri bildirim):
+
+//Add feedback:
+	/**
+	 * Add feedback.
+	 * @param AccountId	//which account.
+	 * @param AccountName //Account(email_or_phone). for improving security
+	 * @param Content	//content. choose from ready-made content.
+	 * @param FeedbackDateTime //feedback date and time.
+	 * @return			//return true(as JSON) if add feedback is successful.
+	 */
+http://localhost:8080/REST1/Feedback/AddFeedback/1/test@gmail.com/Diğerleri/08-01-2020 2015:21
+{"AddFeedback":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit feedback item:
+	/**
+	 * Edit feedback Item.
+	 * @param AccountId 	//which account
+	 * @param AccountName	//Account
+	 * @param FeedbackRowId //which feedback item.
+	 * @param Content	//content. choose from ready-made content.
+	 * @param FeedbackDateTime//feedback date and time. 	
+	 * @return			//return true(as JSON) if edit feedback is successful.
+	 */
+http://localhost:8080/REST1/Feedback/EditFeedback/1/test@gmail.com/3/Cihaz/08-01-2020 15:26
+{"EditFeedback":[{ "response":true}]}
+-----------------------------------------------------------
+//Get one feedback Item:
+	/**
+	 * Get one feedback item.
+	 * @param AccountId 	//which account
+	 * @param AccountName	//Account
+	 * @param FeedbackRowId	//which item.
+	 * @return				//return feedback item as JSON.
+	 */
+http://localhost:8080/REST1/Feedback/GetItem/1/test@gmail.com/3
+{"Item":[
+{
+"Id":3,
+"AccountId":1,
+"Content":"Cihaz",
+"FdDateTime":"08-01-2020 15:26",
+}
+]}
+-----------------------------------------------------------
+//Get all feedback item as list:
+	/**
+	 * Get all feedback item as list.
+	 * @param AccountId	//which account.
+	 * @param AccountName //Account
+	 * @return			//return all feedback item as JSON.
+	 */
+http://localhost:8080/REST1/Feedback/GetAllAsList/1/test@gmail.com
+{"AllList":[
+{
+"Id":1,
+"AccountId":1,
+"Content":"Diğerleri",
+"FdDateTime":"08-01-2020 15:21",
+},
+{
+"Id":3,
+"AccountId":1,
+"Content":"Cihaz",
+"FdDateTime":"08-01-2020 15:26",
+},
+{
+"Id":5,
+"AccountId":1,
+"Content":"Diğerleri",
+"FdDateTime":"08-01-2020 2015:21",
+}
+]}
+-----------------------------------------------------------
+//Remove feedback item:
+    /**
+     * Remove feedback item.
+     * @param AccountId 	//which account
+     * @param AccountName	//Account
+     * @param FeedbackRowId	//which item.
+     * @return				//return true(as JSON) if remove is successful.
+     */
+http://localhost:8080/REST1/Feedback/Remove/1/test@gmail.com/4
+{"Remove":[{ "response":true}]}
+===========================================================
+-HelpCenter(Yardım merkezi):
+
+	/**!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! DIKKAT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	 * Help Center sevisleri Mobil App tarafından kullanılmayacak.
+	 * Bu servisler Ürün yönetimi için geliştirilecek bir GUI tarafında kullanılacaktır.
+	 */
+
+
+//Add help content:
+	/**
+	 * Add help content.
+	 * @param Title			//title of help content.
+	 * @param ContentPath	//path of help content. html page name and path on server.
+	 * @return				//return true(as JSON) if adding is successful.
+	 */
+http://localhost:8080/REST1/HelpCenter/AddHelp/Bu bir yardım başlığıdır1/help1.html
+{"AddHelp":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit help content:
+	/**
+	 * Edit help content.
+	 * @param HelpRowId	   //which content.		
+	 * @param Title		   //title of help content.	
+	 * @param ContentPath  //path of help content. html page name and path on server.	
+	 * @return			  //return true(as JSON) if edit is successful.	
+	 */
+http://localhost:8080/REST1/HelpCenter/EditHelp/2/YARDIM BAŞLIĞI/help2.html
+{"EditHelp":[{ "response":true}]}
+-----------------------------------------------------------
+//Get one help content as item:
+	/**
+	 * Get one help content as Item.
+	 * @param HelpRowId	//which content.
+	 * @return			//return help content as JSON.
+	 */
+ http://localhost:8080/REST1/HelpCenter/GetItem/2
+{"Item":[
+{
+"Id":2,
+"Title":"YARDIM BAŞLIĞI",
+"ContentPath":"help2.html"
+}
+]}
+-----------------------------------------------------------
+//Get all help content:
+	/**
+	 * Get all help content as list.
+	 * @return	//return all help content as JSON.
+	 */
+http://localhost:8080/REST1/HelpCenter/GetAllAsList
+
+{"AllList":[
+{
+"Id":1,
+"Title":"Bu bir yardım başlığıdır1",
+"ContentPath":"help1.html"
+},
+{
+"Id":2,
+"Title":"YARDIM BAŞLIĞI",
+"ContentPath":"help2.html"
+},
+{
+"Id":4,
+"Title":"Bu bir yardım başlığıdır1",
+"ContentPath":"help1.html"
+}
+]}
+-----------------------------------------------------------
+//Remove specified help item:
+	/**
+	 * Remove specified help Item.
+	 * @param HelpRowId	//which Item.
+	 * @return			//return true(as JSON) if help item remove is successful.
+	 */
+http://localhost:8080/REST1/HelpCenter/Remove/3
+
+{"Remove":[{ "response":true}]}
+===========================================================
+-Message Center(mesaj merkezi):
+
+//Add message for user:
+	/**
+	 * Add Message for User. 
+	 * Server tarafından işletilen Schedular ve hizmet sağlayıcı firmanın User için yayınladığı mesajlar.
+	 * @param AccountId			//which account.
+	 * @param AccountName 		//Account(email_or_phone).for improving security
+	 * @param Message			//Message content.
+	 * @param MessageDateTime	//Message date time.
+	 * @param MessageType		//Message type.
+	 * @return					//return true(as JSON) if adding is successful.
+	 */
+http://localhost:8080/REST1/MessageCenter/AddMessage/1/test@gmail.com/bu%20mesaj%20sana/07-01-2020/1
+
+{"AddMessage":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit message:
+	 * Edit Message.
+	 * @param AccountId			//which account.for improving security
+	 * @param AccountName	    //Account(email_or_phone). for improving security
+	 * @param MessageRowId			//which message.
+	 * @param Message			//message content.
+	 * @param MessageDatetime	//message date time.
+	 * @param MessageType		//message type.
+	 * @return					//return true(as JSON) if editing is successful.
+	 */
+http://localhost:8080/REST1/MessageCenter/EditMessage/1/test@gmail.com/1/BU%20MESAJ%20SANA/07-02-2020%2017:07/2
+
+{"EditMessage":[{ "response":true}]}
+-----------------------------------------------------------
+//Get one message item:
+	/**
+	 * Get one message Item.
+	 * @param AccountId		//which account
+	 * @param AccountName	//Account
+	 * @param MessageRowId	//which message.
+	 * @return			//return Message Item as JSON.
+	 */
+http://localhost:8080/REST1/MessageCenter/GetItem/1/test@gmail.com/1
+
+{"Item":[
+{
+"Id":1,
+"AccountId":1,
+"Message":"BU MESAJ SANA",
+"MessageDateTime":"07-02-2020 17:07",
+"MessageType":2
+}
+]}
+-----------------------------------------------------------
+//Get all message as list:
+	/**
+	 * Get all message as list.
+	 * @param AccountId	//which account.
+	 * @param AccountName //Account
+	 * @return			//return all message Item as JSON.
+	 */
+http://localhost:8080/REST1/MessageCenter/GetAllAsList/1/test@gmail.com
+
+{"AllList":[
+{
+"Id":1,
+"AccountId":1,
+"Message":"BU MESAJ SANA",
+"MessageDateTime":"07-02-2020 17:07",
+"MessageType":2
+},
+{
+"Id":3,
+"AccountId":1,
+"Message":"bu mesaj sana",
+"MessageDateTime":"07-01-2020",
+"MessageType":1
+}
+]}
+-----------------------------------------------------------
+//Remove specified message:
+	/**
+	 * Remove specified message.
+	 * @param AccountId		//which account
+	 * @param AccountName	//Account
+	 * @param MessageRowId	//which message.
+	 * @return			//return true(as JSON) if remove message is successful.
+	 */
+http://localhost:8080/REST1/MessageCenter/RemoveMessage/1/test@gmail.com/2
+
+{"RemoveMessage":[{ "response":true}]}
+===========================================================
+-Room(Odalar):
+
+//Add room:
+	/**
+	 * Add room. Oda ekle.
+	 * @param AccountId //which account
+	 * @param AccountName	//Account(email_or_phone).for improving security
+	 * @param FamilyId	//which family.
+	 * @param RoomName	//Room name.
+	 * @return			//return true(as JSON) if add room successful.
+	 */
+http://localhost:8080/REST1/Room/AddRoom/1/test@gmail.com/5/Mutfak
+
+{"AddRoom":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit room name:
+	/**
+	 * Edit room name. Oda adı süzenle.
+	 * @param AccountId //which account
+	 * @param AccountName //Account
+	 * @param RoomRowId	//which room.
+	 * @param RoomName	//room name.
+	 * @return  		//return true(as JSON) if edit room name successful.	
+	 */
+http://localhost:8080/REST1/Room/EditRoomName/1/test@gmail.com/1/Mutfak2/
+{"EditRoomName":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit room sort(oda sırasını değiştir):
+	/**
+	 * Edit room sort.(Oda sırasını değiştir).
+	 * @param AccountId //which account
+	 * @param AccountName //Account
+	 * @param RoomRowId	//which room.
+	 * @param SortValue	//sort value.
+	 * @return			//return true(as JSON) if edit room sort successful.
+	 */
+http://localhost:8080/REST1/Room/EditRoomSort/1/test@gmial.com/1/3
+
+{"EditRoomSort":[{ "response":true}]}
+-----------------------------------------------------------
+//Get one room as Item:
+	/**
+	 * Get one room info as Item.
+	 * @param AccountId //which account
+	 * @param AccountName //Account
+	 * @param RoomRowId	//which room?
+	 * @return			//return room Item as JSON.
+	 */
+http://localhost:8080/REST1/Room/GetItem/1/test@gmail.com/3
+
+{"Item":[
+{
+"Id":3,
+"AccountId":1,
+"FamilyId":1,
+"RoomName":"Yemek Odası",
+"ItemSort":1
+}
+]}
+-----------------------------------------------------------
+//Get all rooms as list:
+	/**
+	 * Get room Items as List by AccountId and FamilyId. 
+	 * @param AccountId	//which account?
+	 * @param AccountName //Account
+	 * @param FamilyId	//which family?
+	 * @return			//return room Items as JSON.
+	 */
+http://localhost:8080/REST1/Room/GetAllAsList/1/test@gmail.com/1
+
+{"AllList":[
+{
+"Id":1,
+"AccountId":1,
+"FamilyId":1,
+"RoomName":"Mutfak2",
+"ItemSort":3
+},
+{
+"Id":2,
+"AccountId":1,
+"FamilyId":1,
+"RoomName":"Oturma Odası",
+"ItemSort":1
+},
+{
+"Id":3,
+"AccountId":1,
+"FamilyId":1,
+"RoomName":"Yemek Odası",
+"ItemSort":1
+},
+{
+"Id":4,
+"AccountId":1,
+"FamilyId":1,
+"RoomName":"Çocuk Odası",
+"ItemSort":2
+}
+]}
+-----------------------------------------------------------
+//Remove room(oda sil):
+	/**
+	 * Remove room.  Oda sil.
+	 * @param AccountId  //which account
+	 * @param AccountName //Account
+	 * @param RoomRowId	//which room
+	 * @return			//return true(as JSON) if remove successful.
+	 */
+http://localhost:8080/REST1/Room/RemoveRoom/1/test@gmail.com/3
+
+{"RemoveRoom":[{ "response":true}]}
+===========================================================
+-Scenario(Senaryolar):
+
+-Add scenario(senaryo ekle):
+	/**
+	 * Add scenario.
+	 * @param AccountId	 		//which account.
+	 * @param AccountName 		//Account(email_or_phone). For improving security
+	 * @param FamilyId			//which family.
+	 * @param ScenarioName		//scenario name.
+	 * @param CoverImage		//cover image index value as int.
+	 * @param ShowOnMainPage	//show on main page. 1 or 0.
+	 * @param ItemSort			//sorting number in scenario list. //listede kaçıncı sırada yer aldığı. 
+	 * @return					//return ScenarioId (tblScenario->Id) as JSON if adding is successful.Else return false. Because we will use this value for adding scenario sub process to tblScenarioSub.
+	 */
+http://localhost:8080/REST1/Scenario/AddScenario/1/test@gmail.com/1/Senaryo1/15/1/1
+
++//tblScenario'ya eklenen son kayıta ait Id değeri alın ve tblScenarioSub'de kullanılır.
+{"AddScenario":[{ "response":4}]}
+-----------------------------------------------------------
+//Add scenario action(senaryo aksiyon/eylem ekle):
+	/**
+	 * Add scenario action to "tblScenarioSub" table.
+	 * @param AccountId			//which account.
+	 * @param AccountName 		//Account
+	 * @param ScenarioId		//which scenario. this value get "tblScenario->Id".
+	 * @param ActionType		//determines the type of action. this value should be: "device","automation","time_lapse",...
+	 * @param DeviceId			//which device if added device.
+	 * @param DeviceVirtualAddress //device virtual address.  produce: maccaddres+deviceId
+	 * @param DeviceSwitch		//device switch state:ON/OFF  if added device.
+	 * @param AutomationId		//automation Id value. if added automation.
+	 * @param TimeLapseValue	//time lapse value . if added TimeLapse.
+	 * @param ItemSort			//Item sort value. Sort number in the action list.
+	 * @return					//return true(as JSON) if action add to tblScenarioSub table.
+	 */
+http://localhost:8080/REST1/Scenario/AddScenarioAction/1/test@gmail.com/1/device/44/virtualaddress/ON/0/0/1
+
+{"AddScenarioAction":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit scenario:
+	/**
+	 * Edit Scenario.
+	 * @param AccountId		 //which account.for improving security
+	 * @param AccountName 	 //Account(email_or_phone). for improving security
+	 * @param ScenarioRowId	 //which scenario.
+	 * @param ScenarioName	 //Scenario name.
+	 * @param CoverImage	 //cover image index value as int.
+	 * @param ShowOnMainPage //show on main page. 1 or 0.
+	 * @return				 //return true(as JSON) if edit scenario successful.
+	 */
+http://localhost:8080/REST1/Scenario/EditScenario/1/test@gmail.com/2/Senaryo2/16/1
+
+{"EditScenario":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit scenario item sort(senaryonun listede bulunduğu sırayı değiştir):
+	/**
+	 * Edit scenario Item Sort.
+	 * @param AccountId 	//which account
+	 * @param AccountName 	//Account
+	 * @param ScenarioRowId	//which scenario.
+	 * @param ItemSort		//new ItemSort value
+	 * @return				//return true(as JSON) if edit scenario ItemSort successful.
+	 */
+http://localhost:8080/REST1/Scenario/EditScenarioItemSort/1/test@gmail.com/2/2
+
+{"EditScenarioItemSort":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit Scenario action.:
+	/**
+	 * Edit Scenario Action.
+	 * @param AccountId 	//which account
+	 * @param AccountName 	//Account
+	 * @param ActionId		//which action.
+	 * @param ActionType	//determines the type of action. this value should be: "device","automation","time_lapse",...
+	 * @param DeviceVirtualAddress //device virtual address.  produce: maccaddres+deviceId
+	 * @param DeviceSwitch	//device switch state:ON/OFF  if device is editing.
+	 * @param AutomationId	//automation Id value. if automation is editing.
+	 * @param TimeLapseValue //time lapse value. if TimeLapse is editing.
+	 * @param ItemSort		 //Item sort value. Get sort number in the action list.
+	 * @return				 //return true(as JSON) if edit scenario action successful.
+	 */
+http://localhost:8080/REST1/Scenario/EditScenarioAction/1/test@gmail.com/2/virtualaddress/OFF/0/0/2
+
+{"EditScenarioAction":[{ "response":true}]}
+-----------------------------------------------------------
+//Get all scenario as list:
+	/**
+	 * Get All Scenario as Items.(tüm senaryoları çek.senaryoları listelemek için)
+	 * @param AccountId	//which account
+	 * @param AccountName //Account
+	 * @param FamilyId  //which family
+	 * @return			//return All Scenario list as JSON.
+	 */
+http://localhost:8080/REST1/Scenario/GetAllScenarioAsList/1/test@gmail.com/1
+
+{"AllScenarioList":[
+{
+"Id":1,
+"AccountId":1,
+"FamilyId":1,
+"Name":"Senaryo1",
+"CoverImage":15,
+"ShowOnMainPage":1,
+"ItemSort":1
+},
+{
+"Id":2,
+"AccountId":1,
+"FamilyId":1,
+"Name":"Senaryo2",
+"CoverImage":16,
+"ShowOnMainPage":1,
+"ItemSort":2
+},
+{
+"Id":4,
+"AccountId":1,
+"FamilyId":1,
+"Name":"Senaryo1",
+"CoverImage":15,
+"ShowOnMainPage":1,
+"ItemSort":1
+}
+]}
+-----------------------------------------------------------
+//Get scenario all actions items(senaryoya ait tüm işlemleri liste olarak getir):
+	/**
+	 * Get scenario all actions Items. (Senaryoya ait tüm işlemleri liste olarak getir)
+	 * @param AccountId		//which account
+	 * @param AccountName	//Account
+	 * @param ScenarioId	//which scenario.
+	 * @return				//return scenario actions list as JSON.
+	 */
+http://localhost:8080/REST1/Scenario/GetScenarioActionsAsList/1/test@gmail.com/1
+
+{"AllScenarioActionsAsList":[
+{
+"Id":1,
+"AccountId":1,
+"ScenarioId":1,
+"ActionType":"device",
+"DeviceId":4,
+"DeviceSwitch":"ON",
+"AutomationId":0,
+"TimeLapseValue":"0",
+"Command":"/kerimfirathesap/device1macadresss/ON",
+"ItemSort":1
+},
+{
+"Id":2,
+"AccountId":1,
+"ScenarioId":1,
+"ActionType":"device",
+"DeviceId":44,
+"DeviceSwitch":"OFF",
+"AutomationId":0,
+"TimeLapseValue":"0",
+"Command":"/virtualaddress/OFF",
+"ItemSort":2
+},
+{
+"Id":5,
+"AccountId":1,
+"ScenarioId":1,
+"ActionType":"device",
+"DeviceId":44,
+"DeviceSwitch":"ON",
+"AutomationId":0,
+"TimeLapseValue":"0",
+"Command":"/virtualaddress/ON",
+"ItemSort":1
+}
+]}
+-----------------------------------------------------------
+//Remove scenario:
+	/**
+	 * Remove Scenario. Delete all related actions when scenario is deleted. (tblScenario,tblScenarioSub)
+	 * @param AccountId		//which account
+	 * @param AccountName 	//Account
+	 * @param ScenarioRowId //which scenario.
+	 * @return			//return true(as JSON) if remove scenario is successful.
+	 */
+http://localhost:8080/REST1/Scenario/RemoveScenario/1/test@gmail.com/3
+
+{"RemoveScenario":[{ "response":true}]}
+-----------------------------------------------------------
+//Remove scenario action item:
+	/**
+	 * Remove scenario action item. 
+	 * @param AccountId 	//which account
+	 * @param AccountName	//Account
+	 * @param ActionRowId	//which action
+	 * @return			//return true(as JSON) if remove action is successful.
+	 */
+http://localhost:8080/REST1/Scenario/RemoveScenarioAction/1/test@gmail.com/3
+
+{"RemoveScenarioAction":[{ "response":true}]}
+-----------------------------------------------------------
+//Perform scenario(senaryoyu etkinlenştir):
+	/**
+	 * Perform scenario. Senaryoyu gerçekleştir-işlet. (Bu süreç Server yazılımı tarafından "mqtt işlet motoru" olarak oluşturulmuş modül tarafından işletilecek.)
+	 * @param AccountId		//which account
+	 * @param AccountName 	//Account
+	 * @param ScenarioId	//which scenario.
+	 * @return				//return Scenario Actions List as JSON. (senaryoda yer alan işlem itemleri liste olarak return et.)
+	 */
+http://localhost:8080/REST1/Scenario/PerformScenario/1/test@gmail.com/1
+
+//Güvenlik sağlanamadıysa:
+{\"PerformScenrio\":[ ]}
+
+//Senaryo içeriği işletilince dönecek içerik json(not:işletilen senaryou içeriği kullanıcıya gösterilmesi için):
+{"AllScenarioActionsAsList":[
+{
+"Id":1,
+"AccountId":1,
+"ScenarioId":1,
+"ActionType":"device",
+"DeviceId":4,
+"DeviceSwitch":"ON",
+"AutomationId":0,
+"TimeLapseValue":"0",
+"Command":"/kerimfirathesap/device1macadresss/ON",
+"ItemSort":1
+},
+{
+"Id":2,
+"AccountId":1,
+"ScenarioId":1,
+"ActionType":"device",
+"DeviceId":44,
+"DeviceSwitch":"OFF",
+"AutomationId":0,
+"TimeLapseValue":"0",
+"Command":"/virtualaddress/OFF",
+"ItemSort":2
+},
+{
+"Id":5,
+"AccountId":1,
+"ScenarioId":1,
+"ActionType":"device",
+"DeviceId":44,
+"DeviceSwitch":"ON",
+"AutomationId":0,
+"TimeLapseValue":"0",
+"Command":"/virtualaddress/ON",
+"ItemSort":1
+}
+]}
+
+
+===========================================================
+-Schedule(Program/zamanlama. Bir cihaz için işlem zamanı belirle):
+
+//Add Schedule:
+	/**
+	 * Add schedule for Device ON-OFF process.
+	 * @param AccountId		//which Account.
+	 * @param AccountName 	//Account(email_or_phone). for improving security
+	 * @param DeviceId		//Which Device.
+	 * @param ScheduleTime	//Schedule time.When will it work.
+	 * @param Switch		//opreation-process ON/OFF
+	 * @param Monday		//work day. 1 or 0
+	 * @param Tuesday		//work day. 1 or 0
+	 * @param Wednesday		//work day. 1 or 0
+	 * @param Thursday		//work day. 1 or 0
+	 * @param Friday		//work day. 1 or 0
+	 * @param Saturday		//work day. 1 or 0
+	 * @param Sunday		//work day. 1 or 0
+	 * @param OnlyOnce		//if no day is specified,only work once.(eğer gün belirtilmemişse,sadece bir kez çalış.)
+	 * @return				//return true(as JSON) if adding is successful.
+	 */
+http://localhost:8080/REST1/Schedule/AddSchedule/1/test@gmail.com/4/12:50/OFF/1/1/1/1/1/1/1/0
+
+{"AddSchedule":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit schedule(Senaryoyu düzenle):
+	/**
+	 * Edit schedule Item.
+	 * @param AccountId		//which account. for improving security
+	 * @param AccountName	//Account(email_or_phone).for improving security
+	 * @param ScheduleRowId	//which schedule.
+	 * @param ScheduleTime	//schedule time.When will it work.
+	 * @param Switch		//operation-process. ON/OFF
+	 * @param Monday		//work day. 1 or 0
+	 * @param Tuesday		//work day. 1 or 0
+	 * @param Wednesday		//work day. 1 or 0
+	 * @param Thursday		//work day. 1 or 0
+	 * @param Friday		//work day. 1 or 0
+	 * @param Saturday		//work day. 1 or 0
+	 * @param Sunday		//work day. 1 or 0
+	 * @param OnlyOnce		//if no day is specified,only work once.(eğer gün belirtilmemişse,sadece bir kez çalış.)
+	 * @return				//return true(as JSON) if edit is successful.
+	 */
+http://localhost:8080/REST1/Schedule/EditSchedule/1/test@gmail.com/1/11:10/ON/1/1/1/1/1/1/1/0
+
+{"EditSchedule":[{ "response":true}]}
+-----------------------------------------------------------
+//Get schedule as item:
+	/**
+	 * Get schedule as Item.
+	 * @param AccountId 	//which account
+	 * @param AccountName	//Account
+	 * @param ScheduleRowId	//which schedule.
+	 * @return				//return one schedule Item as JSON.
+	 */
+http://localhost:8080/REST1/Schedule/GetItem/1/test@gmail.com/3
+
+{"Item":[
+{
+"Id":1,
+"AccountId":1,
+"DeviceId":4,
+"ScheduleTime":"11:10:00",
+"Switch":"ON",
+"IsActive":"1",
+"Monday":"1",
+"Tuesday":"1",
+"Wednesday":"1",
+"Thursday":"1",
+"Friday":"1",
+"Saturday":"1",
+"Sunday":"1",
+"OnlyOnce":"0"
+}
+]}
+-----------------------------------------------------------
+//Get all schedule as list:
+	/**
+	 * Get all schedule items as List. WHERE AccountId=X AND DeviceId=xx
+	 * @param AccountId	//which account
+	 * @param AccountName //Account
+	 * @param DeviceId	//which device.
+	 * @return			//return all schedule Items as JSON.
+	 */
+http://localhost:8080/REST1/Schedule/GetAllAsList/1/test@gmail.com/4
+
+{"AllList":[
+{
+"Id":1,
+"AccountId":1,
+"DeviceId":4,
+"ScheduleTime":"11:10:00",
+"Switch":"ON",
+"IsActive":"1",
+"Monday":"1",
+"Tuesday":"1",
+"Wednesday":"1",
+"Thursday":"1",
+"Friday":"1",
+"Saturday":"1",
+"Sunday":"1",
+"OnlyOnce":"0"
+},
+{
+"Id":2,
+"AccountId":1,
+"DeviceId":4,
+"ScheduleTime":"12:50:00",
+"Switch":"OFF",
+"IsActive":"1",
+"Monday":"1",
+"Tuesday":"1",
+"Wednesday":"1",
+"Thursday":"1",
+"Friday":"1",
+"Saturday":"1",
+"Sunday":"1",
+"OnlyOnce":"0"
+},
+{
+"Id":4,
+"AccountId":1,
+"DeviceId":4,
+"ScheduleTime":"12:50:00",
+"Switch":"OFF",
+"IsActive":"1",
+"Monday":"1",
+"Tuesday":"1",
+"Wednesday":"1",
+"Thursday":"1",
+"Friday":"1",
+"Saturday":"1",
+"Sunday":"1",
+"OnlyOnce":"0"
+}
+]}
+-----------------------------------------------------------
+//Remove one schedule:
+	/**
+	 * Remove one schedule item.
+	 * @param AccountId		//which account
+	 * @param AccountName 	//Account
+	 * @param ScheduleRowId //which schedule.
+	 * @return			 //return true(as JSON) if remove is successful.	
+	 */
+http://localhost:8080/REST1/Schedule/Remove/1/test@gmail.com/1/test@gmail.com/3
+
+{"Remove":[{ "response":true}]}
+===========================================================
+-Settings(Ayarlar):
+
+//Add settings:
+	/**
+	 * Add "Settings(for mobil app side)" when creating a new account.
+	 * @param AccountId			 //which account
+	 * @param AccountName		 //Account(email_or_phone). for improving security
+	 * @param DontDisturbDevices //for don't disturb devices. 1=Aktif,0=Pasif	
+	 * @param PushNotification	 //state value for "Push Notification". 1=Aktif,0=Pasif
+	 * @return				     //return true(as JSON) if successful
+	 */
+http://localhost:8080/REST1/Settings/AddSettings/1/test@gmail.com/1/1
+
+{"AddSettings":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit don't disturb devices setting:
+	/**
+	 * Edit "don't disturb" devices setting value. 
+	 * @param AccountId	 //which account
+	 * @param AccountName //Account
+	 * @param StateValue //state value. 1=Aktif,0=Pasif
+	 * @return		   	 //return true(as JSON) if successful
+	 */
+http://localhost:8080/REST1/Settings/EditDontDisturbDevices/1/test@gmail.com/1
+
+{"EditDontDisturbDevices":[{ "response":true}]}
+-----------------------------------------------------------
+//Edit push notification setting:
+	/**
+	 * Edit "Push Notification" setting value for the user to receive or not recieve notifications.
+	 * @param AccountId	  //which account
+	 * @param AccountName	//Account
+	 * @param StateValue  //state value. 1=Aktif,0=Pasif	
+	 * @return			  //return true(as JSON) if successful.
+	 */
+http://localhost:8080/REST1/Settings/EditPushNotification/1/test@gmail.com/1
+
+{"EditPushNotification":[{ "response":true}]}
+-----------------------------------------------------------
+//Remove setting:
+	/**
+	 * Remove settings. 
+	 * @param AccountId //related which account
+	 * @param AccountName	//Account
+	 * @return			//return true(as JSON) if successful
+	 */
+http://localhost:8080/REST1/Settings/RemoveSettings/2/test@gmail.com
+===========================================================
+
