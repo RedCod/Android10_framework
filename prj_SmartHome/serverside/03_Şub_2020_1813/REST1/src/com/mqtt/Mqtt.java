@@ -11,6 +11,8 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 public class Mqtt implements MqttCallback{
 	/**
 	 * Mqtt komut işletim merkezi:http://www.bytesofgigabytes.com/mqtt-tutorial/
+	 * 
+	 * -Mobil app tarafında mqtt komutları direkt olarak işletilir,yani burayı kullanmaz. Ancak Server tarafında: Scenario,Automation'lar bu class'ı kullanacaktır.
 	 */
 	
 	/** The broker url. */
@@ -51,13 +53,13 @@ public class Mqtt implements MqttCallback{
 	 * @param command	//command to execute
 	 * @return			//commant execute output.
 	 */
-	public String executeCommand(String topic,String command) {
+	/*public String execute(String topic,String command) {
 		//TODO: mqtt execute command..
 		//..
+	 
 		return "command output";
-	}//executeCommand()
-	
-	
+	 }//executeCommand()
+	*/
 	
 	/**
 	 * connect Mqtt Server.
@@ -67,13 +69,13 @@ public class Mqtt implements MqttCallback{
 			System.out.println("Bağlantı var!");
 			return;
 		}
-		/*MemoryPersistence*/ persistence = new MemoryPersistence();
+
 		try
 		{
-			/*MqttClient*/ mqttClient = new MqttClient(SERVER_URL, clientId, persistence);
-			/*MqttConnectOptions*/ mqttConnectOptions = new MqttConnectOptions();
+			persistence = new MemoryPersistence();
+			mqttClient = new MqttClient(SERVER_URL, clientId, persistence);
+			mqttConnectOptions = new MqttConnectOptions();
 			mqttConnectOptions.setCleanSession(true);
-			
 			/*//not used now
               mqttConnectOptions.setUserName(USER_NAME);
               mqttConnectOptions.setPassword(PASSWORD.toCharArray());
@@ -83,11 +85,11 @@ public class Mqtt implements MqttCallback{
 			mqttClient.connect(mqttConnectOptions);
 			System.out.println("Mqtt Connected");
 			mqttClient.setCallback(this);
-			//mqttClient.subscribe(topic);
-			//System.out.println("Subscribed");
-			//System.out.println("Listening");
-		} catch (MqttException me) {
-			System.out.println(me);
+			/*mqttClient.subscribe(topic);
+			  System.out.println("Subscribed and Listening now");
+			  */
+		} catch (MqttException mex) {
+			System.out.println(mex.getMessage());
 		}
 	}//connect()
 	
@@ -95,14 +97,22 @@ public class Mqtt implements MqttCallback{
 	 * Disconnect mqtt server.
 	 * @throws MqttException
 	 */
-	public void disconnect() throws MqttException {
+	private void disconnect() throws MqttException {
 		if(mqttClient != null && mqttClient.isConnected()) {
 			mqttClient.disconnect();
 			mqttClient.close();
+			System.exit(0);//
 		}
 	}//disconnect()
 	
-
+	/**
+	 * Clear mqtt. So disconnect.
+	 * @throws MqttException
+	 */
+	public void clear() throws MqttException{
+		disconnect(); 
+	} 
+	
 	/**
 	 * subscribe to mqtt
 	 * @param topic //specify topic
@@ -111,53 +121,72 @@ public class Mqtt implements MqttCallback{
 		try
 		{
 			mqttClient.subscribe(topic);
-			System.out.println("Subscribed");
-			System.out.println("Listening");
-		} catch (MqttException me) {
-			System.out.println(me);
+			System.out.println("Subscribed and Listening now.Topic:" + topic);
+		} catch (MqttException mex) {
+			System.out.println(mex.getMessage());
 		}
 	}//subscribe()
+	
+	/**
+	 * unsubscribe to mqtt.
+	 * @param topic  //topic
+	 */
+	public void unsubscribe(String topic) {
+	     try {
+			mqttClient.unsubscribe(topic);
+			System.out.println("Unsubscribed Topic:" + topic);
+		} catch (MqttException mex) {
+			System.out.println(mex.getMessage());
+		}
+	}//unsubscribe()
+	
+	/**
+	 * unsubscribe to mqtt
+	 * @param topics //topic array.
+	 */
+	public void unsubscribe(String[] topics) {
+	     try {
+			mqttClient.unsubscribe(topics);
+			System.out.println("Unsubscribed Topics:" + topic.toString());
+		} catch (MqttException mex) {
+			System.out.println(mex.getMessage());
+		}
+	}//unsubscribe()
 	
 	/**
 	 * publisher message/content on mqtt
 	 * @param content  //message OR content
 	 */
-	public void publisher(String topic,String content) {
+	public void publisher(String topic,String content) throws MqttException {
         //content      = "Temp:20,Humi:70";
         int qos             = 0;
-        /*hostname is localhost as mqtt publisher and broker are
-          running on the same computer*/ 
-        //String broker       = SERVER_URL;//"tcp://localhost:1883";
-        //String clientId     = "JavaSample";
         try {
             System.out.println("Publishing message:"+content);
             MqttMessage mqttMessage = new MqttMessage(content.getBytes());
             mqttMessage.setQos(qos);
             mqttClient.publish(topic, mqttMessage);
             System.out.println("Message published");
-            //mqttClient.disconnect();
-           // mqttClient.close();
-            //System.exit(0);
-            } catch(MqttException me) {
-            System.out.println("reason "+me.getReasonCode());
-            System.out.println("msg "+me.getMessage());
-            System.out.println("loc "+me.getLocalizedMessage());
-            System.out.println("cause "+me.getCause());
-            System.out.println("excep "+me);
-            me.printStackTrace();
+            /*mqttClient.disconnect();
+              mqttClient.close();
+              System.exit(0);*/
+            } catch(MqttException mex) {
+            System.out.println("reason "+mex.getReasonCode());
+            System.out.println("msg "+mex.getMessage());
+            System.out.println("loc "+mex.getLocalizedMessage());
+            System.out.println("cause "+mex.getCause());
+            System.out.println("excep "+mex);
+            mex.printStackTrace();
         }
 	}//publisher()
 ////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void connectionLost(Throwable arg0) {
 		 //Called when the client lost the connection to the broker
-		
 	}
 
 	@Override
 	public void deliveryComplete(IMqttDeliveryToken arg0) {
 		//Called when a outgoing publish is complete
-		
 	}
 
 	@Override

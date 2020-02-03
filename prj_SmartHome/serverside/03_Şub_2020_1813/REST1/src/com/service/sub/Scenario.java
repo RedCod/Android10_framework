@@ -487,6 +487,7 @@ CREATE TABLE IF NOT EXISTS tblScenarioSub (
 		 */
 		String getScenarioActionsAsJSON = getScenarioActionsAsList(_accountId,_accountName,scenarioId);//get as JSON.
     	try {
+    		Mqtt mqtt = new Mqtt();
             JSONObject jsonObj = new JSONObject(getScenarioActionsAsJSON);
             JSONArray jsonArr = jsonObj.getJSONArray("AllScenarioActionsAsList");
             for (int i = 0; i < jsonArr.length(); i++) {
@@ -516,9 +517,7 @@ CREATE TABLE IF NOT EXISTS tblScenarioSub (
                 if(actionType.equals(ActionType.DEVICE)) {
                 	//TODO: action is device:
                 	//..
-                	Mqtt mqtt = new Mqtt();
-                	mqtt.executeCommand(topic,deviceSwitch);
-                	
+                	mqtt.publisher(topic,deviceSwitch);
                 }else if(actionType.equals(ActionType.TIME_LAPSE)) {
                 	/*
                 	 * TODO:
@@ -555,6 +554,7 @@ CREATE TABLE IF NOT EXISTS tblScenarioSub (
                 	//nothing...
                 }
             }//for
+            mqtt.clear();//disconnect mqtt.
             response = getScenarioActionsAsJSON;//çalıştırılan senaryoları kullanıcıya göstermemiz gerekiyor.Bu nedenle JSON'u şutla.
         	}catch(Exception ex) {
         		System.out.println("ex:" + ex.getMessage());

@@ -864,6 +864,7 @@ CREATE TABLE IF NOT EXISTS tblAutomationCondition (
 		 */
 		String getAutomationActionsAsJSON = getAllActionsAsList(_accountId,_accountName,_automationId);//get as JSON.
     	try {
+    		Mqtt mqtt = new Mqtt();
             JSONObject jsonObj = new JSONObject(getAutomationActionsAsJSON);
             JSONArray jsonArr = jsonObj.getJSONArray("AllActionsList");
             for (int i = 0; i < jsonArr.length(); i++) {
@@ -883,19 +884,18 @@ CREATE TABLE IF NOT EXISTS tblAutomationCondition (
                 System.out.println("AutomationId:" + automationId);
                 System.out.println("ActionType:" + actionType);
                 System.out.println("DeviceId:" + deviceId);
-                System.out.println("DeviceSwitch:" + deviceSwitch);
+                System.out.println("DeviceSwitch:" + deviceSwitch); // ON/OFF
                 System.out.println("AutomationIdAssign:" + automationIdAssign);
                 System.out.println("TimeLapseValue:" + timeLapseValue);
-                System.out.println("Topic:" + topic);
+                System.out.println("Topic:" + topic); // "/devicemacaddress/"
                 System.out.println("ItemSort:" + itemSort);
                 System.out.println();
                 
                 if(actionType.equals(ActionType.DEVICE)) {
                 	//TODO: action is device:
                 	//..
-                	Mqtt mqtt = new Mqtt();
-                	mqtt.executeCommand(topic,deviceSwitch);
-                	
+                	//Mqtt mqtt = new Mqtt();
+                	mqtt.publisher(topic, deviceSwitch);
                 }else if(actionType.equals(ActionType.TIME_LAPSE)) {
                 	/*
                 	 * TODO:
@@ -905,7 +905,6 @@ CREATE TABLE IF NOT EXISTS tblAutomationCondition (
                     int dk = Integer.valueOf("2");//(timeLapseValue);
                     long millisecond = dk * 60 * 1000; //or: dk * 60000
                 	Thread.sleep(millisecond);
-                	
                 }else if(actionType.equals(ActionType.SCENARIO)) {
                 	//TODO: action is Scenario:
                 	//V.2 de uygulanacak.
@@ -920,6 +919,7 @@ CREATE TABLE IF NOT EXISTS tblAutomationCondition (
                 	//nothing...
                 }
             }//for
+            mqtt.clear();//disconnect mqtt.
             response = "{\"PerformAutomation\":[{ \"response\":true}]}";    
         	}catch(Exception ex) {
         		System.out.println("ex:" + ex.getMessage());
