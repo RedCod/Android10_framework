@@ -245,7 +245,7 @@ CREATE TABLE IF NOT EXISTS tblAutomationCondition (
 			return response;
 		}
 		///for improving security[28120201126]:@}
-		String produce_topic = "/"+macAddress+"/"; //exp: "/macaddress/"
+		String produce_topic = macAddress+"/"; //exp: "macaddress/"
 		String insert_sql = "INSERT INTO tblAutomationOperations(AccountId,AutomationId,ActionType,DeviceId,DeviceSwitch,AutomationIdAssign,TimeLapseValue,Topic,ItemSort)"
 				+ "VALUES('"+accountId+"','"+automationId+"','"+actionType+"','"+deviceId+"','"+deviceSwitch+"','"+automationIdAssign+"','"+timeLapseValue+"','"+produce_topic+"','" +itemSort+"')";
 		Database database = new Database();
@@ -512,7 +512,7 @@ CREATE TABLE IF NOT EXISTS tblAutomationCondition (
 			return response;
 		}
 		///for improving security[28120201126]:@}
-		String produce_topic = "/"+macAddress+"/"; //exp: "/macaddress/"
+		String produce_topic = macAddress+"/"; //exp: "macaddress/"
 		String update_sql = "UPDATE tblAutomationOperations SET DeviceSwitch='" +deviceSwitch+"',AutomationIdAssign='"+automationIdAssign+"',TimeLapseValue='"+timeLapseValue+"',Topic='" + produce_topic+"',ItemSort='"+itemSort+"' WHERE Id='"+actionId+"'";
 		Database database = new Database();
 		try {
@@ -887,7 +887,7 @@ CREATE TABLE IF NOT EXISTS tblAutomationCondition (
                 System.out.println("DeviceSwitch:" + deviceSwitch); // ON/OFF
                 System.out.println("AutomationIdAssign:" + automationIdAssign);
                 System.out.println("TimeLapseValue:" + timeLapseValue);
-                System.out.println("Topic:" + topic); // "/devicemacaddress/"
+                System.out.println("Topic:" + topic); // "devicemacaddress/"
                 System.out.println("ItemSort:" + itemSort);
                 System.out.println();
                 

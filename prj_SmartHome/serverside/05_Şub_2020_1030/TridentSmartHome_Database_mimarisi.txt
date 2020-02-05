@@ -193,7 +193,7 @@ CoverImage'de projede tutulan "Cover Image" array'a index değerine karşılık 
 	DeviceSwitch	//Cihaza ait switch değeri girilir. ON/OFF
 	AutomationId	//tblAutomation->Id değeri buraya kaydedilecek. not:Senaryoya otomasyon eklendiğinde seçilen otomasyona ait id değeri buraya kaydedilir.Bu değerle "tblAutomation"'dan otomasyon çekilir.
 	TimeLapseValue	//"Time-Lapse" eklendiğinde buraya saat değeri girilir. Örn: 18dk30sn
-	Topic		//Eğer Device eklendiyse buraya mqtt topic komutu girilecek. örn: "/hesap/devicexx/" veya "/ethernet/"  //not:ethernet benzersiz id olduğu için kullanmak için idealdir.
+	Topic		//Eğer Device eklendiyse buraya mqtt topic komutu girilecek. örn: "hesap/macaddress/" veya "macaddress/"  //not:macaddress benzersiz id olduğu için kullanmak için idealdir.
 	ItemSort	//Senaryo içeriğinde sırayla çalışacak Item'lerin sırası değiştirilebilir. Dolayısıyla buradaki değer,ilgili Item'ın sırasıdır. Örneğin Cihaz 2.sırada çalışacaksa bu değer "2" olmalıdır.
 
 //NOT:Senaryo'ya ait iki tablo(tblScenario,tblScenarioSub) ilişkili çalışır.Üst tabloya,senaryoyla ilgili temel bilgiler girilir. Sub tablosuna senaryoyla ilgili Item'lar girilir. 
@@ -240,7 +240,7 @@ Senaryoya "Device(lamp,wall plug),Time-Lapse(gecikme),Otomasyonlar" senaryo işl
 	DeviceSwitch	   //Cihaza ait switch değeri girilir. ON/OFF
 	AutomationIdAssign //tblAutomation->Id not:Bir otomasyona başka bir otomasyon gösterilebilir.İşlemler için başka otomasyon eklenmişse,ilgili otomasyon Id değeri buraya kaydedilir.
 	TimeLapseValue	  //"Time-Lapse" eklendiğinde buraya saat değeri girilir. Örn: 18dk30sn
-	Topic		  //Eğer Device eklendiyse buraya mqtt topic komutu girilecek. örn: "/hesap/devicexx/" veya "/ethernet/"  //not:ethernet benzersiz id olduğu için kullanmak için idealdir.
+	Topic		  //Eğer Device eklendiyse buraya mqtt topic komutu girilecek. örn: "hesap/macaddress/" veya "macaddress/"  //not:macaddress benzersiz id olduğu için kullanmak için idealdir.
 	ItemSort	  //Senaryo içeriğinde sırayla çalışacak Item'lerin sırası değiştirilebilir. Dolayısıyla buradaki değer,ilgili Item'ın sırasıdır. Örneğin Cihaz 2.sırada çalışacaksa bu değer "2" olmalıdır.
 
 //NOT:Bu tabloya "İşlemler(Device,Time-Lapse,Otomasyon)" eklenir.Dolayısıyla otomasyonda çalışacak cihaz,otomasyon vb. işlemleri tblAutomation tablosuna ilişkili olarak çalışır.

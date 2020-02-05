@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS tblScenarioSub (
 	 * @param deviceSwitch		//device switch state:ON/OFF if added device.
 	 * @param automationId		//automation Id value. if added automation.
 	 * @param timeLapseValue	//time lapse value. if added TimeLapse
-	 * @param topic			//topic to run if added device. "/hesapbilgisi/cihazmacadres_veya_cihazvirtualadres/" 
+	 * @param topic			//topic to run if added device. "hesapbilgisi/cihazmacadres_veya_cihazvirtualadres/" 
 	 * @param itemSort			//Item sort value. Sort number in the action list.
 	 * @return					//return true(as JSON) if action add to tblScenarioSub table.
 	 */
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS tblScenarioSub (
 			return response;
 		}
 		///for improving security[29120200937]:@}
-		String produce_topic = "/"+macAddress+"/"; //exp: "/maccaddress/"
+		String produce_topic = macAddress+"/"; //exp: "maccaddress/"
 		String insert_sql = "INSERT INTO tblScenarioSub(AccountId,ScenarioId,ActionType,DeviceId,DeviceSwitch,AutomationId,TimeLapseValue,Topic,ItemSort)"
 				+"VALUES('" +accountId+"','"+scenarioId+"','"+actionType+"','"+deviceId+"','"+deviceSwitch+"','"+automationId+"','"+timeLapseValue+"','"+ produce_topic +"','"+itemSort+"')";
 		Database database = new Database();
@@ -251,7 +251,7 @@ CREATE TABLE IF NOT EXISTS tblScenarioSub (
 			return response;
 		}
 		///for improving security[29120200937]:@}
-		String produce_topic= "/"+macAddress+"/"; //exp: "/macaddress/"
+		String produce_topic= macAddress+"/"; //exp: "macaddress/"
 		String sql = "UPDATE tblScenarioSub SET DeviceSwitch='"+deviceSwitch+"',AutomationId='"+automationId+"',TimeLapseValue='"+timeLapseValue+"',Topic='"+produce_topic +"',ItemSort='"+itemSort+"' WHERE Id='"+actionId+"'";
 		Database database = new Database();
 		try {
