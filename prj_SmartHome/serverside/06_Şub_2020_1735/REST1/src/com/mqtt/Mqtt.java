@@ -8,11 +8,16 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
-public class Mqtt implements MqttCallback{
+public class Mqtt /*implements MqttCallback*/{
 	/**
 	 * Mqtt komut işletim merkezi:http://www.bytesofgigabytes.com/mqtt-tutorial/
 	 * 
 	 * -Mobil app tarafında mqtt komutları direkt olarak işletilir,yani burayı kullanmaz. Ancak Server tarafında: Scenario,Automation'lar bu class'ı kullanacaktır.
+	 */
+	/*
+	 * used by:
+	 * -Automation.java
+	 * -Scenario.java
 	 */
 	
 	/** The broker url. */
@@ -84,7 +89,7 @@ public class Mqtt implements MqttCallback{
 			System.out.println("Mqtt Connecting to broker: " + SERVER_URL);
 			mqttClient.connect(mqttConnectOptions);
 			System.out.println("Mqtt Connected");
-			mqttClient.setCallback(this);
+			//mqttClient.setCallback(this);
 			/*mqttClient.subscribe(topic);
 			  System.out.println("Subscribed and Listening now");
 			  */
@@ -156,8 +161,9 @@ public class Mqtt implements MqttCallback{
 	/**
 	 * publisher message/content on mqtt
 	 * @param content  //message OR content
+	 * @throws Exception 
 	 */
-	public void publisher(String topic,String content) throws MqttException {
+	public void publisher(String topic,String content,MqttCallback mqttCallback) throws Exception {
         //content      = "Temp:20,Humi:70";
         int qos             = 0;
         try {
@@ -165,6 +171,7 @@ public class Mqtt implements MqttCallback{
             MqttMessage mqttMessage = new MqttMessage(content.getBytes());
             mqttMessage.setQos(qos);
             mqttClient.publish(topic, mqttMessage);
+            mqttCallback.messageArrived(topic, mqttMessage);//for callback
             System.out.println("Message published");
             /*mqttClient.disconnect();
               mqttClient.close();
@@ -179,6 +186,7 @@ public class Mqtt implements MqttCallback{
         }
 	}//publisher()
 ////////////////////////////////////////////////////////////////////////////
+	/*
 	@Override
 	public void connectionLost(Throwable arg0) {
 		 //Called when the client lost the connection to the broker
@@ -196,6 +204,7 @@ public class Mqtt implements MqttCallback{
 		System.out.println("| Message: " +mqttMessage.toString());
 		System.out.println("-------------------------------------------------");
 	}
+	*/
 //////////////////////////////////////////////////////////////////////////
 	
 }

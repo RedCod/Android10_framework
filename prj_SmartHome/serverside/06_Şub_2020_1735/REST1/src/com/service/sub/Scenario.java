@@ -3,6 +3,9 @@ package com.service.sub;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -517,7 +520,27 @@ CREATE TABLE IF NOT EXISTS tblScenarioSub (
                 if(actionType.equals(ActionType.DEVICE)) {
                 	//TODO: action is device:
                 	//..
-                	mqtt.publisher(topic,deviceSwitch);
+                	mqtt.publisher(topic,deviceSwitch,new MqttCallback() {
+						
+						@Override
+						public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
+							//Message Arrived
+							if(Log.DEBUG) {
+								System.out.println("| Topic:" + topic);
+								System.out.println("| Message: " +mqttMessage.toString());
+								System.out.println("-------------------------------------------------");
+							}
+						}
+						@Override
+						public void deliveryComplete(IMqttDeliveryToken arg0) {
+							//
+						}
+						
+						@Override
+						public void connectionLost(Throwable arg0) {
+							//
+						}
+					});
                 }else if(actionType.equals(ActionType.TIME_LAPSE)) {
                 	/*
                 	 * TODO:
@@ -554,7 +577,7 @@ CREATE TABLE IF NOT EXISTS tblScenarioSub (
                 	//nothing...
                 }
             }//for
-            mqtt.clear();//disconnect mqtt.
+            mqtt.clear();//disconnect mqtt. FIXME:daha uygun bir isimlendirme yapılmalıdır.
             response = getScenarioActionsAsJSON;//çalıştırılan senaryoları kullanıcıya göstermemiz gerekiyor.Bu nedenle JSON'u şutla.
         	}catch(Exception ex) {
         		System.out.println("ex:" + ex.getMessage());
