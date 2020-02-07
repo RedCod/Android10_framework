@@ -1,5 +1,0 @@
-<resources>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="lw_item_text_size">16dp</dimen> <!--listView item text size -->
-
-</resources>
