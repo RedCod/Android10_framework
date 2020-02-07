@@ -961,7 +961,7 @@ public final class NotificationChannel implements Parcelable {
             for (int i = 0; i < values.length - 1; i++) {
                 sb.append(values[i]).append(DELIMITER);
             }
-             if(values.length > 0)//fix ArrayIndexOutOfBoundsException by Kerim
+             if(values.length > 0)//fixed ArrayIndexOutOfBoundsException by Kerim
 	        sb.append(values[values.length - 1]);
         }
         return sb.toString();
