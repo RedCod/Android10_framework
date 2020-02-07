@@ -1,0 +1,13 @@
+{
+  "presubmit": [
+    {
+      "name": "RollbackTest"
+    },
+    {
+      "name": "StagedRollbackTest"
+    },
+    {
+      "name": "MultiUserRollbackTest"
+    }
+  ]
+}
